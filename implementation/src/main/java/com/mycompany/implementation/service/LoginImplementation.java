@@ -5,18 +5,23 @@
  */
 package com.mycompany.implementation.service;
 
+import com.mycompany.implementation.data.DataManager;
 import com.mycompany.implementation.domain.Staff;
 import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author raymun
  */
-public class InterfaceImplementation implements NewInterface{
-
+@Stateless
+public class LoginImplementation implements LoginInterface{
+    @EJB
+    private DataManager dao;
     @Override
     public List<Staff> Login(String Username, String Password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dao.Login(Username, Password);
     }
     
 }

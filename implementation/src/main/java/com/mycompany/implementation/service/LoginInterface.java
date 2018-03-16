@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author raymun
  */
-public interface NewInterface {
+public interface LoginInterface {
     List <Staff> Login(String Username, String Password);
     
 }

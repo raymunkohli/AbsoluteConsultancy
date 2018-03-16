@@ -30,7 +30,7 @@
   </head>
   <body>
     <div id="base" class="">
-
+        <form action="LoginBackingBean" method ="get">
       <!-- Unnamed (Rectangle) -->
       <div id="u0" class="ax_default button">
         <div id="u0_div" class=""></div>
@@ -57,12 +57,12 @@
 
       <!-- Unnamed (Text Field) -->
       <div id="u3" class="ax_default text_field">
-        <input id="u3_input" type="text" value=""/>
+        <input id="username" type="text" value=""/>
       </div>
 
       <!-- Unnamed (Text Field) -->
       <div id="u4" class="ax_default text_field">
-        <input id="u4_input" type="text" value=""/>
+        <input id="password" type="text" value=""/>
       </div>
 
       <!-- Unnamed (Rectangle) -->
@@ -78,5 +78,6 @@
         <img id="u6_img" class="img " src="images/login/u6.png"/>
       </div>
     </div>
+</form>
   </body>
 </html>
