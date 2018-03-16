@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.implementation;
+package com.mycompany.implementation.domain;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -137,7 +137,7 @@ public class Enquiry implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.implementation.Enquiry[ enquiryId=" + enquiryId + " ]";
+        return "com.mycompany.implementation.domain.Enquiry[ enquiryId=" + enquiryId + " ]";
     }
     
 }

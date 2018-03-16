@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.implementation;
+package com.mycompany.implementation.domain;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -11,12 +11,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -24,12 +24,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author raymun
  */
 @Entity
-@Table(name = "valued_customer")
+@Table(name = "flexible_discount")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ValuedCustomer.findAll", query = "SELECT v FROM ValuedCustomer v")
-    , @NamedQuery(name = "ValuedCustomer.findByDiscountPlandiscountPlanId", query = "SELECT v FROM ValuedCustomer v WHERE v.discountPlandiscountPlanId = :discountPlandiscountPlanId")})
-public class ValuedCustomer implements Serializable {
+    @NamedQuery(name = "FlexibleDiscount.findAll", query = "SELECT f FROM FlexibleDiscount f")
+    , @NamedQuery(name = "FlexibleDiscount.findByDiscountPlandiscountPlanId", query = "SELECT f FROM FlexibleDiscount f WHERE f.discountPlandiscountPlanId = :discountPlandiscountPlanId")
+    , @NamedQuery(name = "FlexibleDiscount.findByNoOfJobs", query = "SELECT f FROM FlexibleDiscount f WHERE f.noOfJobs = :noOfJobs")
+    , @NamedQuery(name = "FlexibleDiscount.findByDiscountBand", query = "SELECT f FROM FlexibleDiscount f WHERE f.discountBand = :discountBand")})
+public class FlexibleDiscount implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,18 +39,30 @@ public class ValuedCustomer implements Serializable {
     @NotNull
     @Column(name = "DiscountPlandiscountPlanId")
     private Integer discountPlandiscountPlanId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "noOfJobs")
+    private int noOfJobs;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "discountBand")
+    private String discountBand;
     @JoinColumn(name = "DiscountPlandiscountPlanId", referencedColumnName = "discountPlanId", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Discount discount;
-    @JoinColumn(name = "CustomercustomerId", referencedColumnName = "customerId")
-    @ManyToOne(optional = false)
-    private Customer customercustomerId;
 
-    public ValuedCustomer() {
+    public FlexibleDiscount() {
     }
 
-    public ValuedCustomer(Integer discountPlandiscountPlanId) {
+    public FlexibleDiscount(Integer discountPlandiscountPlanId) {
         this.discountPlandiscountPlanId = discountPlandiscountPlanId;
+    }
+
+    public FlexibleDiscount(Integer discountPlandiscountPlanId, int noOfJobs, String discountBand) {
+        this.discountPlandiscountPlanId = discountPlandiscountPlanId;
+        this.noOfJobs = noOfJobs;
+        this.discountBand = discountBand;
     }
 
     public Integer getDiscountPlandiscountPlanId() {
@@ -59,20 +73,28 @@ public class ValuedCustomer implements Serializable {
         this.discountPlandiscountPlanId = discountPlandiscountPlanId;
     }
 
+    public int getNoOfJobs() {
+        return noOfJobs;
+    }
+
+    public void setNoOfJobs(int noOfJobs) {
+        this.noOfJobs = noOfJobs;
+    }
+
+    public String getDiscountBand() {
+        return discountBand;
+    }
+
+    public void setDiscountBand(String discountBand) {
+        this.discountBand = discountBand;
+    }
+
     public Discount getDiscount() {
         return discount;
     }
 
     public void setDiscount(Discount discount) {
         this.discount = discount;
-    }
-
-    public Customer getCustomercustomerId() {
-        return customercustomerId;
-    }
-
-    public void setCustomercustomerId(Customer customercustomerId) {
-        this.customercustomerId = customercustomerId;
     }
 
     @Override
@@ -85,10 +107,10 @@ public class ValuedCustomer implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ValuedCustomer)) {
+        if (!(object instanceof FlexibleDiscount)) {
             return false;
         }
-        ValuedCustomer other = (ValuedCustomer) object;
+        FlexibleDiscount other = (FlexibleDiscount) object;
         if ((this.discountPlandiscountPlanId == null && other.discountPlandiscountPlanId != null) || (this.discountPlandiscountPlanId != null && !this.discountPlandiscountPlanId.equals(other.discountPlandiscountPlanId))) {
             return false;
         }
@@ -97,7 +119,7 @@ public class ValuedCustomer implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.implementation.ValuedCustomer[ discountPlandiscountPlanId=" + discountPlandiscountPlanId + " ]";
+        return "com.mycompany.implementation.domain.FlexibleDiscount[ discountPlandiscountPlanId=" + discountPlandiscountPlanId + " ]";
     }
     
 }

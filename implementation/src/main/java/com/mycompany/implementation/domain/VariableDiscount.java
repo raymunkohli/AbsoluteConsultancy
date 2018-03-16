@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.implementation;
+package com.mycompany.implementation.domain;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -11,12 +11,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -24,14 +24,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author raymun
  */
 @Entity
-@Table(name = "flexible_discount")
+@Table(name = "variable_discount")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "FlexibleDiscount.findAll", query = "SELECT f FROM FlexibleDiscount f")
-    , @NamedQuery(name = "FlexibleDiscount.findByDiscountPlandiscountPlanId", query = "SELECT f FROM FlexibleDiscount f WHERE f.discountPlandiscountPlanId = :discountPlandiscountPlanId")
-    , @NamedQuery(name = "FlexibleDiscount.findByNoOfJobs", query = "SELECT f FROM FlexibleDiscount f WHERE f.noOfJobs = :noOfJobs")
-    , @NamedQuery(name = "FlexibleDiscount.findByDiscountBand", query = "SELECT f FROM FlexibleDiscount f WHERE f.discountBand = :discountBand")})
-public class FlexibleDiscount implements Serializable {
+    @NamedQuery(name = "VariableDiscount.findAll", query = "SELECT v FROM VariableDiscount v")
+    , @NamedQuery(name = "VariableDiscount.findByDiscountPlandiscountPlanId", query = "SELECT v FROM VariableDiscount v WHERE v.discountPlandiscountPlanId = :discountPlandiscountPlanId")
+    , @NamedQuery(name = "VariableDiscount.findByCalculatedDiscount", query = "SELECT v FROM VariableDiscount v WHERE v.calculatedDiscount = :calculatedDiscount")})
+public class VariableDiscount implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,28 +40,25 @@ public class FlexibleDiscount implements Serializable {
     private Integer discountPlandiscountPlanId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "noOfJobs")
-    private int noOfJobs;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "discountBand")
-    private String discountBand;
+    @Column(name = "calculatedDiscount")
+    private float calculatedDiscount;
+    @JoinColumn(name = "TasktaskID", referencedColumnName = "taskId")
+    @ManyToOne(optional = false)
+    private Task tasktaskID;
     @JoinColumn(name = "DiscountPlandiscountPlanId", referencedColumnName = "discountPlanId", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Discount discount;
 
-    public FlexibleDiscount() {
+    public VariableDiscount() {
     }
 
-    public FlexibleDiscount(Integer discountPlandiscountPlanId) {
+    public VariableDiscount(Integer discountPlandiscountPlanId) {
         this.discountPlandiscountPlanId = discountPlandiscountPlanId;
     }
 
-    public FlexibleDiscount(Integer discountPlandiscountPlanId, int noOfJobs, String discountBand) {
+    public VariableDiscount(Integer discountPlandiscountPlanId, float calculatedDiscount) {
         this.discountPlandiscountPlanId = discountPlandiscountPlanId;
-        this.noOfJobs = noOfJobs;
-        this.discountBand = discountBand;
+        this.calculatedDiscount = calculatedDiscount;
     }
 
     public Integer getDiscountPlandiscountPlanId() {
@@ -73,20 +69,20 @@ public class FlexibleDiscount implements Serializable {
         this.discountPlandiscountPlanId = discountPlandiscountPlanId;
     }
 
-    public int getNoOfJobs() {
-        return noOfJobs;
+    public float getCalculatedDiscount() {
+        return calculatedDiscount;
     }
 
-    public void setNoOfJobs(int noOfJobs) {
-        this.noOfJobs = noOfJobs;
+    public void setCalculatedDiscount(float calculatedDiscount) {
+        this.calculatedDiscount = calculatedDiscount;
     }
 
-    public String getDiscountBand() {
-        return discountBand;
+    public Task getTasktaskID() {
+        return tasktaskID;
     }
 
-    public void setDiscountBand(String discountBand) {
-        this.discountBand = discountBand;
+    public void setTasktaskID(Task tasktaskID) {
+        this.tasktaskID = tasktaskID;
     }
 
     public Discount getDiscount() {
@@ -107,10 +103,10 @@ public class FlexibleDiscount implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FlexibleDiscount)) {
+        if (!(object instanceof VariableDiscount)) {
             return false;
         }
-        FlexibleDiscount other = (FlexibleDiscount) object;
+        VariableDiscount other = (VariableDiscount) object;
         if ((this.discountPlandiscountPlanId == null && other.discountPlandiscountPlanId != null) || (this.discountPlandiscountPlanId != null && !this.discountPlandiscountPlanId.equals(other.discountPlandiscountPlanId))) {
             return false;
         }
@@ -119,7 +115,7 @@ public class FlexibleDiscount implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.implementation.FlexibleDiscount[ discountPlandiscountPlanId=" + discountPlandiscountPlanId + " ]";
+        return "com.mycompany.implementation.domain.VariableDiscount[ discountPlandiscountPlanId=" + discountPlandiscountPlanId + " ]";
     }
     
 }

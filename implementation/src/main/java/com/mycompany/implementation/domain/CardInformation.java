@@ -3,20 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.implementation;
+package com.mycompany.implementation.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -24,13 +27,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author raymun
  */
 @Entity
-@Table(name = "cash_information")
+@Table(name = "card_information")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CashInformation.findAll", query = "SELECT c FROM CashInformation c")
-    , @NamedQuery(name = "CashInformation.findByPaymentpaymentId", query = "SELECT c FROM CashInformation c WHERE c.paymentpaymentId = :paymentpaymentId")
-    , @NamedQuery(name = "CashInformation.findByCashAmount", query = "SELECT c FROM CashInformation c WHERE c.cashAmount = :cashAmount")})
-public class CashInformation implements Serializable {
+    @NamedQuery(name = "CardInformation.findAll", query = "SELECT c FROM CardInformation c")
+    , @NamedQuery(name = "CardInformation.findByPaymentpaymentId", query = "SELECT c FROM CardInformation c WHERE c.paymentpaymentId = :paymentpaymentId")
+    , @NamedQuery(name = "CardInformation.findByCardNumber", query = "SELECT c FROM CardInformation c WHERE c.cardNumber = :cardNumber")
+    , @NamedQuery(name = "CardInformation.findByCardType", query = "SELECT c FROM CardInformation c WHERE c.cardType = :cardType")
+    , @NamedQuery(name = "CardInformation.findByExpiryDate", query = "SELECT c FROM CardInformation c WHERE c.expiryDate = :expiryDate")})
+public class CardInformation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,25 +45,34 @@ public class CashInformation implements Serializable {
     private Integer paymentpaymentId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cashAmount")
-    private short cashAmount;
-    @JoinColumn(name = "StaffstaffId", referencedColumnName = "staffId")
-    @ManyToOne(optional = false)
-    private Staff staffstaffId;
+    @Column(name = "cardNumber")
+    private int cardNumber;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "cardType")
+    private String cardType;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "expiryDate")
+    @Temporal(TemporalType.DATE)
+    private Date expiryDate;
     @JoinColumn(name = "PaymentpaymentId", referencedColumnName = "paymentId", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Payment payment;
 
-    public CashInformation() {
+    public CardInformation() {
     }
 
-    public CashInformation(Integer paymentpaymentId) {
+    public CardInformation(Integer paymentpaymentId) {
         this.paymentpaymentId = paymentpaymentId;
     }
 
-    public CashInformation(Integer paymentpaymentId, short cashAmount) {
+    public CardInformation(Integer paymentpaymentId, int cardNumber, String cardType, Date expiryDate) {
         this.paymentpaymentId = paymentpaymentId;
-        this.cashAmount = cashAmount;
+        this.cardNumber = cardNumber;
+        this.cardType = cardType;
+        this.expiryDate = expiryDate;
     }
 
     public Integer getPaymentpaymentId() {
@@ -69,20 +83,28 @@ public class CashInformation implements Serializable {
         this.paymentpaymentId = paymentpaymentId;
     }
 
-    public short getCashAmount() {
-        return cashAmount;
+    public int getCardNumber() {
+        return cardNumber;
     }
 
-    public void setCashAmount(short cashAmount) {
-        this.cashAmount = cashAmount;
+    public void setCardNumber(int cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
-    public Staff getStaffstaffId() {
-        return staffstaffId;
+    public String getCardType() {
+        return cardType;
     }
 
-    public void setStaffstaffId(Staff staffstaffId) {
-        this.staffstaffId = staffstaffId;
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
     }
 
     public Payment getPayment() {
@@ -103,10 +125,10 @@ public class CashInformation implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CashInformation)) {
+        if (!(object instanceof CardInformation)) {
             return false;
         }
-        CashInformation other = (CashInformation) object;
+        CardInformation other = (CardInformation) object;
         if ((this.paymentpaymentId == null && other.paymentpaymentId != null) || (this.paymentpaymentId != null && !this.paymentpaymentId.equals(other.paymentpaymentId))) {
             return false;
         }
@@ -115,7 +137,7 @@ public class CashInformation implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.implementation.CashInformation[ paymentpaymentId=" + paymentpaymentId + " ]";
+        return "com.mycompany.implementation.domain.CardInformation[ paymentpaymentId=" + paymentpaymentId + " ]";
     }
     
 }

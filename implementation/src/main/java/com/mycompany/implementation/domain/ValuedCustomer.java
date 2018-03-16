@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.implementation;
+package com.mycompany.implementation.domain;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -24,13 +24,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author raymun
  */
 @Entity
-@Table(name = "variable_discount")
+@Table(name = "valued_customer")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "VariableDiscount.findAll", query = "SELECT v FROM VariableDiscount v")
-    , @NamedQuery(name = "VariableDiscount.findByDiscountPlandiscountPlanId", query = "SELECT v FROM VariableDiscount v WHERE v.discountPlandiscountPlanId = :discountPlandiscountPlanId")
-    , @NamedQuery(name = "VariableDiscount.findByCalculatedDiscount", query = "SELECT v FROM VariableDiscount v WHERE v.calculatedDiscount = :calculatedDiscount")})
-public class VariableDiscount implements Serializable {
+    @NamedQuery(name = "ValuedCustomer.findAll", query = "SELECT v FROM ValuedCustomer v")
+    , @NamedQuery(name = "ValuedCustomer.findByDiscountPlandiscountPlanId", query = "SELECT v FROM ValuedCustomer v WHERE v.discountPlandiscountPlanId = :discountPlandiscountPlanId")})
+public class ValuedCustomer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,27 +37,18 @@ public class VariableDiscount implements Serializable {
     @NotNull
     @Column(name = "DiscountPlandiscountPlanId")
     private Integer discountPlandiscountPlanId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "calculatedDiscount")
-    private float calculatedDiscount;
-    @JoinColumn(name = "TasktaskID", referencedColumnName = "taskId")
-    @ManyToOne(optional = false)
-    private Task tasktaskID;
     @JoinColumn(name = "DiscountPlandiscountPlanId", referencedColumnName = "discountPlanId", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Discount discount;
+    @JoinColumn(name = "CustomercustomerId", referencedColumnName = "customerId")
+    @ManyToOne(optional = false)
+    private Customer customercustomerId;
 
-    public VariableDiscount() {
+    public ValuedCustomer() {
     }
 
-    public VariableDiscount(Integer discountPlandiscountPlanId) {
+    public ValuedCustomer(Integer discountPlandiscountPlanId) {
         this.discountPlandiscountPlanId = discountPlandiscountPlanId;
-    }
-
-    public VariableDiscount(Integer discountPlandiscountPlanId, float calculatedDiscount) {
-        this.discountPlandiscountPlanId = discountPlandiscountPlanId;
-        this.calculatedDiscount = calculatedDiscount;
     }
 
     public Integer getDiscountPlandiscountPlanId() {
@@ -69,28 +59,20 @@ public class VariableDiscount implements Serializable {
         this.discountPlandiscountPlanId = discountPlandiscountPlanId;
     }
 
-    public float getCalculatedDiscount() {
-        return calculatedDiscount;
-    }
-
-    public void setCalculatedDiscount(float calculatedDiscount) {
-        this.calculatedDiscount = calculatedDiscount;
-    }
-
-    public Task getTasktaskID() {
-        return tasktaskID;
-    }
-
-    public void setTasktaskID(Task tasktaskID) {
-        this.tasktaskID = tasktaskID;
-    }
-
     public Discount getDiscount() {
         return discount;
     }
 
     public void setDiscount(Discount discount) {
         this.discount = discount;
+    }
+
+    public Customer getCustomercustomerId() {
+        return customercustomerId;
+    }
+
+    public void setCustomercustomerId(Customer customercustomerId) {
+        this.customercustomerId = customercustomerId;
     }
 
     @Override
@@ -103,10 +85,10 @@ public class VariableDiscount implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof VariableDiscount)) {
+        if (!(object instanceof ValuedCustomer)) {
             return false;
         }
-        VariableDiscount other = (VariableDiscount) object;
+        ValuedCustomer other = (ValuedCustomer) object;
         if ((this.discountPlandiscountPlanId == null && other.discountPlandiscountPlanId != null) || (this.discountPlandiscountPlanId != null && !this.discountPlandiscountPlanId.equals(other.discountPlandiscountPlanId))) {
             return false;
         }
@@ -115,7 +97,7 @@ public class VariableDiscount implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.implementation.VariableDiscount[ discountPlandiscountPlanId=" + discountPlandiscountPlanId + " ]";
+        return "com.mycompany.implementation.domain.ValuedCustomer[ discountPlandiscountPlanId=" + discountPlandiscountPlanId + " ]";
     }
     
 }

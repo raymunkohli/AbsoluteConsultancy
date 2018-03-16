@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.implementation;
+package com.mycompany.implementation.domain;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -195,7 +195,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.implementation.Customer[ customerId=" + customerId + " ]";
+        return "com.mycompany.implementation.domain.Customer[ customerId=" + customerId + " ]";
     }
     
 }
