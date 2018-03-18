@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% session.setAttribute("userType", "logged out user"); %>
 <!DOCTYPE html>
 <html>
   <head>

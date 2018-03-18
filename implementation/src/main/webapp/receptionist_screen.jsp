@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ include file="receptionistCheck.jsp" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -35,7 +36,8 @@
       <div id="u7" class="ax_default box_1">
         <div id="u7_div" class=""></div>
       </div>
-
+      
+     
       <!-- Unnamed (Rectangle) -->
       <div id="u8" class="ax_default button">
         <div id="u8_div" class=""></div>
@@ -51,7 +53,7 @@
         <div id="u10" class="ax_default text_area">
           <textarea id="u10_input"></textarea>
         </div>
-
+        
         <!-- Unnamed (Rectangle) -->
         <div id="u11" class="ax_default label">
           <div id="u11_div" class=""></div>
@@ -573,13 +575,11 @@
       </div>
 
       <!-- Unnamed (Rectangle) -->
-      <div id="u82" class="ax_default button">
-        <div id="u82_div" class=""></div>
-        <div id="u82_text" class="text ">
-          <p><span>View customers</span></p>
-        </div>
+    
+      <div id="u82" class="ax_default html_button">
+        <input id="u2_input" type="button" value="View Customers" action=""/>
       </div>
-
+    
       <!-- Unnamed (Rectangle) -->
       <div id="u83" class="ax_default label">
         <div id="u83_div" class=""></div>

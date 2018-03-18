@@ -5,7 +5,6 @@
  */
 package com.mycompany.implementation.query;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,11 +17,9 @@ import java.util.logging.Logger;
  *
  * @author raymun
  */
-public class loginQuery {
-    private Connection c;
-    private ResultSet r;
-    
-    public loginQuery(String dbname, String user, String pass){
+public class viewCustomerQuery {
+    Connection c;
+        public viewCustomerQuery(String dbname, String user, String pass){
         String url = "jdbc:mysql://localhost:3306/new_schema?zeroDateTimeBehavior=convertToNull"; //db location
         try {
             Class.forName("com.mysql.jdbc.Driver"); //make instance of driver
@@ -37,20 +34,18 @@ public class loginQuery {
             Logger.getLogger(loginQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public String doLoginQuery(String user, String pass){
-       
         
+        
+       public ResultSet selectAllCustomers(){
+          
         try {
-            String query = "SELECT * FROM staff WHERE staff.username = " + user + " AND staff.password = "+ pass + ";" ;
-            PreparedStatement s = this.c.prepareStatement(query); //create statement 
-            this.r = s.executeQuery(); //execute statement
-            r.next();
-            return r.getObject("userType").toString(); //returns if any rows are found   
+            String query = "SELECT * FROM customer";
+            PreparedStatement s = this.c.prepareStatement(query);
+            return s.executeQuery();
+            
         } catch (SQLException ex) {
-            Logger.getLogger(loginQuery.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(viewCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-    }
-    
+       } 
 }

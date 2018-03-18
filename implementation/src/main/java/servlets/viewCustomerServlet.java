@@ -5,23 +5,32 @@
  */
 package servlets;
 
-import com.mycompany.implementation.query.loginQuery;
+import com.mycompany.implementation.query.viewCustomerQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author raymun
  */
-@WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
-public class loginServlet extends HttpServlet {
+@WebServlet(name = "viewCustomerServlet", urlPatterns = {"/viewCustomerServlet"})
+public class viewCustomerServlet extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -30,10 +39,10 @@ public class loginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loginServlet</title>");            
+            out.println("<title>Servlet viewCustomerServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet loginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet viewCustomerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -51,7 +60,7 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request,response); // sends as a post request rather than a get request
+        doPost(request,response);
     }
 
     /**
@@ -65,19 +74,8 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        loginQuery lq = new loginQuery("Local instance MySQL57","root","1234"); //create the query
-        HttpSession session = request.getSession(true);
-        String found = lq.doLoginQuery(request.getParameter("Username"), request.getParameter("Password"));
-        
-    
-        if(found!=null){
-            session.setAttribute("userType", found);
-            response.sendRedirect("success.jsp");
-        }
-        else{
-            response.sendRedirect("failure.jsp");
-        }
-
+        viewCustomerQuery custQuery = new viewCustomerQuery("Local instance MySQL57","root","1234"); //create the query
+        ResultSet a = custQuery.selectAllCustomers();
     }
 
     /**
