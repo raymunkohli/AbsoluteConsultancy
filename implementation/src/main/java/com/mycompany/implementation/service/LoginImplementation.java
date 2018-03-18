@@ -19,6 +19,7 @@ import javax.ejb.Stateless;
 public class LoginImplementation implements LoginInterface{
     @EJB
     private DataManager dao;
+    
     @Override
     public List<Staff> Login(String Username, String Password) {
         return dao.Login(Username, Password);

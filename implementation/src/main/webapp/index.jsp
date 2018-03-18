@@ -29,16 +29,15 @@
     </script>
   </head>
   <body>
+    
     <div id="base" class="">
-        <form action="LoginBackingBean" method ="get">
+        <form action="loginServlet" method ="post">
       <!-- Unnamed (Rectangle) -->
-      <div id="u0" class="ax_default button">
-        <div id="u0_div" class=""></div>
-        <div id="u0_text" class="text ">
-          <p><span>Log in</span></p>
-        </div>
+      <div id="u0" class="ax_default html_button">
+        <input id="u0_input" type="submit" value="Submit"/>
       </div>
-
+  
+      
       <!-- Unnamed (Rectangle) -->
       <div id="u1" class="ax_default label">
         <div id="u1_div" class=""></div>
@@ -57,12 +56,12 @@
 
       <!-- Unnamed (Text Field) -->
       <div id="u3" class="ax_default text_field">
-        <input id="username" type="text" value=""/>
+          <input id="Username" type="text" name="Username"/>
       </div>
 
       <!-- Unnamed (Text Field) -->
       <div id="u4" class="ax_default text_field">
-        <input id="password" type="text" value=""/>
+          <input id="Password" type="password" name="Password"/>
       </div>
 
       <!-- Unnamed (Rectangle) -->
@@ -79,5 +78,6 @@
       </div>
     </div>
 </form>
+    
   </body>
 </html>
