@@ -10,16 +10,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -31,89 +28,74 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p")
-    , @NamedQuery(name = "Payment.findByPaymentId", query = "SELECT p FROM Payment p WHERE p.paymentId = :paymentId")
-    , @NamedQuery(name = "Payment.findByAmount", query = "SELECT p FROM Payment p WHERE p.amount = :amount")
-    , @NamedQuery(name = "Payment.findByHasBeenPaid", query = "SELECT p FROM Payment p WHERE p.hasBeenPaid = :hasBeenPaid")})
+    , @NamedQuery(name = "Payment.findByJobJobID", query = "SELECT p FROM Payment p WHERE p.jobJobID = :jobJobID")
+    , @NamedQuery(name = "Payment.findByPaymentDate", query = "SELECT p FROM Payment p WHERE p.paymentDate = :paymentDate")})
 public class Payment implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "paymentId")
-    private Integer paymentId;
-    @Column(name = "amount")
-    private Short amount;
-    @Size(max = 255)
-    @Column(name = "hasBeenPaid")
-    private String hasBeenPaid;
+    @NotNull
+    @Column(name = "JobJobID")
+    private Integer jobJobID;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "paymentDate")
+    private int paymentDate;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "payment")
-    private CashInformation cashInformation;
-    @JoinColumn(name = "JobjobID", referencedColumnName = "jobId")
-    @ManyToOne(optional = false)
-    private Job jobjobID;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "payment")
-    private CardInformation cardInformation;
+    private Cardpayment cardpayment;
+    @JoinColumn(name = "JobJobID", referencedColumnName = "JobID", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Job job;
 
     public Payment() {
     }
 
-    public Payment(Integer paymentId) {
-        this.paymentId = paymentId;
+    public Payment(Integer jobJobID) {
+        this.jobJobID = jobJobID;
     }
 
-    public Integer getPaymentId() {
-        return paymentId;
+    public Payment(Integer jobJobID, int paymentDate) {
+        this.jobJobID = jobJobID;
+        this.paymentDate = paymentDate;
     }
 
-    public void setPaymentId(Integer paymentId) {
-        this.paymentId = paymentId;
+    public Integer getJobJobID() {
+        return jobJobID;
     }
 
-    public Short getAmount() {
-        return amount;
+    public void setJobJobID(Integer jobJobID) {
+        this.jobJobID = jobJobID;
     }
 
-    public void setAmount(Short amount) {
-        this.amount = amount;
+    public int getPaymentDate() {
+        return paymentDate;
     }
 
-    public String getHasBeenPaid() {
-        return hasBeenPaid;
+    public void setPaymentDate(int paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
-    public void setHasBeenPaid(String hasBeenPaid) {
-        this.hasBeenPaid = hasBeenPaid;
+    public Cardpayment getCardpayment() {
+        return cardpayment;
     }
 
-    public CashInformation getCashInformation() {
-        return cashInformation;
+    public void setCardpayment(Cardpayment cardpayment) {
+        this.cardpayment = cardpayment;
     }
 
-    public void setCashInformation(CashInformation cashInformation) {
-        this.cashInformation = cashInformation;
+    public Job getJob() {
+        return job;
     }
 
-    public Job getJobjobID() {
-        return jobjobID;
-    }
-
-    public void setJobjobID(Job jobjobID) {
-        this.jobjobID = jobjobID;
-    }
-
-    public CardInformation getCardInformation() {
-        return cardInformation;
-    }
-
-    public void setCardInformation(CardInformation cardInformation) {
-        this.cardInformation = cardInformation;
+    public void setJob(Job job) {
+        this.job = job;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (paymentId != null ? paymentId.hashCode() : 0);
+        hash += (jobJobID != null ? jobJobID.hashCode() : 0);
         return hash;
     }
 
@@ -124,7 +106,7 @@ public class Payment implements Serializable {
             return false;
         }
         Payment other = (Payment) object;
-        if ((this.paymentId == null && other.paymentId != null) || (this.paymentId != null && !this.paymentId.equals(other.paymentId))) {
+        if ((this.jobJobID == null && other.jobJobID != null) || (this.jobJobID != null && !this.jobJobID.equals(other.jobJobID))) {
             return false;
         }
         return true;
@@ -132,7 +114,7 @@ public class Payment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.implementation.domain.Payment[ paymentId=" + paymentId + " ]";
+        return "domain.Payment[ jobJobID=" + jobJobID + " ]";
     }
     
 }

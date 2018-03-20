@@ -20,10 +20,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -37,160 +37,125 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Task.findAll", query = "SELECT t FROM Task t")
-    , @NamedQuery(name = "Task.findByTaskId", query = "SELECT t FROM Task t WHERE t.taskId = :taskId")
-    , @NamedQuery(name = "Task.findByStatus", query = "SELECT t FROM Task t WHERE t.status = :status")
-    , @NamedQuery(name = "Task.findByDateStarted", query = "SELECT t FROM Task t WHERE t.dateStarted = :dateStarted")
-    , @NamedQuery(name = "Task.findByDateCompleted", query = "SELECT t FROM Task t WHERE t.dateCompleted = :dateCompleted")
-    , @NamedQuery(name = "Task.findByDepartment", query = "SELECT t FROM Task t WHERE t.department = :department")
-    , @NamedQuery(name = "Task.findByShelfOnCompletion", query = "SELECT t FROM Task t WHERE t.shelfOnCompletion = :shelfOnCompletion")})
+    , @NamedQuery(name = "Task.findByTaskID", query = "SELECT t FROM Task t WHERE t.taskID = :taskID")
+    , @NamedQuery(name = "Task.findByShelf", query = "SELECT t FROM Task t WHERE t.shelf = :shelf")
+    , @NamedQuery(name = "Task.findByStartDate", query = "SELECT t FROM Task t WHERE t.startDate = :startDate")
+    , @NamedQuery(name = "Task.findByEndDate", query = "SELECT t FROM Task t WHERE t.endDate = :endDate")})
 public class Task implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "taskId")
-    private Integer taskId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "status")
-    private String status;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "dateStarted")
-    @Temporal(TemporalType.DATE)
-    private Date dateStarted;
-    @Column(name = "dateCompleted")
-    @Temporal(TemporalType.DATE)
-    private Date dateCompleted;
-    @Size(max = 255)
-    @Column(name = "department")
-    private String department;
+    @Column(name = "taskID")
+    private Integer taskID;
     @Size(max = 10)
-    @Column(name = "shelfOnCompletion")
-    private String shelfOnCompletion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tasktaskID")
-    private Collection<VariableDiscount> variableDiscountCollection;
-    @JoinColumn(name = "Initial_TasktaskDetailsId", referencedColumnName = "taskDetailsId")
+    @Column(name = "shelf")
+    private String shelf;
+    @Column(name = "startDate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startDate;
+    @Column(name = "endDate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDate;
+    @JoinColumn(name = "baseTaskbaseTaskID", referencedColumnName = "baseTaskID")
     @ManyToOne(optional = false)
-    private InitialTask initialTasktaskDetailsId;
-    @JoinColumn(name = "JobjobID", referencedColumnName = "jobId")
+    private Basetask baseTaskbaseTaskID;
+    @JoinColumn(name = "JobJobID", referencedColumnName = "JobID")
     @ManyToOne(optional = false)
-    private Job jobjobID;
-    @JoinColumn(name = "StaffstaffId", referencedColumnName = "staffId")
-    @ManyToOne(optional = false)
-    private Staff staffstaffId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tasktaskID")
-    private Collection<Enquiry> enquiryCollection;
+    private Job jobJobID;
+    @JoinColumn(name = "StaffstaffID", referencedColumnName = "staffID")
+    @ManyToOne
+    private Staff staffstaffID;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "task")
+    private Collection<Enquire> enquireCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "task")
+    private Variablediscount variablediscount;
 
     public Task() {
     }
 
-    public Task(Integer taskId) {
-        this.taskId = taskId;
+    public Task(Integer taskID) {
+        this.taskID = taskID;
     }
 
-    public Task(Integer taskId, String status, Date dateStarted) {
-        this.taskId = taskId;
-        this.status = status;
-        this.dateStarted = dateStarted;
+    public Integer getTaskID() {
+        return taskID;
     }
 
-    public Integer getTaskId() {
-        return taskId;
+    public void setTaskID(Integer taskID) {
+        this.taskID = taskID;
     }
 
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
+    public String getShelf() {
+        return shelf;
     }
 
-    public String getStatus() {
-        return status;
+    public void setShelf(String shelf) {
+        this.shelf = shelf;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public Date getDateStarted() {
-        return dateStarted;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public void setDateStarted(Date dateStarted) {
-        this.dateStarted = dateStarted;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public Date getDateCompleted() {
-        return dateCompleted;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
-    public void setDateCompleted(Date dateCompleted) {
-        this.dateCompleted = dateCompleted;
+    public Basetask getBaseTaskbaseTaskID() {
+        return baseTaskbaseTaskID;
     }
 
-    public String getDepartment() {
-        return department;
+    public void setBaseTaskbaseTaskID(Basetask baseTaskbaseTaskID) {
+        this.baseTaskbaseTaskID = baseTaskbaseTaskID;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public Job getJobJobID() {
+        return jobJobID;
     }
 
-    public String getShelfOnCompletion() {
-        return shelfOnCompletion;
+    public void setJobJobID(Job jobJobID) {
+        this.jobJobID = jobJobID;
     }
 
-    public void setShelfOnCompletion(String shelfOnCompletion) {
-        this.shelfOnCompletion = shelfOnCompletion;
+    public Staff getStaffstaffID() {
+        return staffstaffID;
     }
 
-    @XmlTransient
-    public Collection<VariableDiscount> getVariableDiscountCollection() {
-        return variableDiscountCollection;
-    }
-
-    public void setVariableDiscountCollection(Collection<VariableDiscount> variableDiscountCollection) {
-        this.variableDiscountCollection = variableDiscountCollection;
-    }
-
-    public InitialTask getInitialTasktaskDetailsId() {
-        return initialTasktaskDetailsId;
-    }
-
-    public void setInitialTasktaskDetailsId(InitialTask initialTasktaskDetailsId) {
-        this.initialTasktaskDetailsId = initialTasktaskDetailsId;
-    }
-
-    public Job getJobjobID() {
-        return jobjobID;
-    }
-
-    public void setJobjobID(Job jobjobID) {
-        this.jobjobID = jobjobID;
-    }
-
-    public Staff getStaffstaffId() {
-        return staffstaffId;
-    }
-
-    public void setStaffstaffId(Staff staffstaffId) {
-        this.staffstaffId = staffstaffId;
+    public void setStaffstaffID(Staff staffstaffID) {
+        this.staffstaffID = staffstaffID;
     }
 
     @XmlTransient
-    public Collection<Enquiry> getEnquiryCollection() {
-        return enquiryCollection;
+    public Collection<Enquire> getEnquireCollection() {
+        return enquireCollection;
     }
 
-    public void setEnquiryCollection(Collection<Enquiry> enquiryCollection) {
-        this.enquiryCollection = enquiryCollection;
+    public void setEnquireCollection(Collection<Enquire> enquireCollection) {
+        this.enquireCollection = enquireCollection;
+    }
+
+    public Variablediscount getVariablediscount() {
+        return variablediscount;
+    }
+
+    public void setVariablediscount(Variablediscount variablediscount) {
+        this.variablediscount = variablediscount;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (taskId != null ? taskId.hashCode() : 0);
+        hash += (taskID != null ? taskID.hashCode() : 0);
         return hash;
     }
 
@@ -201,7 +166,7 @@ public class Task implements Serializable {
             return false;
         }
         Task other = (Task) object;
-        if ((this.taskId == null && other.taskId != null) || (this.taskId != null && !this.taskId.equals(other.taskId))) {
+        if ((this.taskID == null && other.taskID != null) || (this.taskID != null && !this.taskID.equals(other.taskID))) {
             return false;
         }
         return true;
@@ -209,7 +174,7 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.implementation.domain.Task[ taskId=" + taskId + " ]";
+        return "domain.Task[ taskID=" + taskID + " ]";
     }
     
 }

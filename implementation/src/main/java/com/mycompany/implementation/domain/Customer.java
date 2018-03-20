@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,31 +33,36 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")
-    , @NamedQuery(name = "Customer.findByCustomerId", query = "SELECT c FROM Customer c WHERE c.customerId = :customerId")
-    , @NamedQuery(name = "Customer.findByFirstName", query = "SELECT c FROM Customer c WHERE c.firstName = :firstName")
-    , @NamedQuery(name = "Customer.findByLastName", query = "SELECT c FROM Customer c WHERE c.lastName = :lastName")
+    , @NamedQuery(name = "Customer.findByCustomerID", query = "SELECT c FROM Customer c WHERE c.customerID = :customerID")
+    , @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name")
+    , @NamedQuery(name = "Customer.findBySurname", query = "SELECT c FROM Customer c WHERE c.surname = :surname")
+    , @NamedQuery(name = "Customer.findByPhoneNo", query = "SELECT c FROM Customer c WHERE c.phoneNo = :phoneNo")
     , @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")
     , @NamedQuery(name = "Customer.findByAddress", query = "SELECT c FROM Customer c WHERE c.address = :address")
-    , @NamedQuery(name = "Customer.findByPhoneNumber", query = "SELECT c FROM Customer c WHERE c.phoneNumber = :phoneNumber")
-    , @NamedQuery(name = "Customer.findByAccountStatus", query = "SELECT c FROM Customer c WHERE c.accountStatus = :accountStatus")})
+    , @NamedQuery(name = "Customer.findByPostcode", query = "SELECT c FROM Customer c WHERE c.postcode = :postcode")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "customerId")
-    private Integer customerId;
+    @Column(name = "customerID")
+    private Integer customerID;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "firstName")
-    private String firstName;
+    @Column(name = "name")
+    private String name;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "lastName")
-    private String lastName;
+    @Column(name = "surname")
+    private String surname;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "phoneNo")
+    private String phoneNo;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -65,62 +71,66 @@ public class Customer implements Serializable {
     private String email;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "address")
-    private int address;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 11)
-    @Column(name = "phoneNumber")
-    private String phoneNumber;
+    private String address;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "accountStatus")
-    private String accountStatus;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customercustomerId")
+    @Column(name = "postcode")
+    private String postcode;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customercustomerID")
     private Collection<Job> jobCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customercustomerId")
-    private Collection<ValuedCustomer> valuedCustomerCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Valuedcustomer valuedcustomer;
 
     public Customer() {
     }
 
-    public Customer(Integer customerId) {
-        this.customerId = customerId;
+    public Customer(Integer customerID) {
+        this.customerID = customerID;
     }
 
-    public Customer(Integer customerId, String firstName, String lastName, String email, int address, String phoneNumber, String accountStatus) {
-        this.customerId = customerId;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Customer(Integer customerID, String name, String surname, String phoneNo, String email, String address, String postcode) {
+        this.customerID = customerID;
+        this.name = name;
+        this.surname = surname;
+        this.phoneNo = phoneNo;
         this.email = email;
         this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.accountStatus = accountStatus;
+        this.postcode = postcode;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
+    public Integer getCustomerID() {
+        return customerID;
     }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+    public void setCustomerID(Integer customerID) {
+        this.customerID = customerID;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     public String getEmail() {
@@ -131,28 +141,20 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
-    public int getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(int address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPostcode() {
+        return postcode;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getAccountStatus() {
-        return accountStatus;
-    }
-
-    public void setAccountStatus(String accountStatus) {
-        this.accountStatus = accountStatus;
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
     @XmlTransient
@@ -164,19 +166,18 @@ public class Customer implements Serializable {
         this.jobCollection = jobCollection;
     }
 
-    @XmlTransient
-    public Collection<ValuedCustomer> getValuedCustomerCollection() {
-        return valuedCustomerCollection;
+    public Valuedcustomer getValuedcustomer() {
+        return valuedcustomer;
     }
 
-    public void setValuedCustomerCollection(Collection<ValuedCustomer> valuedCustomerCollection) {
-        this.valuedCustomerCollection = valuedCustomerCollection;
+    public void setValuedcustomer(Valuedcustomer valuedcustomer) {
+        this.valuedcustomer = valuedcustomer;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (customerId != null ? customerId.hashCode() : 0);
+        hash += (customerID != null ? customerID.hashCode() : 0);
         return hash;
     }
 
@@ -187,7 +188,7 @@ public class Customer implements Serializable {
             return false;
         }
         Customer other = (Customer) object;
-        if ((this.customerId == null && other.customerId != null) || (this.customerId != null && !this.customerId.equals(other.customerId))) {
+        if ((this.customerID == null && other.customerID != null) || (this.customerID != null && !this.customerID.equals(other.customerID))) {
             return false;
         }
         return true;
@@ -195,7 +196,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.implementation.domain.Customer[ customerId=" + customerId + " ]";
+        return "domain.Customer[ customerID=" + customerID + " ]";
     }
     
 }

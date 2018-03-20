@@ -8,7 +8,6 @@ package com.mycompany.implementation.domain;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,107 +31,86 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s")
-    , @NamedQuery(name = "Staff.findByStaffId", query = "SELECT s FROM Staff s WHERE s.staffId = :staffId")
-    , @NamedQuery(name = "Staff.findByUsername", query = "SELECT s FROM Staff s WHERE s.username = :username")
-    , @NamedQuery(name = "Staff.findByPassword", query = "SELECT s FROM Staff s WHERE s.password = :password")
-    , @NamedQuery(name = "Staff.findByUserType", query = "SELECT s FROM Staff s WHERE s.userType = :userType")
-    , @NamedQuery(name = "Staff.findByShift", query = "SELECT s FROM Staff s WHERE s.shift = :shift")
-    , @NamedQuery(name = "Staff.login", query = "SELECT s FROM Staff s WHERE s.username =:UserName AND s.password =:Password")})
+    , @NamedQuery(name = "Staff.findByStaffID", query = "SELECT s FROM Staff s WHERE s.staffID = :staffID")
+    , @NamedQuery(name = "Staff.findByFirstName", query = "SELECT s FROM Staff s WHERE s.firstName = :firstName")
+    , @NamedQuery(name = "Staff.findBySurName", query = "SELECT s FROM Staff s WHERE s.surName = :surName")
+    , @NamedQuery(name = "Staff.findByEmployeeType", query = "SELECT s FROM Staff s WHERE s.employeeType = :employeeType")})
 public class Staff implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "password")
+    private String password;
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "staffId")
-    private Integer staffId;
+    @Column(name = "staffID")
+    private Integer staffID;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "username")
-    private String username;
+    @Column(name = "firstName")
+    private String firstName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "password")
-    private String password;
+    @Column(name = "surName")
+    private String surName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "userType")
-    private String userType;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "shift")
-    private String shift;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staffstaffId")
-    private Collection<CashInformation> cashInformationCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staffstaffId")
+    @Column(name = "employeeType")
+    private String employeeType;
+    @OneToMany(mappedBy = "staffstaffID")
     private Collection<Task> taskCollection;
 
     public Staff() {
     }
 
-    public Staff(Integer staffId) {
-        this.staffId = staffId;
+    public Staff(Integer staffID) {
+        this.staffID = staffID;
     }
 
-    public Staff(Integer staffId, String username, String password, String userType, String shift) {
-        this.staffId = staffId;
-        this.username = username;
-        this.password = password;
-        this.userType = userType;
-        this.shift = shift;
+    public Staff(Integer staffID, String firstName, String surName, String employeeType) {
+        this.staffID = staffID;
+        this.firstName = firstName;
+        this.surName = surName;
+        this.employeeType = employeeType;
     }
 
-    public Integer getStaffId() {
-        return staffId;
+    public Integer getStaffID() {
+        return staffID;
     }
 
-    public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
+    public void setStaffID(Integer staffID) {
+        this.staffID = staffID;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSurName() {
+        return surName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSurName(String surName) {
+        this.surName = surName;
     }
 
-    public String getUserType() {
-        return userType;
+    public String getEmployeeType() {
+        return employeeType;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
-    public String getShift() {
-        return shift;
-    }
-
-    public void setShift(String shift) {
-        this.shift = shift;
-    }
-
-    @XmlTransient
-    public Collection<CashInformation> getCashInformationCollection() {
-        return cashInformationCollection;
-    }
-
-    public void setCashInformationCollection(Collection<CashInformation> cashInformationCollection) {
-        this.cashInformationCollection = cashInformationCollection;
+    public void setEmployeeType(String employeeType) {
+        this.employeeType = employeeType;
     }
 
     @XmlTransient
@@ -147,7 +125,7 @@ public class Staff implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (staffId != null ? staffId.hashCode() : 0);
+        hash += (staffID != null ? staffID.hashCode() : 0);
         return hash;
     }
 
@@ -158,7 +136,7 @@ public class Staff implements Serializable {
             return false;
         }
         Staff other = (Staff) object;
-        if ((this.staffId == null && other.staffId != null) || (this.staffId != null && !this.staffId.equals(other.staffId))) {
+        if ((this.staffID == null && other.staffID != null) || (this.staffID != null && !this.staffID.equals(other.staffID))) {
             return false;
         }
         return true;
@@ -166,7 +144,15 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.implementation.domain.Staff[ staffId=" + staffId + " ]";
+        return "domain.Staff[ staffID=" + staffID + " ]";
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
 }

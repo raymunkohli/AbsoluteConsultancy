@@ -6,6 +6,7 @@
 package com.mycompany.implementation.domain;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,10 +16,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,99 +33,95 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Discount.findAll", query = "SELECT d FROM Discount d")
-    , @NamedQuery(name = "Discount.findByDiscountPlanId", query = "SELECT d FROM Discount d WHERE d.discountPlanId = :discountPlanId")
-    , @NamedQuery(name = "Discount.findByDescription", query = "SELECT d FROM Discount d WHERE d.description = :description")
-    , @NamedQuery(name = "Discount.findByDiscountPlan", query = "SELECT d FROM Discount d WHERE d.discountPlan = :discountPlan")})
+    , @NamedQuery(name = "Discount.findByDiscountID", query = "SELECT d FROM Discount d WHERE d.discountID = :discountID")
+    , @NamedQuery(name = "Discount.findByDiscountType", query = "SELECT d FROM Discount d WHERE d.discountType = :discountType")})
 public class Discount implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "discountPlanId")
-    private Integer discountPlanId;
-    @Size(max = 255)
-    @Column(name = "description")
-    private String description;
-    @Size(max = 255)
-    @Column(name = "discountPlan")
-    private String discountPlan;
+    @Column(name = "discountID")
+    private Integer discountID;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "discountType")
+    private String discountType;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "discount")
-    private VariableDiscount variableDiscount;
+    private Flexiblediscount flexiblediscount;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "discount")
-    private FlexibleDiscount flexibleDiscount;
+    private Fixeddiscount fixeddiscount;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "discount")
-    private FixedDiscount fixedDiscount;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "discount")
-    private ValuedCustomer valuedCustomer;
+    private Variablediscount variablediscount;
+    @OneToMany(mappedBy = "discountdiscountID")
+    private Collection<Valuedcustomer> valuedcustomerCollection;
 
     public Discount() {
     }
 
-    public Discount(Integer discountPlanId) {
-        this.discountPlanId = discountPlanId;
+    public Discount(Integer discountID) {
+        this.discountID = discountID;
     }
 
-    public Integer getDiscountPlanId() {
-        return discountPlanId;
+    public Discount(Integer discountID, String discountType) {
+        this.discountID = discountID;
+        this.discountType = discountType;
     }
 
-    public void setDiscountPlanId(Integer discountPlanId) {
-        this.discountPlanId = discountPlanId;
+    public Integer getDiscountID() {
+        return discountID;
     }
 
-    public String getDescription() {
-        return description;
+    public void setDiscountID(Integer discountID) {
+        this.discountID = discountID;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getDiscountType() {
+        return discountType;
     }
 
-    public String getDiscountPlan() {
-        return discountPlan;
+    public void setDiscountType(String discountType) {
+        this.discountType = discountType;
     }
 
-    public void setDiscountPlan(String discountPlan) {
-        this.discountPlan = discountPlan;
+    public Flexiblediscount getFlexiblediscount() {
+        return flexiblediscount;
     }
 
-    public VariableDiscount getVariableDiscount() {
-        return variableDiscount;
+    public void setFlexiblediscount(Flexiblediscount flexiblediscount) {
+        this.flexiblediscount = flexiblediscount;
     }
 
-    public void setVariableDiscount(VariableDiscount variableDiscount) {
-        this.variableDiscount = variableDiscount;
+    public Fixeddiscount getFixeddiscount() {
+        return fixeddiscount;
     }
 
-    public FlexibleDiscount getFlexibleDiscount() {
-        return flexibleDiscount;
+    public void setFixeddiscount(Fixeddiscount fixeddiscount) {
+        this.fixeddiscount = fixeddiscount;
     }
 
-    public void setFlexibleDiscount(FlexibleDiscount flexibleDiscount) {
-        this.flexibleDiscount = flexibleDiscount;
+    public Variablediscount getVariablediscount() {
+        return variablediscount;
     }
 
-    public FixedDiscount getFixedDiscount() {
-        return fixedDiscount;
+    public void setVariablediscount(Variablediscount variablediscount) {
+        this.variablediscount = variablediscount;
     }
 
-    public void setFixedDiscount(FixedDiscount fixedDiscount) {
-        this.fixedDiscount = fixedDiscount;
+    @XmlTransient
+    public Collection<Valuedcustomer> getValuedcustomerCollection() {
+        return valuedcustomerCollection;
     }
 
-    public ValuedCustomer getValuedCustomer() {
-        return valuedCustomer;
-    }
-
-    public void setValuedCustomer(ValuedCustomer valuedCustomer) {
-        this.valuedCustomer = valuedCustomer;
+    public void setValuedcustomerCollection(Collection<Valuedcustomer> valuedcustomerCollection) {
+        this.valuedcustomerCollection = valuedcustomerCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (discountPlanId != null ? discountPlanId.hashCode() : 0);
+        hash += (discountID != null ? discountID.hashCode() : 0);
         return hash;
     }
 
@@ -132,7 +132,7 @@ public class Discount implements Serializable {
             return false;
         }
         Discount other = (Discount) object;
-        if ((this.discountPlanId == null && other.discountPlanId != null) || (this.discountPlanId != null && !this.discountPlanId.equals(other.discountPlanId))) {
+        if ((this.discountID == null && other.discountID != null) || (this.discountID != null && !this.discountID.equals(other.discountID))) {
             return false;
         }
         return true;
@@ -140,7 +140,7 @@ public class Discount implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.implementation.domain.Discount[ discountPlanId=" + discountPlanId + " ]";
+        return "domain.Discount[ discountID=" + discountID + " ]";
     }
     
 }

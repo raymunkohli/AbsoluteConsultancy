@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,19 +38,34 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Job.findAll", query = "SELECT j FROM Job j")
-    , @NamedQuery(name = "Job.findByJobId", query = "SELECT j FROM Job j WHERE j.jobId = :jobId")
+    , @NamedQuery(name = "Job.findByJobID", query = "SELECT j FROM Job j WHERE j.jobID = :jobID")
+    , @NamedQuery(name = "Job.findByOrderDate", query = "SELECT j FROM Job j WHERE j.orderDate = :orderDate")
+    , @NamedQuery(name = "Job.findByCollectionDate", query = "SELECT j FROM Job j WHERE j.collectionDate = :collectionDate")
+    , @NamedQuery(name = "Job.findBySpecInstructions", query = "SELECT j FROM Job j WHERE j.specInstructions = :specInstructions")
     , @NamedQuery(name = "Job.findByDeadline", query = "SELECT j FROM Job j WHERE j.deadline = :deadline")
-    , @NamedQuery(name = "Job.findByStatus", query = "SELECT j FROM Job j WHERE j.status = :status")
-    , @NamedQuery(name = "Job.findByDescription", query = "SELECT j FROM Job j WHERE j.description = :description")
-    , @NamedQuery(name = "Job.findByDateCreated", query = "SELECT j FROM Job j WHERE j.dateCreated = :dateCreated")})
+    , @NamedQuery(name = "Job.findBySurcharge", query = "SELECT j FROM Job j WHERE j.surcharge = :surcharge")
+    , @NamedQuery(name = "Job.findByValue", query = "SELECT j FROM Job j WHERE j.value = :value")})
 public class Job implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "jobId")
-    private Integer jobId;
+    @Column(name = "JobID")
+    private Integer jobID;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "orderDate")
+    @Temporal(TemporalType.DATE)
+    private Date orderDate;
+    @Column(name = "collectionDate")
+    @Temporal(TemporalType.DATE)
+    private Date collectionDate;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "specInstructions")
+    private String specInstructions;
     @Basic(optional = false)
     @NotNull
     @Column(name = "deadline")
@@ -57,42 +73,66 @@ public class Job implements Serializable {
     private Date deadline;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "status")
-    private String status;
-    @Size(max = 255)
-    @Column(name = "description")
-    private String description;
-    @Column(name = "dateCreated")
-    @Temporal(TemporalType.DATE)
-    private Date dateCreated;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobjobID")
+    @Column(name = "surcharge")
+    private double surcharge;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "value")
+    private double value;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobJobID")
     private Collection<Task> taskCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobjobID")
-    private Collection<Payment> paymentCollection;
-    @JoinColumn(name = "CustomercustomerId", referencedColumnName = "customerId")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "job")
+    private Payment payment;
+    @JoinColumn(name = "CustomercustomerID", referencedColumnName = "customerID")
     @ManyToOne(optional = false)
-    private Customer customercustomerId;
+    private Customer customercustomerID;
 
     public Job() {
     }
 
-    public Job(Integer jobId) {
-        this.jobId = jobId;
+    public Job(Integer jobID) {
+        this.jobID = jobID;
     }
 
-    public Job(Integer jobId, Date deadline, String status) {
-        this.jobId = jobId;
+    public Job(Integer jobID, Date orderDate, String specInstructions, Date deadline, double surcharge, double value) {
+        this.jobID = jobID;
+        this.orderDate = orderDate;
+        this.specInstructions = specInstructions;
         this.deadline = deadline;
-        this.status = status;
+        this.surcharge = surcharge;
+        this.value = value;
     }
 
-    public Integer getJobId() {
-        return jobId;
+    public Integer getJobID() {
+        return jobID;
     }
 
-    public void setJobId(Integer jobId) {
-        this.jobId = jobId;
+    public void setJobID(Integer jobID) {
+        this.jobID = jobID;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Date getCollectionDate() {
+        return collectionDate;
+    }
+
+    public void setCollectionDate(Date collectionDate) {
+        this.collectionDate = collectionDate;
+    }
+
+    public String getSpecInstructions() {
+        return specInstructions;
+    }
+
+    public void setSpecInstructions(String specInstructions) {
+        this.specInstructions = specInstructions;
     }
 
     public Date getDeadline() {
@@ -103,28 +143,20 @@ public class Job implements Serializable {
         this.deadline = deadline;
     }
 
-    public String getStatus() {
-        return status;
+    public double getSurcharge() {
+        return surcharge;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setSurcharge(double surcharge) {
+        this.surcharge = surcharge;
     }
 
-    public String getDescription() {
-        return description;
+    public double getValue() {
+        return value;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setValue(double value) {
+        this.value = value;
     }
 
     @XmlTransient
@@ -136,27 +168,26 @@ public class Job implements Serializable {
         this.taskCollection = taskCollection;
     }
 
-    @XmlTransient
-    public Collection<Payment> getPaymentCollection() {
-        return paymentCollection;
+    public Payment getPayment() {
+        return payment;
     }
 
-    public void setPaymentCollection(Collection<Payment> paymentCollection) {
-        this.paymentCollection = paymentCollection;
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
-    public Customer getCustomercustomerId() {
-        return customercustomerId;
+    public Customer getCustomercustomerID() {
+        return customercustomerID;
     }
 
-    public void setCustomercustomerId(Customer customercustomerId) {
-        this.customercustomerId = customercustomerId;
+    public void setCustomercustomerID(Customer customercustomerID) {
+        this.customercustomerID = customercustomerID;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (jobId != null ? jobId.hashCode() : 0);
+        hash += (jobID != null ? jobID.hashCode() : 0);
         return hash;
     }
 
@@ -167,7 +198,7 @@ public class Job implements Serializable {
             return false;
         }
         Job other = (Job) object;
-        if ((this.jobId == null && other.jobId != null) || (this.jobId != null && !this.jobId.equals(other.jobId))) {
+        if ((this.jobID == null && other.jobID != null) || (this.jobID != null && !this.jobID.equals(other.jobID))) {
             return false;
         }
         return true;
@@ -175,7 +206,7 @@ public class Job implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.implementation.domain.Job[ jobId=" + jobId + " ]";
+        return "domain.Job[ jobID=" + jobID + " ]";
     }
     
 }

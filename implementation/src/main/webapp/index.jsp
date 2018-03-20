@@ -57,12 +57,12 @@
 
       <!-- Unnamed (Text Field) -->
       <div id="u3" class="ax_default text_field">
-          <input id="Username" type="text" name="Username"/>
+          <input id="Username" type="text" name="Username" required/>
       </div>
 
       <!-- Unnamed (Text Field) -->
       <div id="u4" class="ax_default text_field">
-          <input id="Password" type="password" name="Password"/>
+          <input id="Password" type="password" name="Password" required/>
       </div>
 
       <!-- Unnamed (Rectangle) -->

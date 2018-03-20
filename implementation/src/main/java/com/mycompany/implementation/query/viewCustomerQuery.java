@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class viewCustomerQuery {
     Connection c;
         public viewCustomerQuery(String dbname, String user, String pass){
-        String url = "jdbc:mysql://localhost:3306/new_schema?zeroDateTimeBehavior=convertToNull"; //db location
+        String url = "jdbc:mysql://localhost:3306/sys?zeroDateTimeBehavior=convertToNull"; //db location
         try {
             Class.forName("com.mysql.jdbc.Driver"); //make instance of driver
             this.c = DriverManager.getConnection(url,user,pass); //connect to db
@@ -39,8 +39,20 @@ public class viewCustomerQuery {
        public ResultSet selectAllCustomers(){
           
         try {
-            String query = "SELECT * FROM customer";
+            String query = "SELECT customer.customerID, customer.name, customer.surname,"
+                    + " customer.phoneNo, customer.email, customer.address, customer.postcode,\n" +
+                        "fixeddiscount.percentDiscount, band.discount,discount.discountType\n" +
+                        "FROM customer\n" +
+                        "LEFT JOIN valuedcustomer ON valuedcustomer.CustomercustomerID = customer.customerID\n" +
+                        "LEFT JOIN discount ON discount.discountID = valuedcustomer.DiscountdiscountID\n" +
+                        "LEFT JOIN fixeddiscount ON discount.discountID = fixeddiscount.DiscountdiscountID\n" +
+                        "LEFT JOIN flexiblediscount ON discount.discountID = flexiblediscount.DiscountdiscountID\n" +
+                        "LEFT JOIN band ON flexiblediscount.bandBandID = band.BandID "
+                    + "ORDER BY customer.customerID ASC";
+
             PreparedStatement s = this.c.prepareStatement(query);
+            
+            
             return s.executeQuery();
             
         } catch (SQLException ex) {

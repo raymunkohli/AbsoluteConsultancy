@@ -5,17 +5,10 @@
  */
 package servlets;
 
-
-import com.mycompany.implementation.query.viewCustomerQuery;
 import com.mycompany.implementation.domain.Customer;
+import com.mycompany.implementation.query.addCustomerQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "viewCustomerServlet", urlPatterns = {"/viewCustomerServlet"})
-public class viewCustomerServlet extends HttpServlet {
+@WebServlet(name = "addCustomerServlet", urlPatterns = {"/addCustomerServlet"})
+public class addCustomerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +39,10 @@ public class viewCustomerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewCustomerServlet</title>");            
+            out.println("<title>Servlet addCustomerServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet viewCustomerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addCustomerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,7 +60,7 @@ public class viewCustomerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request,response);
+        processRequest(request, response);
     }
 
     /**
@@ -81,45 +74,20 @@ public class viewCustomerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        addCustomerQuery cust = new addCustomerQuery("nothing","root","1234");
         
-        viewCustomerQuery custQuery = new viewCustomerQuery("Local instance MySQL57","root","1234"); //create the query
-        ResultSet a = custQuery.selectAllCustomers();
         
-        List<Customer> allCustomers = new ArrayList<Customer>();
-        List<String> Discounts = new ArrayList<String>();
-        try {
-            while(a.next()){
-                Customer singleCust = new Customer();
-                singleCust.setName(a.getString("name"));
-                singleCust.setCustomerID(a.getInt("customerID"));
-                singleCust.setSurname(a.getString("surname"));
-                singleCust.setEmail(a.getString("email"));
-                singleCust.setPhoneNo(a.getString("phoneNo"));
-                singleCust.setPostcode(a.getString("postcode"));
-                singleCust.setAddress(a.getString("address"));
-                allCustomers.add(singleCust);
-                if (a.getString("discountType")!= null){
-                    if(a.getString("discountType").equals("Fixed")){
-                        Discounts.add("Fixed: "+a.getString("percentDiscount"));
-                    }
-                    else if(a.getString("discountType").equals("Flexible")){
-                        Discounts.add("Flexible: "+a.getString("discount"));
-                    }
-                    else if(a.getString("discountType").equals("Variable")){
-                        Discounts.add("Variable Discount");
-                    }
-               
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(viewCustomerServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Customer c = new Customer();
+        c.setAddress(request.getParameter("address"));
+        c.setEmail(request.getParameter("email"));
+        c.setName(request.getParameter("name"));
+        c.setSurname(request.getParameter("surname"));
+        c.setPostcode(request.getParameter("postcode"));
+        c.setPhoneNo(request.getParameter("phone"));
         
-        request.setAttribute("allCustomers",allCustomers);
-        request.setAttribute("discounts",Discounts);
-        request.getRequestDispatcher("viewCustomers.jsp").forward(request,response);
-                
+        cust.doAddCustomerQuery(c);
         
+        response.sendRedirect("receptionist_screen.jsp");
     }
 
     /**
@@ -131,6 +99,5 @@ public class viewCustomerServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
 
 }
