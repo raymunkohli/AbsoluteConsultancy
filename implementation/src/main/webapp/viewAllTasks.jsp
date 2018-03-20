@@ -11,9 +11,34 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+    <style>
+            body
+            {
+                font-family: sans-serif;
+                font-size: 11pt;
+            }
+            
+            table, th, td
+            {
+                border: 1px;
+                border-collapse: collapse;
+            }
+            
+            th, td
+            {
+                padding: 10px;
+                text-align: center;
+            }
+            
+            th
+            {
+                background-color: #111e61;
+                color: white;
+            }
+        </style>
     </head>
     <body>
-        <form action="" method="post">
+        <form action="selectedTasksServlet" method="post">
         <table>
             <tr>
                 <th> Task Id </th>
@@ -25,12 +50,12 @@
             </tr>
             <c:forEach items="${Tasks}" var="tasks">
                 <tr>                 
-                    <th> <c:out value="${tasks.baseTaskID}"/></th>
-                    <th> <c:out value="${tasks.taskName}"/></th>
-                    <th> <c:out value="${tasks.description}"/></th>
-                    <th> <c:out value="${tasks.department}"/></th>
-                    <th> <c:out value="${tasks.price}"/></th>  
-                    <th> <input type="checkbox" value="${tasks}"/></th>
+                    <td> <c:out value="${tasks.baseTaskID}"/></td>
+                    <td> <c:out value="${tasks.taskName}"/></td>
+                    <td> <c:out value="${tasks.description}"/></td>
+                    <td> <c:out value="${tasks.department}"/></td>
+                    <td> <c:out value="${tasks.price}"/></td>  
+                    <td> <input type="checkbox" value="${tasks}"/></td>
                 </tr>
             </c:forEach>
 
