@@ -55,7 +55,7 @@
                     <td> <c:out value="${tasks.description}"/></td>
                     <td> <c:out value="${tasks.department}"/></td>
                     <td> <c:out value="${tasks.price}"/></td>  
-                    <td> <input type="checkbox" value="${tasks}"/></td>
+                    <td> <input type="checkbox" value="${tasks}" id="${tasks.baseTaskID}"/></td>
                 </tr>
             </c:forEach>
 
