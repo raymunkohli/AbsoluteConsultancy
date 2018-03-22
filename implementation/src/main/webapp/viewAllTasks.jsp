@@ -38,7 +38,7 @@
         </style>
     </head>
     <body>
-        <form action="selectedTasksServlet" method="post">
+        <form action=" ./selectedTasksServlet" method="post">
         <table>
             <tr>
                 <th> Task Id </th>
@@ -51,12 +51,12 @@
             <c:forEach items="${Tasks}" var="tasks">
                 <tr>                 
                     <td> <c:out value="${tasks.baseTaskID}"/></td>
-                    <td> <c:out value="${tasks.taskName}"/></td>
+                    <td> <c:out value="${tasks.taskName}"/></td> 
                     <td> <c:out value="${tasks.description}"/></td>
-                    <td> <c:out value="${tasks.department}"/></td>
+                    <td> <c:out value="${tasks.department}"/></td> 
                     <td> <c:out value="${tasks.price}"/></td>  
-                    <td> <input type="checkbox" value="${tasks}" id="${tasks.baseTaskID}"/></td>
-                </tr>
+                    <td><input type="checkbox" value="${tasks.baseTaskID}¬${tasks.taskName}¬${tasks.description}¬${tasks.department}¬${tasks.price}"/> </td>
+                                 </tr>
             </c:forEach>
 
         </table>

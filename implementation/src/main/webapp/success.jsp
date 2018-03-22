@@ -12,9 +12,11 @@
     session = request.getSession(false);
     if( session.getAttribute("userType").equals("Receptionist") ){
         response.sendRedirect("receptionist_screen.jsp");
-        out.println("true");
-    }
+       }
     
+    else if( session.getAttribute("userType").equals("Technician") ){
+        response.sendRedirect("technician_screen.jsp");
+           }
 
 %>
 

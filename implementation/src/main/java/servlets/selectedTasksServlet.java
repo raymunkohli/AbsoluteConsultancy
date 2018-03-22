@@ -5,9 +5,12 @@
  */
 package servlets;
 
+import com.mycompany.implementation.domain.Basetask;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -73,9 +76,24 @@ public class selectedTasksServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Enumeration<String> tasks = request.getParameterNames();
-        //
-        
+        System.out.println("123213213123");
+        Enumeration<String> a = request.getAttributeNames();   
+        List<Basetask> d = new ArrayList<Basetask>();
+        while(a.hasMoreElements()){
+            String[] John = a.nextElement().split("¬");
+            Basetask c = new Basetask();
+            c.setBaseTaskID(Integer.parseInt(John[0]));
+            c.setTaskName(John[1]);
+            c.setDescription(John[2]);
+            c.setDepartment(John[3]);
+            c.setPrice(Double.parseDouble(John[4]));
+            
+            
+            d.add(c);
+        }
+        System.out.println(d.get(0).getBaseTaskID());
+        request.setAttribute("SelectedTasks", d);
+        request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
         
         
     }

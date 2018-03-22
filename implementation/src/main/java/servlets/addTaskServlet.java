@@ -82,6 +82,7 @@ public class addTaskServlet extends HttpServlet {
         request.setAttribute("Tasks",theTasks);
         
         request.getRequestDispatcher("viewAllTasks.jsp").forward(request,response);
+        System.out.println("2131231");
         
     }
 
