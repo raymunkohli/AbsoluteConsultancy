@@ -9,7 +9,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <style>
+            body
+            {
+                font-family: sans-serif;
+                font-size: 11pt;
+            }
+            
+            table, th, td
+            {
+                border: 1px;
+                border-collapse: collapse;
+            }
+            
+            th, td
+            {
+                padding: 10px;
+                text-align: center;
+            }
+            
+            th
+            {
+                background-color: #111e61;
+                color: white;
+            }
+        </style>
   </head>
     </head>
     <body>

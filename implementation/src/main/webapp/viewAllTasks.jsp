@@ -56,10 +56,10 @@
                     <td> <c:out value="${tasks.department}"/></td> 
                     <td> <c:out value="${tasks.price}"/></td>  
                     <td><input type="checkbox" value="${tasks.baseTaskID}`${tasks.taskName}`${tasks.description}`${tasks.department}`${tasks.price}" id="${tasks.baseTaskID}" name="${tasks.baseTaskID}"/> </td>
-                                 </tr>
+                </tr>
             </c:forEach>
 
-        </table>s
+        </table>
             <input type="submit" value="Add Tasks" />
         </form>
     </body>
