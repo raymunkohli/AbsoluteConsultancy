@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "selectedStaffServlet", urlPatterns = {"/selectedStaffServlet"})
+@WebServlet(name = "selectedTasksServlet", urlPatterns = {"/selectedTasksServlet"})
 public class selectedTasksServlet extends HttpServlet {
 
     /**
@@ -62,7 +62,7 @@ public class selectedTasksServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -76,12 +76,18 @@ public class selectedTasksServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("123213213123");
-        Enumeration<String> a = request.getAttributeNames();   
+       
+        Enumeration<String> a = request.getParameterNames(); 
+        //creates an array of strings containing all the attribute names sent in the request 
         List<Basetask> d = new ArrayList<Basetask>();
-        while(a.hasMoreElements()){
-            String[] John = a.nextElement().split("¬");
+        
+        System.out.println(a);
+        while (a.hasMoreElements()){
+                     
+            String[] John = request.getParameter(a.nextElement()).split("`");
             Basetask c = new Basetask();
+            
+            
             c.setBaseTaskID(Integer.parseInt(John[0]));
             c.setTaskName(John[1]);
             c.setDescription(John[2]);
@@ -91,7 +97,7 @@ public class selectedTasksServlet extends HttpServlet {
             
             d.add(c);
         }
-        System.out.println(d.get(0).getBaseTaskID());
+        //System.out.println(d.get(0).getBaseTaskID());
         request.setAttribute("SelectedTasks", d);
         request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
         

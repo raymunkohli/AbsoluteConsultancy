@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -72,6 +73,11 @@ public class selectedCustomerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        session.setAttribute("CustomerFirst", request.getParameter("firstname"));
+        session.setAttribute("CustomerLast", request.getParameter("lastname"));
+        session.setAttribute("CustomerID", request.getParameter("id"));
+        session.setAttribute("Discount", request.getParameter("discount"));
         request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
     }
 

@@ -3,7 +3,8 @@
     Created on : 18-Mar-2018, 19:19:09
     Author     : raymun
 --%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="receptionistCheck.jsp" %>
 <!DOCTYPE html>
@@ -107,8 +108,15 @@
                         <th> Duration </th>
                         <th> Discount </th>               
                     </tr>
-                        
-                    
+                    <c:forEach items="${SelectedTasks}" var="tasks">
+                    <th>
+                        <td><c:out value="${tasks.baseTaskID}"/></td>
+                        <td><c:out value="${tasks.description}"/></td>
+                        <td><c:out value="${tasks.description}"/></td>
+                        <td><c:out value="${tasks.description}"/></td>
+                        <td><c:out value="${tasks.description}"/></td>
+                    </th>
+                    </c:forEach>
                     
                     
                     
@@ -457,8 +465,10 @@
             <div id="u85" class="ax_default label">
                 <div id="u85_div" class=""></div>
                 <div id="u85_text" class="text ">
-                    <p><span><%              out.write("Selected Customer: " + request.getParameter("firstname") + " " + request.getParameter("lastname"));
-
+                    <p><span><%              
+                        if(session.getAttribute("CustomerFirst")!=null){
+                            out.write("Selected Customer: " + session.getAttribute("CustomerFirst") + " " + session.getAttribute("CustomerLast"));
+                        }
                             %>
                         </span></p>
                 </div>
@@ -469,7 +479,13 @@
                 <div id="u86_div" class=""></div>
                 <div id="u86_text" class="text ">
                     <p><span>
-                            <% out.write("Discount at " + request.getParameter("discounts"));
+                            <% 
+                               if(session.getAttribute("Discount")!=null){
+                                    out.write("Discount at " + request.getParameter("discounts"));
+                               }
+                               else{
+                                   out.write("No Discount");
+                               }
                             %>         
                         </span></p>
                 </div>

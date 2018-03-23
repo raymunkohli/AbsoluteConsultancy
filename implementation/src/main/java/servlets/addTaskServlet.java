@@ -81,9 +81,7 @@ public class addTaskServlet extends HttpServlet {
         List <Basetask> theTasks = a.doViewTasks();
         request.setAttribute("Tasks",theTasks);
         
-        request.getRequestDispatcher("viewAllTasks.jsp").forward(request,response);
-        System.out.println("2131231");
-        
+        request.getRequestDispatcher("viewAllTasks.jsp").forward(request,response);       
     }
 
     /**
