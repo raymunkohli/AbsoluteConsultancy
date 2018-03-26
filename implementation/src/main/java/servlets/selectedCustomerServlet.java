@@ -80,6 +80,7 @@ public class selectedCustomerServlet extends HttpServlet {
         session.setAttribute("CustomerFirst", request.getParameter("firstname"));
         session.setAttribute("CustomerLast", request.getParameter("lastname"));
         session.setAttribute("CustomerID", request.getParameter("id"));
+        session.setAttribute("DiscountType", request.getParameter("discounts"));
         session.setAttribute("Discount", request.getParameter("discounts"));
 
         

@@ -86,7 +86,8 @@ public class viewCustomerServlet extends HttpServlet {
         ResultSet a = custQuery.selectAllCustomers();
         
         List<Customer> allCustomers = new ArrayList<Customer>();
-        List<String> Discounts = new ArrayList<String>();
+        List<String> DiscountType = new ArrayList<String>();
+        List<String> Discount = new ArrayList<String>();
         try {
             while(a.next()){
                 Customer singleCust = new Customer();
@@ -100,18 +101,22 @@ public class viewCustomerServlet extends HttpServlet {
                 allCustomers.add(singleCust);
                 if (a.getString("discountType")!= null){
                     if(a.getString("discountType").equals("Fixed")){
-                        Discounts.add("Fixed: "+a.getString("percentDiscount"));
+                        DiscountType.add("Fixed");
+                        Discount.add("4" /*a.getString("percentDiscount")*/);
                     }
                     else if(a.getString("discountType").equals("Flexible")){
-                        Discounts.add("Flexible: "+a.getString("discount"));
+                        DiscountType.add("Fixed");
+                        Discount.add(a.getString("discount"));
                     }
                     else if(a.getString("discountType").equals("Variable")){
-                        Discounts.add("Variable Discount");
+                        Discount.add(null);
+                        DiscountType.add("Variable Discount");
                     }
                     
                 }
                 else if(a.getString("discountType")== null){
-                    Discounts.add("None");
+                    Discount.add(null);
+                    DiscountType.add("None");
                 }
             }
         } catch (SQLException ex) {
@@ -119,7 +124,8 @@ public class viewCustomerServlet extends HttpServlet {
         }
         
         request.setAttribute("allCustomers",allCustomers);
-        request.setAttribute("discounts",Discounts);
+        request.setAttribute("discountType",DiscountType);
+        request.setAttribute("discount",Discount);
         request.getRequestDispatcher("viewCustomers.jsp").forward(request,response);
                 
         
