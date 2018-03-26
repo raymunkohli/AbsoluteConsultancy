@@ -5,8 +5,10 @@
  */
 package servlets;
 
+import com.mycompany.implementation.query.getVariableDiscount;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -74,13 +76,16 @@ public class selectedCustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
+        session.removeAttribute("VariableDiscount");
         session.setAttribute("CustomerFirst", request.getParameter("firstname"));
         session.setAttribute("CustomerLast", request.getParameter("lastname"));
         session.setAttribute("CustomerID", request.getParameter("id"));
         session.setAttribute("Discount", request.getParameter("discounts"));
         
         if (request.getParameter("discounts").equals("Variable")){
-            //create a query for selecting all the variable discounts
+            getVariableDiscount a = new getVariableDiscount("nothing","root","1234");
+            ResultSet b = a.doGetVariableDiscount(Integer.parseInt(request.getParameter("id")));
+            session.setAttribute("VariableDiscount",b);
         }
         
         request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
