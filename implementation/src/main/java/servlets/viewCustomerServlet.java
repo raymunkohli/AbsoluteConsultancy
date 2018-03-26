@@ -108,7 +108,10 @@ public class viewCustomerServlet extends HttpServlet {
                     else if(a.getString("discountType").equals("Variable")){
                         Discounts.add("Variable Discount");
                     }
-               
+                    
+                }
+                else if(a.getString("discountType")== null){
+                    Discounts.add("None");
                 }
             }
         } catch (SQLException ex) {

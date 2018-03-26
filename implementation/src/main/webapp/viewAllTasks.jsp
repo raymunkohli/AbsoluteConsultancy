@@ -54,8 +54,10 @@
                     <td> <c:out value="${tasks.taskName}"/></td> 
                     <td> <c:out value="${tasks.description}"/></td>
                     <td> <c:out value="${tasks.department}"/></td> 
-                    <td> <c:out value="${tasks.price}"/></td>  
+                    <td> <c:out value="${tasks.price}"/></td>
+                    <c:if test="">
                     <td><input type="checkbox" value="${tasks.baseTaskID}`${tasks.taskName}`${tasks.description}`${tasks.department}`${tasks.price}" id="${tasks.baseTaskID}" name="${tasks.baseTaskID}"/> </td>
+                    </c:if>
                 </tr>
             </c:forEach>
 

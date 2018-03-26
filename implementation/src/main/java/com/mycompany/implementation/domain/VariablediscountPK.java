@@ -24,15 +24,15 @@ public class VariablediscountPK implements Serializable {
     private int discountdiscountID;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "TasktaskID")
-    private int tasktaskID;
+    @Column(name = "basetask_baseTaskID")
+    private int basetaskbaseTaskID;
 
     public VariablediscountPK() {
     }
 
-    public VariablediscountPK(int discountdiscountID, int tasktaskID) {
+    public VariablediscountPK(int discountdiscountID, int basetaskbaseTaskID) {
         this.discountdiscountID = discountdiscountID;
-        this.tasktaskID = tasktaskID;
+        this.basetaskbaseTaskID = basetaskbaseTaskID;
     }
 
     public int getDiscountdiscountID() {
@@ -43,19 +43,19 @@ public class VariablediscountPK implements Serializable {
         this.discountdiscountID = discountdiscountID;
     }
 
-    public int getTasktaskID() {
-        return tasktaskID;
+    public int getBasetaskbaseTaskID() {
+        return basetaskbaseTaskID;
     }
 
-    public void setTasktaskID(int tasktaskID) {
-        this.tasktaskID = tasktaskID;
+    public void setBasetaskbaseTaskID(int basetaskbaseTaskID) {
+        this.basetaskbaseTaskID = basetaskbaseTaskID;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) discountdiscountID;
-        hash += (int) tasktaskID;
+        hash += (int) basetaskbaseTaskID;
         return hash;
     }
 
@@ -69,7 +69,7 @@ public class VariablediscountPK implements Serializable {
         if (this.discountdiscountID != other.discountdiscountID) {
             return false;
         }
-        if (this.tasktaskID != other.tasktaskID) {
+        if (this.basetaskbaseTaskID != other.basetaskbaseTaskID) {
             return false;
         }
         return true;
@@ -77,7 +77,7 @@ public class VariablediscountPK implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.VariablediscountPK[ discountdiscountID=" + discountdiscountID + ", tasktaskID=" + tasktaskID + " ]";
+        return "com.mycompany.implementation.domain.VariablediscountPK[ discountdiscountID=" + discountdiscountID + ", basetaskbaseTaskID=" + basetaskbaseTaskID + " ]";
     }
     
 }

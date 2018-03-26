@@ -16,7 +16,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
         <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
-        <link href="resources/table.css" type="text/css" rel="stylesheet"/>
+        <link href="resources/tablecss.css" type="text/css" rel="stylesheet"/>
         <link href="data/styles.css" type="text/css" rel="stylesheet"/>
         <link href="files/receptionist_screen/styles.css" type="text/css" rel="stylesheet"/>
         <script src="resources/scripts/jquery-1.7.1.min.js"></script>
@@ -35,35 +35,7 @@
             $axure.utils.getReloadPath = function () {
                 return 'resources/reload.html';
             };
-        </script>
-        <style>
-            body
-            {
-                font-family: sans-serif;
-                font-size: 11pt;
-            }
-            
-            table, th, td
-            {
-                border: 1px;
-                border-collapse: collapse;
-            }
-            
-            th, td
-            {
-                padding: 10px;
-                text-align: center;
-            }
-            
-            th
-            {
-                background-color: #111e61;
-                color: white;
-            }
-        </style>
-        
-        
-        
+        </script>            
         
     </head>
     <body>
@@ -137,12 +109,26 @@
                         <th> Discount </th>               
                     </tr>
                     <c:forEach items="${SelectedTasks}" var="tasks">
+                        
                     <tr>
                         <td><c:out value="${tasks.baseTaskID}"/></td>
                         <td><c:out value="${tasks.taskName}"/></td>
                         <td><c:out value="${tasks.description}"/></td>
                         <td><c:out value="${tasks.price}"/></td>
-                        <td><c:out value="<%=session.getAttribute("Discount") %>"/></td>
+                        <c:forEach var="discountvar" items="${VariableDiscounts}">
+                            <c:out value="123"/>
+                            <c:if test="${tasks.baseTaskID eq discountvar.VariablediscountPK.basetaskbaseTaskID}">
+                                <td><c:out value="${discountvar.amount}"/> </td>
+                                <c:set var="contains" value="true" />
+                            </c:if>
+                        </c:forEach>
+                          
+                                <td><c:out value="<%=session.getAttribute("Discount") %>"/></td>
+                            
+                            
+                            
+                            
+                     
                    
                     </tr>
                     </c:forEach>

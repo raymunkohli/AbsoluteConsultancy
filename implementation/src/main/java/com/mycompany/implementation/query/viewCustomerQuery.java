@@ -49,6 +49,7 @@ public class viewCustomerQuery {
                         "LEFT JOIN flexiblediscount ON discount.discountID = flexiblediscount.DiscountdiscountID\n" +
                         "LEFT JOIN band ON flexiblediscount.bandBandID = band.BandID "
                     + "ORDER BY customer.customerID ASC";
+            System.out.println(query);
 
             PreparedStatement s = this.c.prepareStatement(query);
             

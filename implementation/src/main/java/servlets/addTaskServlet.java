@@ -6,6 +6,8 @@
 package servlets;
 
 import com.mycompany.implementation.domain.Basetask;
+import com.mycompany.implementation.domain.Variablediscount;
+import com.mycompany.implementation.query.getVariableDiscount;
 import com.mycompany.implementation.query.viewTasks;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -76,11 +78,21 @@ public class addTaskServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-       
-        viewTasks a = new viewTasks("asdw","root","1234");
-        List <Basetask> theTasks = a.doViewTasks();
-        request.setAttribute("Tasks",theTasks);
-        
+        if (request.getSession().getAttribute("Discount").equals("Variable Discount")){
+            viewTasks a = new viewTasks("asdw","root","1234");
+            List <Basetask> theTasks = a.doViewTasks();
+            request.setAttribute("Tasks",theTasks);
+            
+            List<Variablediscount> theDiscounts;
+            getVariableDiscount b = new getVariableDiscount("asdf","root","1234");
+            theDiscounts =b.doGetVariableDiscount(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")));
+            request.setAttribute("VariableDiscounts",theDiscounts);
+        } 
+        else{
+            viewTasks a = new viewTasks("asdw","root","1234");
+            List <Basetask> theTasks = a.doViewTasks();
+            request.setAttribute("Tasks",theTasks);
+        }
         request.getRequestDispatcher("viewAllTasks.jsp").forward(request,response);       
     }
 

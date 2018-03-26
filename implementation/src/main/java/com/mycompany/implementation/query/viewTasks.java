@@ -6,6 +6,7 @@
 package com.mycompany.implementation.query;
 
 import com.mycompany.implementation.domain.Basetask;
+import com.mycompany.implementation.domain.Variablediscount;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -65,4 +66,5 @@ public class viewTasks {
 
       
     }
+ 
 }

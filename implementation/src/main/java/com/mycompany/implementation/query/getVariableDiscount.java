@@ -5,11 +5,17 @@
  */
 package com.mycompany.implementation.query;
 
+import com.mycompany.implementation.domain.Discount;
+import com.mycompany.implementation.domain.Task;
+import com.mycompany.implementation.domain.Variablediscount;
+import com.mycompany.implementation.domain.VariablediscountPK;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,16 +42,24 @@ public class getVariableDiscount {
         }
     }
     
-    public ResultSet doGetVariableDiscount(int custID){
+    public List<Variablediscount> doGetVariableDiscount(int custID){
         PreparedStatement s;
+        List<Variablediscount> a = new ArrayList<Variablediscount>();
         try{
-            String Query ="SELECT variablediscount.amount,variablediscount.TasktaskID FROM variablediscount\n" +
+            String Query ="SELECT variablediscount.amount,variablediscount.basetask_baseTaskID FROM variablediscount\n" +
                             "INNER JOIN valuedcustomer ON\n" +
                             "valuedcustomer.DiscountdiscountID = variablediscount.DiscountdiscountID\n" +
                             "WHERE CustomercustomerID ='" + custID + "';";
+            System.out.println(Query);
             s = this.c.prepareStatement(Query);
-            return s.executeQuery();
-            
+            ResultSet b = s.executeQuery();
+            while(b.next()){
+                Variablediscount c = new Variablediscount();
+                c.setAmount(b.getDouble("amount"));
+                c.setVariablediscountPK(new VariablediscountPK(1, b.getInt("basetask_baseTaskID")));
+                a.add(c);
+            }
+            return a;
         }
        catch (SQLException ex) {
                 Logger.getLogger(addCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);

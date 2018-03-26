@@ -10,10 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,8 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Variablediscount.findAll", query = "SELECT v FROM Variablediscount v")
     , @NamedQuery(name = "Variablediscount.findByDiscountdiscountID", query = "SELECT v FROM Variablediscount v WHERE v.variablediscountPK.discountdiscountID = :discountdiscountID")
-    , @NamedQuery(name = "Variablediscount.findByTasktaskID", query = "SELECT v FROM Variablediscount v WHERE v.variablediscountPK.tasktaskID = :tasktaskID")
-    , @NamedQuery(name = "Variablediscount.findByAmount", query = "SELECT v FROM Variablediscount v WHERE v.amount = :amount")})
+    , @NamedQuery(name = "Variablediscount.findByAmount", query = "SELECT v FROM Variablediscount v WHERE v.amount = :amount")
+    , @NamedQuery(name = "Variablediscount.findByBasetaskbaseTaskID", query = "SELECT v FROM Variablediscount v WHERE v.variablediscountPK.basetaskbaseTaskID = :basetaskbaseTaskID")})
 public class Variablediscount implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,12 +37,6 @@ public class Variablediscount implements Serializable {
     @NotNull
     @Column(name = "amount")
     private double amount;
-    @JoinColumn(name = "DiscountdiscountID", referencedColumnName = "discountID", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Discount discount;
-    @JoinColumn(name = "TasktaskID", referencedColumnName = "taskID", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Task task;
 
     public Variablediscount() {
     }
@@ -58,8 +50,8 @@ public class Variablediscount implements Serializable {
         this.amount = amount;
     }
 
-    public Variablediscount(int discountdiscountID, int tasktaskID) {
-        this.variablediscountPK = new VariablediscountPK(discountdiscountID, tasktaskID);
+    public Variablediscount(int discountdiscountID, int basetaskbaseTaskID) {
+        this.variablediscountPK = new VariablediscountPK(discountdiscountID, basetaskbaseTaskID);
     }
 
     public VariablediscountPK getVariablediscountPK() {
@@ -76,22 +68,6 @@ public class Variablediscount implements Serializable {
 
     public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public Discount getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
     }
 
     @Override
@@ -116,7 +92,7 @@ public class Variablediscount implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Variablediscount[ variablediscountPK=" + variablediscountPK + " ]";
+        return "com.mycompany.implementation.domain.Variablediscount[ variablediscountPK=" + variablediscountPK + " ]";
     }
     
 }

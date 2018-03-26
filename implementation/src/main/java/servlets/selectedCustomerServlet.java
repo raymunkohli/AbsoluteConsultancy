@@ -81,12 +81,7 @@ public class selectedCustomerServlet extends HttpServlet {
         session.setAttribute("CustomerLast", request.getParameter("lastname"));
         session.setAttribute("CustomerID", request.getParameter("id"));
         session.setAttribute("Discount", request.getParameter("discounts"));
-        
-        if (request.getParameter("discounts").equals("Variable")){
-            getVariableDiscount a = new getVariableDiscount("nothing","root","1234");
-            ResultSet b = a.doGetVariableDiscount(Integer.parseInt(request.getParameter("id")));
-            session.setAttribute("VariableDiscount",b);
-        }
+
         
         request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
     }
