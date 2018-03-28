@@ -61,7 +61,7 @@
                                 <td> <c:out value ="${VariableDiscounts[tasksStatus.index].amount} %"/> </td>
                             </c:when>
                             <c:otherwise>
-                                <td> <c:out value="${sessionScope.Discount} %" /> 555 </td>
+                                <td> <c:out value="${sessionScope.Discount} %" /> </td>
                             </c:otherwise>
                         </c:choose>
                         

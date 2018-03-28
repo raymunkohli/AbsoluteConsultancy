@@ -118,7 +118,7 @@ public class viewCustomerServlet extends HttpServlet {
                 }
                 
                 else if(a.getString("discountType")== null){
-                    Discount.add(null);
+                    Discount.add("0");
                     DiscountType.add("None");
                 }
                 //System.out.println(a.getString("discountType"));

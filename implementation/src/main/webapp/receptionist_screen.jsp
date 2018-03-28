@@ -1,3 +1,4 @@
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : receptionist_screen
     Created on : 18-Mar-2018, 19:19:09
@@ -47,13 +48,8 @@
             </div>
 
 
-            <!-- Unnamed (Rectangle) -->
-            <div id="u8" class="ax_default button">
-                <div id="u8_div" class=""></div>
-                <div id="u8_text" class="text ">
-                    <p><span>Add new job</span></p>
-                </div>
-            </div>
+            
+            
 
             <!-- Unnamed (Group) -->
             <div id="u9" class="ax_default" data-left="690" data-top="651" data-width="247" data-height="284">
@@ -390,6 +386,7 @@
             <!-- Unnamed (Rectangle) -->
 
 
+            <form action="" method="post">
             <!-- Unnamed (Checkbox) -->
             <div id="u74" class="ax_default checkbox">
                 <label for="u74_input" style="position: absolute;">
@@ -407,7 +404,7 @@
                         <p><span>Stipulated</span></p>
                     </div>
                 </label>
-                <input id="u75_input" type="checkbox" value="checkbox"/>
+                <input id="Stipulated" type="checkbox" value="checkbox"/>
             </div>
 
             <!-- Unnamed (Group) -->
@@ -431,6 +428,15 @@
                     <p><span>Deadline</span></p>
                 </div>
             </div>
+            <div id="u8" class="ax_default button">
+                <div id="u8_div" class=""></div>
+                <div id="u8_text" class="text ">
+                    <p><span>Add new job</span></p>
+                </div>
+            </div>
+            
+            </form>
+            
 
             <!-- Unnamed (Rectangle) -->
             <div id="u80" class="ax_default button">
