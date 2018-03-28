@@ -80,9 +80,14 @@ public class selectedCustomerServlet extends HttpServlet {
         session.setAttribute("CustomerFirst", request.getParameter("firstname"));
         session.setAttribute("CustomerLast", request.getParameter("lastname"));
         session.setAttribute("CustomerID", request.getParameter("id"));
-        session.setAttribute("DiscountType", request.getParameter("discounts"));
-        session.setAttribute("Discount", request.getParameter("discounts"));
-
+        if (request.getParameter("discount") == null){
+            session.setAttribute("DiscountType", "None");
+            session.setAttribute("Discount","0");
+        }
+        else{
+            session.setAttribute("DiscountType", request.getParameter("discountType"));
+            session.setAttribute("Discount", request.getParameter("discount"));
+        }
         
         request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
     }

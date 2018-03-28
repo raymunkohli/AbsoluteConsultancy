@@ -76,10 +76,11 @@ public class selectedTasksServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        
         Enumeration<String> a = request.getParameterNames(); 
         //creates an array of strings containing all the attribute names sent in the request 
         List<Basetask> d = new ArrayList<Basetask>();
+        List<Double> discounts = new ArrayList<>();
         
         System.out.println(a);
         while (a.hasMoreElements()){
@@ -93,12 +94,14 @@ public class selectedTasksServlet extends HttpServlet {
             c.setDescription(John[2]);
             c.setDepartment(John[3]);
             c.setPrice(Double.parseDouble(John[4]));
-            
+            discounts.add(Double.parseDouble(John[5]));
             
             d.add(c);
         }
         //System.out.println(d.get(0).getBaseTaskID());
         request.setAttribute("SelectedTasks", d);
+        request.setAttribute("calculatedDiscounts",discounts);
+        
         request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
         
         

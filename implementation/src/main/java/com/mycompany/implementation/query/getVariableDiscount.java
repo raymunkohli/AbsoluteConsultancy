@@ -44,7 +44,7 @@ public class getVariableDiscount {
     
     public List<Variablediscount> doGetVariableDiscount(int custID){
         PreparedStatement s;
-        List<Variablediscount> a = new ArrayList<Variablediscount>();
+        List<Variablediscount> a = new ArrayList<>();
         try{
             String Query ="SELECT variablediscount.amount,variablediscount.basetask_baseTaskID FROM variablediscount\n" +
                             "INNER JOIN valuedcustomer ON\n" +
@@ -58,6 +58,7 @@ public class getVariableDiscount {
                 c.setAmount(b.getDouble("amount"));
                 c.setVariablediscountPK(new VariablediscountPK(1, b.getInt("basetask_baseTaskID")));
                 a.add(c);
+                System.out.println(b.getDouble("amount"));
             }
             return a;
         }

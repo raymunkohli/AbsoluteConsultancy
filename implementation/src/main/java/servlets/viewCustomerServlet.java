@@ -100,12 +100,14 @@ public class viewCustomerServlet extends HttpServlet {
                 singleCust.setAddress(a.getString("address"));
                 allCustomers.add(singleCust);
                 if (a.getString("discountType")!= null){
+                    
                     if(a.getString("discountType").equals("Fixed")){
                         DiscountType.add("Fixed");
-                        Discount.add("4" /*a.getString("percentDiscount")*/);
+                        Discount.add(a.getString("percentDiscount"));
                     }
+                    
                     else if(a.getString("discountType").equals("Flexible")){
-                        DiscountType.add("Fixed");
+                        DiscountType.add("Flexible");
                         Discount.add(a.getString("discount"));
                     }
                     else if(a.getString("discountType").equals("Variable")){
@@ -114,10 +116,12 @@ public class viewCustomerServlet extends HttpServlet {
                     }
                     
                 }
+                
                 else if(a.getString("discountType")== null){
                     Discount.add(null);
                     DiscountType.add("None");
                 }
+                //System.out.println(a.getString("discountType"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(viewCustomerServlet.class.getName()).log(Level.SEVERE, null, ex);

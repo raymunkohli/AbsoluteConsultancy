@@ -36,7 +36,7 @@
                 return 'resources/reload.html';
             };
         </script>            
-        
+
     </head>
     <body>
         <div id="base" class="">
@@ -106,36 +106,27 @@
                         <th> Name </th>
                         <th> Description </th>
                         <th> Price (before discount)</th>
-                        <th> Discount </th>               
+                        <th> Discount </th>  
+                        <th> Price (after discount </th>
                     </tr>
-                    <c:forEach items="${SelectedTasks}" var="tasks">
-                        
-                    <tr>
-                        <td><c:out value="${tasks.baseTaskID}"/></td>
-                        <td><c:out value="${tasks.taskName}"/></td>
-                        <td><c:out value="${tasks.description}"/></td>
-                        <td><c:out value="${tasks.price}"/></td>
-                        <c:forEach var="discountvar" items="${VariableDiscounts}">
-                            <c:out value="123"/>
-                            <c:if test="${tasks.baseTaskID eq discountvar.VariablediscountPK.basetaskbaseTaskID}">
-                                <td><c:out value="${discountvar.amount}"/> </td>
-                                <c:set var="contains" value="true" />
-                            </c:if>
-                        </c:forEach>
-                          
-                                <td><c:out value="<%=session.getAttribute("Discount") %>"/></td>
-                            
-                            
-                            
-                            
-                     
-                   
-                    </tr>
+                    <c:set var="totalPrice" value="0"/>
+                    <c:forEach items="${SelectedTasks}" var="tasks" varStatus="taskStatus">
+
+                        <tr>
+                            <td><c:out value="${tasks.baseTaskID}"/></td>
+                            <td><c:out value="${tasks.taskName}"/></td>
+                            <td><c:out value="${tasks.description}"/></td>
+                            <td><c:out value="${tasks.price}"/></td>
+                            <td> <c:out value= "${calculatedDiscounts[taskStatus.index]}"/> </td>
+                            <td> <c:set var="taskWithDiscount" value="${tasks.price * ((100-calculatedDiscounts[taskStatus.index])/100)}" />
+                                <c:set var="totalPrice" value="${totalPrice + taskWithDiscount}"/>
+                                <c:out value="${taskWithDiscount}"/> </td>
+                        </tr>
                     </c:forEach>
-                    
-                    
-                    
-                    
+
+
+
+
                 </table>
             </div>
 
@@ -144,7 +135,7 @@
                 <form action ="addTaskServlet" method ="post"> 
                     <input id="u37_input" type="submit" value="Add Task to Job"/>
                 </form>
-            
+
             </div>
 
             <!-- Unnamed (Rectangle) -->
@@ -228,8 +219,8 @@
 
 
                 <div id="u73" class="ax_default html_button">
-                        <input id="u73_input" type="submit" value="Add Customer"/>
-                    </div>
+                    <input id="u73_input" type="submit" value="Add Customer"/>
+                </div>
             </form>
 
 
@@ -480,8 +471,7 @@
             <div id="u85" class="ax_default label">
                 <div id="u85_div" class=""></div>
                 <div id="u85_text" class="text ">
-                    <p><span><%              
-                        if(session.getAttribute("CustomerFirst")!=null){
+                    <p><span><%                        if (session.getAttribute("CustomerFirst") != null) {
                             out.write("Selected Customer: " + session.getAttribute("CustomerFirst") + " " + session.getAttribute("CustomerLast"));
                         }
                             %>
@@ -494,14 +484,18 @@
                 <div id="u86_div" class=""></div>
                 <div id="u86_text" class="text ">
                     <p><span>
-                            <% 
-                               if(session.getAttribute("Discount")==null){
-                                    out.write("No Discount");
-                               }
-                               else{
-                                   
-                                   out.write("Discount at " + session.getAttribute("Discount"));
-                               }
+                            <%
+                                if (session.getAttribute("DiscountType") != null) {
+                                    if (session.getAttribute("DiscountType").equals("None")) {
+                                        out.write("No Discount");
+
+                                    } else if (session.getAttribute("DiscountType").equals("Variable Discount")) {
+
+                                        out.write("Variable Discount");
+                                    } else {
+                                        out.write(session.getAttribute("DiscountType") + " at " + session.getAttribute("Discount") + "%");
+                                    }
+                                }
                             %>         
                         </span></p>
                 </div>
@@ -511,7 +505,7 @@
             <div id="u87" class="ax_default label">
                 <div id="u87_div" class=""></div>
                 <div id="u87_text" class="text ">
-                    <p><span>Price: £XXX.XX</span></p>
+                    <p><span>Price: £ <c:if test="${not empty totalPrice}"><c:out value="${totalPrice}"/></c:if></span></p>
                 </div>
             </div>
 

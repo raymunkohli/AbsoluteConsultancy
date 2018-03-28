@@ -42,7 +42,7 @@ public class addTaskServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addTaskServlet</title>");            
+            out.println("<title>Servlet addTaskServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet addTaskServlet at " + request.getContextPath() + "</h1>");
@@ -77,28 +77,25 @@ public class addTaskServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        if (request.getSession().getAttribute("Discount").equals("Variable Discount")){
-            viewTasks a = new viewTasks("asdw","root","1234");
-            List <Basetask> theTasks = a.doViewTasks();
-            request.setAttribute("Tasks",theTasks);
+        if (request.getSession().getAttribute("DiscountType") != null) {
             
-            List<Variablediscount> theDiscounts;
-            getVariableDiscount b = new getVariableDiscount("asdf","root","1234");
-            theDiscounts =b.doGetVariableDiscount(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")));
-            request.setAttribute("VariableDiscounts",theDiscounts);
-        } 
-        else if (request.getSession().getAttribute("Discount").equals("Variable Discount")){
-            
+            if ((request.getSession().getAttribute("DiscountType").equals("Variable Discount"))) {
+                viewTasks a = new viewTasks("asdw", "root", "1234");
+                List<Basetask> theTasks = a.doViewTasks();
+                request.setAttribute("Tasks", theTasks);
+
+                List<Variablediscount> theDiscounts;
+                getVariableDiscount b = new getVariableDiscount("asdf", "root", "1234");
+                theDiscounts = b.doGetVariableDiscount(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")));
+                request.setAttribute("VariableDiscounts", theDiscounts);
+                
+            } else {
+                viewTasks a = new viewTasks("asdw", "root", "1234");
+                List<Basetask> theTasks = a.doViewTasks();
+                request.setAttribute("Tasks", theTasks);
+            }
         }
-        
-        
-        else{
-            viewTasks a = new viewTasks("asdw","root","1234");
-            List <Basetask> theTasks = a.doViewTasks();
-            request.setAttribute("Tasks",theTasks);
-        }
-        request.getRequestDispatcher("viewAllTasks.jsp").forward(request,response);       
+        request.getRequestDispatcher("viewAllTasks.jsp").forward(request, response);
     }
 
     /**

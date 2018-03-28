@@ -78,7 +78,7 @@
                     </c:choose>
 
 
-                    <input type="hidden" name="discountType" value="${discountsType[custStatus.index]}">
+                    <input type="hidden" name="discountType" value="${discountType[custStatus.index]}">
                     <input type="hidden" name="discount" value ="${discount[custStatus.index]}" /> </td>
                 <td> <input type="submit" value ="select"/> </td>
             </form>
