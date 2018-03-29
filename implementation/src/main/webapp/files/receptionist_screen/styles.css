@@ -265,7 +265,7 @@
   left:100px;
   top:275px;
   width:700px;
-  height:108px;
+  height:auto;
 }
 #u16_img {
   border-width:0px;
@@ -2138,4 +2138,29 @@
   top:12px;
   width:136px;
   word-wrap:break-word;
+}
+#tophalf {
+  border-width:0px;
+  position:relative;
+  left:2px;
+  top:12px;
+  width:136px;
+  height:311px;
+  word-wrap:break-word;
+}
+
+#bottomhalf{
+  border-width:0px;
+  position:relative;
+  left:2px;
+  top:-350px;
+  width:136px;
+  height:0px;
+  word-wrap:break-word;
+}
+
+#fakespace{
+    position:relative;
+    height:30px;
+    
 }

@@ -43,13 +43,66 @@
         <div id="base" class="">
 
             <!-- Unnamed (Rectangle) -->
-            <div id="u7" class="ax_default box_1">
-                <div id="u7_div" class=""></div>
+            <div id="tophalf">
+
+                            <!-- Unnamed (Shape) -->
+            <div id="u88" class="ax_default icon">
+                <img id="u88_img" class="img " src="images/receptionist_screen/u88.png"/>
+            </div>
+            
+             <!-- Unnamed (Rectangle) -->
+            <form method="post" action="viewCustomerServlet" id="viewCust">
+                <div id="u82" class="ax_default html_button">
+                    <input id="u2_input" type="submit" value="View Customers" form="viewCust"/>
+                </div>
+            </form>
+            <!-- Unnamed (Rectangle) -->
+            <div id="u83" class="ax_default label">
+                <div id="u83_div" class=""></div>
+                <div id="u83_text" class="text ">
+                    <p><span>Receptionist</span></p>
+                </div>
             </div>
 
+            <!-- Unnamed (Horizontal Line) -->
+            <div id="u84" class="ax_default line">
+                <img id="u84_img" class="img " src="images/receptionist_screen/u84.png"/>
+            </div>
 
-            
-            
+            <!-- Unnamed (Rectangle) -->
+            <div id="u85" class="ax_default label">
+                <div id="u85_div" class=""></div>
+                <div id="u85_text" class="text ">
+                    <p><span><%                        
+                        if (session.getAttribute("CustomerFirst") != null) {
+                            out.write("Selected Customer: " + session.getAttribute("CustomerFirst") + " " + session.getAttribute("CustomerLast"));
+                        }
+                            %>
+                        </span></p>
+                </div>
+            </div>
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u86" class="ax_default label">
+                <div id="u86_div" class=""></div>
+                <div id="u86_text" class="text ">
+                    <p><span>
+                            <%
+                                if (session.getAttribute("DiscountType") != null) {
+                                    if (session.getAttribute("DiscountType").equals("None")) {
+                                        out.write("No Discount");
+
+                                    } else if (session.getAttribute("DiscountType").equals("Variable Discount")) {
+
+                                        out.write("Variable Discount");
+                                    } else {
+                                        out.write(session.getAttribute("Discount Type") + " at " + session.getAttribute("Discount") + "%");
+                                    }
+                                }
+                            %>         
+                        </span></p>
+                </div>
+            </div>
 
             <!-- Unnamed (Group) -->
             <div id="u9" class="ax_default" data-left="690" data-top="651" data-width="247" data-height="284">
@@ -127,13 +180,7 @@
                 </table>
             </div>
 
-            <!-- Unnamed (Rectangle) -->
-            <div id="u37" class="ax_default html_button">
-                <form action ="addTaskServlet" method ="post"> 
-                    <input id="u37_input" type="submit" value="Add Task to Job"/>
-                </form>
 
-            </div>
 
             <!-- Unnamed (Rectangle) -->
             <div id="u38" class="ax_default label">
@@ -219,18 +266,21 @@
                     <input id="u73_input" type="submit" value="Add Customer"/>
                 </div>
             </form>
-
-
-            <!-- Unnamed (Shape) -->
-            <div id="u50" class="ax_default icon">
-                <img id="u50_img" class="img " src="images/receptionist_screen/u50.png"/>
+            
             </div>
+                    <c:forEach items="${SelectedTasks}" var="tasks">
+                        <c:out value="<div id='fakespace'></div>" escapeXml="false"/>
+                    </c:forEach>
 
-            <!-- Unnamed (Shape) -->
-            <div id="u51" class="ax_default icon">
-                <img id="u51_img" class="img " src="images/receptionist_screen/u50.png"/>
+
+            <div id="bottomhalf">
+                            <!-- Unnamed (Rectangle) -->
+            <div id="u37" class="ax_default html_button">
+                <form action ="addTaskServlet" method ="post"> 
+                    <input id="u37_input" type="submit" value="Add Task to Job"/>
+                </form>
+
             </div>
-
             <!-- Unnamed (Rectangle) -->
             <div id="u52" class="ax_default label">
                 <div id="u52_div" class=""></div>
@@ -459,59 +509,7 @@
                 </div>
             </div>
 
-            <!-- Unnamed (Rectangle) -->
-            <form method="post" action="viewCustomerServlet" id="viewCust">
-                <div id="u82" class="ax_default html_button">
-                    <input id="u2_input" type="submit" value="View Customers" form="viewCust"/>
-                </div>
-            </form>
-            <!-- Unnamed (Rectangle) -->
-            <div id="u83" class="ax_default label">
-                <div id="u83_div" class=""></div>
-                <div id="u83_text" class="text ">
-                    <p><span>Receptionist</span></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Horizontal Line) -->
-            <div id="u84" class="ax_default line">
-                <img id="u84_img" class="img " src="images/receptionist_screen/u84.png"/>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u85" class="ax_default label">
-                <div id="u85_div" class=""></div>
-                <div id="u85_text" class="text ">
-                    <p><span><%                        
-                        if (session.getAttribute("CustomerFirst") != null) {
-                            out.write("Selected Customer: " + session.getAttribute("CustomerFirst") + " " + session.getAttribute("CustomerLast"));
-                        }
-                            %>
-                        </span></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u86" class="ax_default label">
-                <div id="u86_div" class=""></div>
-                <div id="u86_text" class="text ">
-                    <p><span>
-                            <%
-                                if (session.getAttribute("DiscountType") != null) {
-                                    if (session.getAttribute("DiscountType").equals("None")) {
-                                        out.write("No Discount");
-
-                                    } else if (session.getAttribute("DiscountType").equals("Variable Discount")) {
-
-                                        out.write("Variable Discount");
-                                    } else {
-                                        out.write(session.getAttribute("DiscountType") + " at " + session.getAttribute("Discount") + "%");
-                                    }
-                                }
-                            %>         
-                        </span></p>
-                </div>
-            </div>
+           
 
             <!-- Unnamed (Rectangle) -->
             <div id="u87" class="ax_default label">
@@ -521,10 +519,6 @@
                 </div>
             </div>
 
-            <!-- Unnamed (Shape) -->
-            <div id="u88" class="ax_default icon">
-                <img id="u88_img" class="img " src="images/receptionist_screen/u88.png"/>
-            </div>
 
             <!-- Unnamed (Rectangle) -->
             <div id="u89" class="ax_default button">
@@ -533,6 +527,7 @@
                     <p><span>Payment</span></p>
                 </div>
             </div>
+        </div>
         </div>
     </body>
 </html>
