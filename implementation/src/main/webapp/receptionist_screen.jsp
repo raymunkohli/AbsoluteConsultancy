@@ -241,7 +241,7 @@
 
             <!-- Unnamed (Text Field) -->
             <div id="u53" class="ax_default text_field">
-                <input id="u53_input" type="text" value="" />
+                <input id="u53_input" name="SpecInstruct" type="text" value="" form="addJobForm" required />
             </div>
 
             <!-- Unnamed (Group) -->
@@ -387,7 +387,7 @@
             <!-- Unnamed (Rectangle) -->
 
 
-            <form action="" method="post" id="addJobForm" name="addJobForm">
+            <form action="addJobServlet" method="post" id="addJobForm" name="addJobForm">
             <!-- Unnamed (Checkbox) -->
             <div id="u74" class="ax_default checkbox">
                 <label for="u74_input" style="position: absolute;">
@@ -395,7 +395,7 @@
                         <p><span>Urgent</span></p>
                     </div>
                 </label>
-                <input id="Urgent" type="checkbox" value="checkbox"/>
+                <input id="Urgent" name="Urgent" type="checkbox" value="checkbox"/>
             </div>
 
             <!-- Unnamed (Checkbox) -->
@@ -405,7 +405,7 @@
                         <p><span>Stipulated</span></p>
                     </div>
                 </label>
-                <input id="Stipulated" type="checkbox" value="checkbox"/>
+                <input id="Stipulated" name="Stipulated" type="checkbox" value="checkbox"/>
             </div>
 
             <!-- Unnamed (Group) -->
@@ -413,8 +413,8 @@
 
                 <!-- Unnamed (Text Field) -->
                 <div id="u77" class="ax_default text_field">
-                    <input id="deadlineDate" type="date" value=""/>
-                    <input id="deadlineTime" type="time" value=""/>
+                    <input id="deadlineDate" type="date"/>
+                    <input id="deadlineTime" name="deadlineTime" value="" type="time"/>
                 </div>
 
                 <!-- Unnamed (Shape) -->
@@ -430,12 +430,11 @@
                     <p><span>Deadline</span></p>
                 </div>
             </div>
-            <div id="u8" class="ax_default button">
-                <div id="u8_div" class=""></div>
-                <div id="u8_text" class="text ">
-                    <p><span>Add new job</span></p>
-                </div>
-            </div>
+            
+                <div id="u8" class="ax_default html_button">
+        <input id="u8_input" type="submit" value="Submit" form="addJobForm"/>
+      </div>
+          
            
             <input type="hidden" value="${totalPrice}"/>
             

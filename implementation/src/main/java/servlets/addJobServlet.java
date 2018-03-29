@@ -58,7 +58,7 @@ public class addJobServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        System.out.print(request.getParameter("deadlineDate"));
     }
 
     /**
@@ -72,7 +72,8 @@ public class addJobServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        System.out.print(request.getParameter("deadlineDate"));
+        request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
     }
 
     /**
