@@ -483,7 +483,8 @@
             <div id="u85" class="ax_default label">
                 <div id="u85_div" class=""></div>
                 <div id="u85_text" class="text ">
-                    <p><span><%                        if (session.getAttribute("CustomerFirst") != null) {
+                    <p><span><%                        
+                        if (session.getAttribute("CustomerFirst") != null) {
                             out.write("Selected Customer: " + session.getAttribute("CustomerFirst") + " " + session.getAttribute("CustomerLast"));
                         }
                             %>
