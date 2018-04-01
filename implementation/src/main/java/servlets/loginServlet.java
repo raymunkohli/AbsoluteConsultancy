@@ -65,7 +65,7 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        loginQuery lq = new loginQuery("Local instance MySQL57","root","1234"); //create the query
+        loginQuery lq = new loginQuery(); //create the query
         HttpSession session = request.getSession(true);
         String found = lq.doLoginQuery(request.getParameter("Username"), request.getParameter("Password"));
         

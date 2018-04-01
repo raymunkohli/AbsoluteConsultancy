@@ -23,23 +23,10 @@ import java.util.logging.Logger;
  *
  * @author raymun
  */
-public class getVariableDiscount {
-        private Connection c;
-    private ResultSet r;
+public class getVariableDiscount extends Query{
     
-    public getVariableDiscount(String dbname, String user, String pass){
-        String url = "jdbc:mysql://localhost:3306/sys?zeroDateTimeBehavior=convertToNull"; //db location
-        try {
-            Class.forName("com.mysql.jdbc.Driver"); //make instance of driver
-            this.c = DriverManager.getConnection(url,user,pass); //connect to db
-                        
-        } 
-        
-          catch (ClassNotFoundException ex) {
-            Logger.getLogger(loginQuery.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(loginQuery.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public getVariableDiscount(){
+        super();
     }
     
     public List<Variablediscount> doGetVariableDiscount(int custID){
@@ -51,7 +38,7 @@ public class getVariableDiscount {
                             "valuedcustomer.DiscountdiscountID = variablediscount.DiscountdiscountID\n" +
                             "WHERE CustomercustomerID ='" + custID + "';";
             System.out.println(Query);
-            s = this.c.prepareStatement(Query);
+            s = this.getC().prepareStatement(Query);
             ResultSet b = s.executeQuery();
             while(b.next()){
                 Variablediscount c = new Variablediscount();

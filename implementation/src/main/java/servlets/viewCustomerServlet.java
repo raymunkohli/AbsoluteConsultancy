@@ -82,7 +82,7 @@ public class viewCustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        viewCustomerQuery custQuery = new viewCustomerQuery("Local instance MySQL57","root","1234"); //create the query
+        viewCustomerQuery custQuery = new viewCustomerQuery(); //create the query
         ResultSet a = custQuery.selectAllCustomers();
         
         List<Customer> allCustomers = new ArrayList<Customer>();

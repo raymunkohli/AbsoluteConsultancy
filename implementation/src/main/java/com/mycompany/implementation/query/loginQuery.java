@@ -20,23 +20,11 @@ import java.util.logging.Logger;
  *
  * @author raymun
  */
-public class loginQuery {
-    private Connection c;
+public class loginQuery extends Query{
     private ResultSet r;
     
-    public loginQuery(String dbname, String user, String pass){
-        String url = "jdbc:mysql://localhost:3306/sys?zeroDateTimeBehavior=convertToNull"; //db location
-        try {
-            Class.forName("com.mysql.jdbc.Driver"); //make instance of driver
-            this.c = DriverManager.getConnection(url,user,pass); //connect to db
-            
-        } 
-        
-          catch (ClassNotFoundException ex) {
-            Logger.getLogger(loginQuery.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(loginQuery.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public loginQuery(){
+        super();
     }
     
     public String doLoginQuery(String user, String pass){
@@ -46,7 +34,7 @@ public class loginQuery {
             String[] theuser = user.split("\\."); 
             if (theuser.length >1){
                 String query = "SELECT * FROM staff WHERE staff.firstName = '" + theuser[0] + "' AND staff.surName = '" +theuser[1] +"' AND staff.password = "+ pass + ";" ;
-                PreparedStatement s = this.c.prepareStatement(query); //create statement 
+                PreparedStatement s = this.getC().prepareStatement(query); //create statement 
                 this.r = s.executeQuery(); //execute statement
                 r.next();
                 return r.getObject("employeeType").toString(); //returns if any rows are found

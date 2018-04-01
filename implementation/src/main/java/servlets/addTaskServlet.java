@@ -80,17 +80,17 @@ public class addTaskServlet extends HttpServlet {
         if (request.getSession().getAttribute("DiscountType") != null) {
             
             if ((request.getSession().getAttribute("DiscountType").equals("Variable Discount"))) {
-                viewTasks a = new viewTasks("asdw", "root", "1234");
+                viewTasks a = new viewTasks();
                 List<Basetask> theTasks = a.doViewTasks();
                 request.setAttribute("Tasks", theTasks);
 
                 List<Variablediscount> theDiscounts;
-                getVariableDiscount b = new getVariableDiscount("asdf", "root", "1234");
+                getVariableDiscount b = new getVariableDiscount();
                 theDiscounts = b.doGetVariableDiscount(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")));
                 request.setAttribute("VariableDiscounts", theDiscounts);
                 
             } else {
-                viewTasks a = new viewTasks("asdw", "root", "1234");
+                viewTasks a = new viewTasks();
                 List<Basetask> theTasks = a.doViewTasks();
                 request.setAttribute("Tasks", theTasks);
             }

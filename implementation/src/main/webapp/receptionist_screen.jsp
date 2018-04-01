@@ -96,7 +96,7 @@
 
                                         out.write("Variable Discount");
                                     } else {
-                                        out.write(session.getAttribute("Discount Type") + " at " + session.getAttribute("Discount") + "%");
+                                        out.write(session.getAttribute("DiscountType") + " at " + session.getAttribute("Discount") + "%");
                                     }
                                 }
                             %>         
@@ -159,6 +159,7 @@
                         <th> Price (after discount </th>
                     </tr>
                     <c:set var="totalPrice" value="0"/>
+                    <c:set var="totalTasks" value=""/>
                     <c:forEach items="${SelectedTasks}" var="tasks" varStatus="taskStatus">
 
                         <tr>
@@ -170,10 +171,11 @@
                             <td> <c:set var="taskWithDiscount" value="${tasks.price * ((100-calculatedDiscounts[taskStatus.index])/100)}" />
                                 <c:set var="totalPrice" value="${totalPrice + taskWithDiscount}"/>
                                 <c:out value="${taskWithDiscount}"/> </td>
+                                <c:set var="totalTasks" value="${totalTasks}${tasks.baseTaskID}¬"/>
                         </tr>
                         <input type="hidden" value="${tasks.baseTaskID}" name="${tasks.baseTaskID}" form="addJobForm"/>
                     </c:forEach>
-
+                        <input type="hidden" value="${totalTasks}" name="TotalTasks" form="addJobForm"/>
 
 
 
@@ -441,21 +443,24 @@
             <!-- Unnamed (Checkbox) -->
             <div id="u74" class="ax_default checkbox">
                 <label for="u74_input" style="position: absolute;">
+                    
                     <div id="u74_text" class="text ">
-                        <p><span>Urgent</span></p>
+                        <p><input id="Urgent" name="Type" type="radio" value="urgent" required/>
+                        <span> Urgent</span></p>
                     </div>
                 </label>
-                <input id="Urgent" name="Urgent" type="checkbox" value="checkbox"/>
             </div>
 
             <!-- Unnamed (Checkbox) -->
             <div id="u75" class="ax_default checkbox">
                 <label for="u75_input" style="position: absolute;">
-                    <div id="u75_text" class="text ">
-                        <p><span>Stipulated</span></p>
-                    </div>
+                    <div id="u75_text" class="text">
+                        <p><input id="Stipulated" name="Type" type="radio" value="stipulated"/>
+                        Stipulated |
+                        Surcharge : <input id="StipulatedAmount" name="StipulatedAmount" type="text" size="5"/>
+                        Time : <input id="StipulatedTime" name="StipulatedTime" type="time"/></p>
                 </label>
-                <input id="Stipulated" name="Stipulated" type="checkbox" value="checkbox"/>
+                    </div>
             </div>
 
             <!-- Unnamed (Group) -->
@@ -463,21 +468,17 @@
 
                 <!-- Unnamed (Text Field) -->
                 <div id="u77" class="ax_default text_field">
-                    <input id="deadlineDate" type="date"/>
-                    <input id="deadlineTime" name="deadlineTime" value="" type="time"/>
+
                 </div>
 
                 <!-- Unnamed (Shape) -->
-                <div id="u78" class="ax_default icon">
-                    <img id="u78_img" class="img " src="images/receptionist_screen/u78.png"/>
-                </div>
             </div>
 
             <!-- Unnamed (Rectangle) -->
             <div id="u79" class="ax_default label">
                 <div id="u79_div" class=""></div>
                 <div id="u79_text" class="text ">
-                    <p><span>Deadline</span></p>
+                    <p><span><input id="regular" name="Type" type="radio" value="regular"/> Regular </span></p>
                 </div>
             </div>
             
@@ -510,11 +511,14 @@
             </div>
 
            
-
+            
             <!-- Unnamed (Rectangle) -->
             <div id="u87" class="ax_default label">
                 <div id="u87_div" class=""></div>
                 <div id="u87_text" class="text ">
+                    
+                    
+                    
                     <p><span>Price: £ <c:if test="${not empty totalPrice}"><c:out value="${totalPrice}"/></c:if></span></p>
                 </div>
             </div>

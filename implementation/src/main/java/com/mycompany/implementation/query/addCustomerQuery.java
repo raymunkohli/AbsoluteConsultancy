@@ -18,23 +18,10 @@ import java.util.logging.Logger;
  *
  * @author raymun
  */
-public class addCustomerQuery {
-        private Connection c;
-    private ResultSet r;
+public class addCustomerQuery extends Query {
     
-    public addCustomerQuery(String dbname, String user, String pass){
-        String url = "jdbc:mysql://localhost:3306/sys?zeroDateTimeBehavior=convertToNull"; //db location
-        try {
-            Class.forName("com.mysql.jdbc.Driver"); //make instance of driver
-            this.c = DriverManager.getConnection(url,user,pass); //connect to db
-                        
-        } 
-        
-          catch (ClassNotFoundException ex) {
-            Logger.getLogger(loginQuery.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(loginQuery.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public addCustomerQuery(){
+        super();
     }
     
     public void doAddCustomerQuery(Customer c){
@@ -44,7 +31,7 @@ public class addCustomerQuery {
                 + c.getName() +"','" +c.getSurname() + "','" + c.getPhoneNo() + "','" + c.getEmail() +"','"
                 + c.getAddress() +"','"+c.getPostcode() +"');";
                 System.out.println(query);
-                s = this.c.prepareStatement(query);
+                s = this.getC().prepareStatement(query);
                 s.execute();
             } catch (SQLException ex) {
                 Logger.getLogger(addCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);

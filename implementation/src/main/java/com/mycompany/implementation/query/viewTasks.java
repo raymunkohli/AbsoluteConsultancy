@@ -21,23 +21,10 @@ import java.util.logging.Logger;
  *
  * @author raymun
  */
-public class viewTasks {
+public class viewTasks extends Query{
 
-    private Connection c;
-    private ResultSet r;
-
-    public viewTasks(String dbname, String user, String pass) {
-        String url = "jdbc:mysql://localhost:3306/sys?zeroDateTimeBehavior=convertToNull"; //db location
-        try {
-            Class.forName("com.mysql.jdbc.Driver"); //make instance of driver
-            this.c = DriverManager.getConnection(url, user, pass); //connect to db
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(loginQuery.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(loginQuery.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    public viewTasks() {
+        super();
     }
 
     public List<Basetask> doViewTasks() {
@@ -45,7 +32,7 @@ public class viewTasks {
         ResultSet taskResultSet;
         try {
             String query = "SELECT * FROM basetask";
-            PreparedStatement s = this.c.prepareStatement(query);
+            PreparedStatement s = this.getC().prepareStatement(query);
             taskResultSet = s.executeQuery();
             while(taskResultSet.next()){
                 Basetask a = new Basetask();

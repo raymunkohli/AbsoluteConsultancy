@@ -7,6 +7,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,7 +73,14 @@ public class addJobServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.print(request.getParameter("deadlineDate"));
+        
+        //insert each task
+        String TaskString = request.getParameter("TotalTasks");
+        String[] TaskList = TaskString.split("¬");
+        for(String a:TaskList){
+                
+        }
+        
         request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
     }
 

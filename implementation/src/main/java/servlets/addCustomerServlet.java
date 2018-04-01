@@ -74,7 +74,7 @@ public class addCustomerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        addCustomerQuery cust = new addCustomerQuery("nothing","root","1234");
+        addCustomerQuery cust = new addCustomerQuery();
         
         
         Customer c = new Customer();

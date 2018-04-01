@@ -17,22 +17,9 @@ import java.util.logging.Logger;
  *
  * @author raymun
  */
-public class viewCustomerQuery {
-    Connection c;
-        public viewCustomerQuery(String dbname, String user, String pass){
-        String url = "jdbc:mysql://localhost:3306/sys?zeroDateTimeBehavior=convertToNull"; //db location
-        try {
-            Class.forName("com.mysql.jdbc.Driver"); //make instance of driver
-            this.c = DriverManager.getConnection(url,user,pass); //connect to db
-            c.setSchema("new_schema");
-            
-        } 
-        
-          catch (ClassNotFoundException ex) {
-            Logger.getLogger(loginQuery.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(loginQuery.class.getName()).log(Level.SEVERE, null, ex);
-        }
+public class viewCustomerQuery extends Query{
+        public viewCustomerQuery(){
+        super();
     }
         
         
@@ -51,7 +38,7 @@ public class viewCustomerQuery {
                     + "ORDER BY customer.customerID ASC";
             System.out.println(query);
 
-            PreparedStatement s = this.c.prepareStatement(query);
+            PreparedStatement s = this.getC().prepareStatement(query);
             
             
             return s.executeQuery();
