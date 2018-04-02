@@ -5,9 +5,11 @@
  */
 package com.mycompany.implementation.query;
 
-import com.mycompany.implementation.domain.Customer;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,22 +19,31 @@ import java.util.logging.Logger;
  */
 public class addJobQuery extends Query {
 
-    addJobQuery() {
+    public addJobQuery() {
         super();
     }
 
-    public void doAddJobQuery(Customer c) {
+    public int doAddJobQuery(int c, LocalDateTime order, LocalDateTime deadline, String Spec, double value) {
         PreparedStatement s;
         try {
-            String query = "INSERT INTO customer (name,surname,phoneNo,email,address,postcode) VALUES('"
-                    + c.getName() + "','" + c.getSurname() + "','" + c.getPhoneNo() + "','" + c.getEmail() + "','"
-                    + c.getAddress() + "','" + c.getPostcode() + "');";
-            System.out.println(query);
-            s = this.getC().prepareStatement(query);
-            s.execute();
+            System.out.println(deadline);
+            String query = "INSERT INTO Job(CustomercustomerID,orderDate,specInstructions,deadline,surcharge,value)"
+                    + "Values('" + c + "','" + order + "','" + Spec + "','" 
+                    + deadline + "','0','" + value + "');";
+                    
+            String getJob = "SELECT LAST_INSERT_ID";
+            s = this.getC().prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+            
+            int rows = s.executeUpdate();
+            ResultSet JobIDSet = s.getGeneratedKeys();
+            JobIDSet.next();
+            int JobID =JobIDSet.getInt(1);
+            return JobID;
+            
         } catch (SQLException ex) {
             Logger.getLogger(addCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }
-
     }
+
 }

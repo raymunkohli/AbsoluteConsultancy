@@ -20,7 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -69,8 +68,6 @@ public class Task implements Serializable {
     private Staff staffstaffID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "task")
     private Collection<Enquire> enquireCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "task")
-    private Variablediscount variablediscount;
 
     public Task() {
     }
@@ -144,14 +141,6 @@ public class Task implements Serializable {
         this.enquireCollection = enquireCollection;
     }
 
-    public Variablediscount getVariablediscount() {
-        return variablediscount;
-    }
-
-    public void setVariablediscount(Variablediscount variablediscount) {
-        this.variablediscount = variablediscount;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -174,7 +163,7 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Task[ taskID=" + taskID + " ]";
+        return "com.mycompany.implementation.domain.Task[ taskID=" + taskID + " ]";
     }
     
 }

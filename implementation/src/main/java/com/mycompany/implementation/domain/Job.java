@@ -6,12 +6,11 @@
 package com.mycompany.implementation.domain;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,15 +18,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -56,10 +52,10 @@ public class Job implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "orderDate")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
     @Column(name = "collectionDate")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date collectionDate;
     @Basic(optional = false)
     @NotNull
@@ -69,7 +65,7 @@ public class Job implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "deadline")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date deadline;
     @Basic(optional = false)
     @NotNull
@@ -79,12 +75,8 @@ public class Job implements Serializable {
     @NotNull
     @Column(name = "value")
     private double value;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobJobID")
-    private Collection<Task> taskCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "job")
-    private Payment payment;
     @JoinColumn(name = "CustomercustomerID", referencedColumnName = "customerID")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Customer customercustomerID;
 
     public Job() {
@@ -159,23 +151,6 @@ public class Job implements Serializable {
         this.value = value;
     }
 
-    @XmlTransient
-    public Collection<Task> getTaskCollection() {
-        return taskCollection;
-    }
-
-    public void setTaskCollection(Collection<Task> taskCollection) {
-        this.taskCollection = taskCollection;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
     public Customer getCustomercustomerID() {
         return customercustomerID;
     }
@@ -206,7 +181,7 @@ public class Job implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Job[ jobID=" + jobID + " ]";
+        return "com.mycompany.implementation.domain.Job[ jobID=" + jobID + " ]";
     }
     
 }

@@ -107,7 +107,7 @@ public class Enquire implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Enquire[ enquirePK=" + enquirePK + " ]";
+        return "com.mycompany.implementation.domain.Enquire[ enquirePK=" + enquirePK + " ]";
     }
     
 }

@@ -115,7 +115,7 @@ public class Flexiblediscount implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Flexiblediscount[ discountdiscountID=" + discountdiscountID + " ]";
+        return "com.mycompany.implementation.domain.Flexiblediscount[ discountdiscountID=" + discountdiscountID + " ]";
     }
     
 }

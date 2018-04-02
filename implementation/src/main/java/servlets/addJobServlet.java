@@ -5,9 +5,13 @@
  */
 package servlets;
 
+import com.mycompany.implementation.domain.Job;
+import com.mycompany.implementation.query.addJobQuery;
+import com.mycompany.implementation.query.addTaskQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +42,7 @@ public class addJobServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addJobServlet</title>");            
+            out.println("<title>Servlet addJobServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet addJobServlet at " + request.getContextPath() + "</h1>");
@@ -73,15 +77,59 @@ public class addJobServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //insert each task
-        String TaskString = request.getParameter("TotalTasks");
-        String[] TaskList = TaskString.split("¬");
-        for(String a:TaskList){
-                
+        //check all fields are set
+        if (request.getParameter("Type").equals("stipulated") && (request.getParameter("StipulatedAmount").equals("") || (request.getParameter("StipulatedTime").equals("")))) {
+            request.setAttribute("Err", "Stipulated Surcharge/Time missing");
+            request.getRequestDispatcher("receptionist_screen.jsp").forward(request, response);
+        } 
+        //check that cust is selected
+        else if(request.getSession().getAttribute("CustomerID")==null){
+            request.setAttribute("Err", "Select a customer first");
+            request.getRequestDispatcher("receptionist_screen.jsp").forward(request, response);
         }
         
-        request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
+        
+        
+        else { //tests are passed so job can be created
+            double Price = Double.parseDouble(request.getParameter("Price"));
+            
+            //get timestamps
+            LocalDateTime Current = LocalDateTime.now();
+            LocalDateTime Deadline = Current;
+            //setup deadline +price if stipulated
+            switch (request.getParameter("Type")) {
+                case "stipulated":
+                    LocalTime StipTime = LocalTime.parse(request.getParameter("StipulatedTime"));
+                    Deadline = Current.plusHours(StipTime.getHour());
+                    Deadline.plusMinutes(StipTime.getMinute());
+                    Price = Double.parseDouble(request.getParameter("StipulatedAmount")) + Price;
+                    break; 
+                case "urgent":
+                    Deadline = Current.plusHours(6);
+                    break;
+                case "regular":
+                    Deadline = Current.plusDays(1);
+                    break;
+            }
+            Job job = new Job();
+            //job.setDeadline(new Date(Deadline.getYear(),Deadline.getMonthValue(),Deadline.getDayOfMonth(),Deadline.getHour(),Deadline.getMinute(),Deadline.getSecond()));
+            job.setSpecInstructions(request.getParameter("SpecInstruct"));
+            job.setValue(Price);
+            addJobQuery j = new addJobQuery();
+            int jobid = j.doAddJobQuery(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")), Current, Deadline, job.getSpecInstructions(), Price);
+            
+            
+            //insert each task
+            String TaskString = request.getParameter("TotalTasks");
+            String[] TaskList = TaskString.split("`");
+            
+            addTaskQuery t = new addTaskQuery();
+            for (String a : TaskList) {
+                t.doAddTaskQuery(jobid, Integer.parseInt(a));
+            }
+
+            request.getRequestDispatcher("receptionist_screen.jsp").forward(request, response);
+        }
     }
 
     /**

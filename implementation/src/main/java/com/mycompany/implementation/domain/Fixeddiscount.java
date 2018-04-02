@@ -96,7 +96,7 @@ public class Fixeddiscount implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Fixeddiscount[ discountdiscountID=" + discountdiscountID + " ]";
+        return "com.mycompany.implementation.domain.Fixeddiscount[ discountdiscountID=" + discountdiscountID + " ]";
     }
     
 }

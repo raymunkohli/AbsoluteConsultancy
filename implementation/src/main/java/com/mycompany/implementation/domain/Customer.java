@@ -196,7 +196,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Customer[ customerID=" + customerID + " ]";
+        return "com.mycompany.implementation.domain.Customer[ customerID=" + customerID + " ]";
     }
     
 }

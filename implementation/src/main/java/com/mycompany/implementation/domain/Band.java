@@ -135,7 +135,7 @@ public class Band implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Band[ bandID=" + bandID + " ]";
+        return "com.mycompany.implementation.domain.Band[ bandID=" + bandID + " ]";
     }
     
 }

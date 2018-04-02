@@ -34,14 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Staff.findByStaffID", query = "SELECT s FROM Staff s WHERE s.staffID = :staffID")
     , @NamedQuery(name = "Staff.findByFirstName", query = "SELECT s FROM Staff s WHERE s.firstName = :firstName")
     , @NamedQuery(name = "Staff.findBySurName", query = "SELECT s FROM Staff s WHERE s.surName = :surName")
-    , @NamedQuery(name = "Staff.findByEmployeeType", query = "SELECT s FROM Staff s WHERE s.employeeType = :employeeType")})
+    , @NamedQuery(name = "Staff.findByEmployeeType", query = "SELECT s FROM Staff s WHERE s.employeeType = :employeeType")
+    , @NamedQuery(name = "Staff.findByPassword", query = "SELECT s FROM Staff s WHERE s.password = :password")})
 public class Staff implements Serializable {
-
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "password")
-    private String password;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,6 +59,11 @@ public class Staff implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "employeeType")
     private String employeeType;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "password")
+    private String password;
     @OneToMany(mappedBy = "staffstaffID")
     private Collection<Task> taskCollection;
 
@@ -74,11 +74,12 @@ public class Staff implements Serializable {
         this.staffID = staffID;
     }
 
-    public Staff(Integer staffID, String firstName, String surName, String employeeType) {
+    public Staff(Integer staffID, String firstName, String surName, String employeeType, String password) {
         this.staffID = staffID;
         this.firstName = firstName;
         this.surName = surName;
         this.employeeType = employeeType;
+        this.password = password;
     }
 
     public Integer getStaffID() {
@@ -113,6 +114,14 @@ public class Staff implements Serializable {
         this.employeeType = employeeType;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @XmlTransient
     public Collection<Task> getTaskCollection() {
         return taskCollection;
@@ -144,15 +153,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Staff[ staffID=" + staffID + " ]";
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+        return "com.mycompany.implementation.domain.Staff[ staffID=" + staffID + " ]";
     }
     
 }

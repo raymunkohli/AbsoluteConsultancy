@@ -108,7 +108,7 @@ public class Valuedcustomer implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Valuedcustomer[ customercustomerID=" + customercustomerID + " ]";
+        return "com.mycompany.implementation.domain.Valuedcustomer[ customercustomerID=" + customercustomerID + " ]";
     }
     
 }

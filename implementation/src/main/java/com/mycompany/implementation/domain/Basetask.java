@@ -153,7 +153,7 @@ public class Basetask implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Basetask[ baseTaskID=" + baseTaskID + " ]";
+        return "com.mycompany.implementation.domain.Basetask[ baseTaskID=" + baseTaskID + " ]";
     }
     
 }

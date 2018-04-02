@@ -135,7 +135,7 @@ public class Cardpayment implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Cardpayment[ paymentJobJobID=" + paymentJobJobID + " ]";
+        return "com.mycompany.implementation.domain.Cardpayment[ paymentJobJobID=" + paymentJobJobID + " ]";
     }
     
 }

@@ -96,7 +96,7 @@ public class Suspendedcustomer implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Suspendedcustomer[ valuedCustomerCustomercustomerID=" + valuedCustomerCustomercustomerID + " ]";
+        return "com.mycompany.implementation.domain.Suspendedcustomer[ valuedCustomerCustomercustomerID=" + valuedCustomerCustomercustomerID + " ]";
     }
     
 }

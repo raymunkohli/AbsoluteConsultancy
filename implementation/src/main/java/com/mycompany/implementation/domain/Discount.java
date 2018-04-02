@@ -52,8 +52,6 @@ public class Discount implements Serializable {
     private Flexiblediscount flexiblediscount;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "discount")
     private Fixeddiscount fixeddiscount;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "discount")
-    private Variablediscount variablediscount;
     @OneToMany(mappedBy = "discountdiscountID")
     private Collection<Valuedcustomer> valuedcustomerCollection;
 
@@ -101,14 +99,6 @@ public class Discount implements Serializable {
         this.fixeddiscount = fixeddiscount;
     }
 
-    public Variablediscount getVariablediscount() {
-        return variablediscount;
-    }
-
-    public void setVariablediscount(Variablediscount variablediscount) {
-        this.variablediscount = variablediscount;
-    }
-
     @XmlTransient
     public Collection<Valuedcustomer> getValuedcustomerCollection() {
         return valuedcustomerCollection;
@@ -140,7 +130,7 @@ public class Discount implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Discount[ discountID=" + discountID + " ]";
+        return "com.mycompany.implementation.domain.Discount[ discountID=" + discountID + " ]";
     }
     
 }

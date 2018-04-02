@@ -77,7 +77,7 @@ public class EnquirePK implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.EnquirePK[ tasktaskID=" + tasktaskID + ", enquireNumber=" + enquireNumber + " ]";
+        return "com.mycompany.implementation.domain.EnquirePK[ tasktaskID=" + tasktaskID + ", enquireNumber=" + enquireNumber + " ]";
     }
     
 }

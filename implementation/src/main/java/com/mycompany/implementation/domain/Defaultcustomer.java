@@ -85,7 +85,7 @@ public class Defaultcustomer implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.Defaultcustomer[ suspendedCustomerValuedCustomerCustomercustomerID=" + suspendedCustomerValuedCustomerCustomercustomerID + " ]";
+        return "com.mycompany.implementation.domain.Defaultcustomer[ suspendedCustomerValuedCustomerCustomercustomerID=" + suspendedCustomerValuedCustomerCustomercustomerID + " ]";
     }
     
 }

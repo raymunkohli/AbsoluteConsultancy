@@ -171,7 +171,7 @@
                             <td> <c:set var="taskWithDiscount" value="${tasks.price * ((100-calculatedDiscounts[taskStatus.index])/100)}" />
                                 <c:set var="totalPrice" value="${totalPrice + taskWithDiscount}"/>
                                 <c:out value="${taskWithDiscount}"/> </td>
-                                <c:set var="totalTasks" value="${totalTasks}${tasks.baseTaskID}¬"/>
+                                <c:set var="totalTasks" value="${totalTasks}${tasks.baseTaskID}`"/>
                         </tr>
                         <input type="hidden" value="${tasks.baseTaskID}" name="${tasks.baseTaskID}" form="addJobForm"/>
                     </c:forEach>
@@ -457,7 +457,7 @@
                     <div id="u75_text" class="text">
                         <p><input id="Stipulated" name="Type" type="radio" value="stipulated"/>
                         Stipulated |
-                        Surcharge : <input id="StipulatedAmount" name="StipulatedAmount" type="text" size="5"/>
+                        Surcharge : <input id="StipulatedAmount" name="StipulatedAmount" type="number" style="width:50px;-moz-appearance:textfield;" step="0.01"/>
                         Time : <input id="StipulatedTime" name="StipulatedTime" type="time"/></p>
                 </label>
                     </div>
@@ -483,11 +483,12 @@
             </div>
             
                 <div id="u8" class="ax_default html_button">
+                    
         <input id="u8_input" type="submit" value="Submit" form="addJobForm"/>
       </div>
           
            
-            <input type="hidden" value="${totalPrice}"/>
+            <input type="hidden" value="${totalPrice}" name="Price"/>
             
             
             
@@ -516,10 +517,9 @@
             <div id="u87" class="ax_default label">
                 <div id="u87_div" class=""></div>
                 <div id="u87_text" class="text ">
-                    
-                    
-                    
+
                     <p><span>Price: £ <c:if test="${not empty totalPrice}"><c:out value="${totalPrice}"/></c:if></span></p>
+                    <p><c:if test="${not empty Err}"><c:out value="${Err}"/></c:if>
                 </div>
             </div>
 
