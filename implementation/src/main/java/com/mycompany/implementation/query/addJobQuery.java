@@ -27,11 +27,10 @@ public class addJobQuery extends Query {
         PreparedStatement s;
         try {
             System.out.println(deadline);
-            String query = "INSERT INTO Job(CustomercustomerID,orderDate,specInstructions,deadline,surcharge,value)"
+            String query = "INSERT INTO Job(CustomercustomerID,orderDate,specInstructions,deadline,paid,value)"
                     + "Values('" + c + "','" + order + "','" + Spec + "','" 
                     + deadline + "','0','" + value + "');";
                     
-            String getJob = "SELECT LAST_INSERT_ID";
             s = this.getC().prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             
             int rows = s.executeUpdate();

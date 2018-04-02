@@ -43,6 +43,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Job.findByValue", query = "SELECT j FROM Job j WHERE j.value = :value")})
 public class Job implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "paid")
+    private short paid;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -182,6 +187,14 @@ public class Job implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.implementation.domain.Job[ jobID=" + jobID + " ]";
+    }
+
+    public short getPaid() {
+        return paid;
+    }
+
+    public void setPaid(short paid) {
+        this.paid = paid;
     }
     
 }
