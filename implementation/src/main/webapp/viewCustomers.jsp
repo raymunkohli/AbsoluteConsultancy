@@ -8,33 +8,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <style>
-            body
-            {
-                font-family: sans-serif;
-                font-size: 11pt;
-            }
-
-            table, th, td
-            {
-                border: 1px;
-                border-collapse: collapse;
-            }
-
-            th, td
-            {
-                padding: 10px;
-                text-align: center;
-            }
-
-            th
-            {
-                background-color: #111e61;
-                color: white;
-            }
-        </style>
-    </head>
+    <head> </head>
+    <link href="resources/tablecss.css" type="text/css" rel="stylesheet"/>
+    
 </head>
 <body>
     <table class="">

@@ -127,7 +127,14 @@ public class addJobServlet extends HttpServlet {
             for (String a : TaskList) {
                 t.doAddTaskQuery(jobid, Integer.parseInt(a));
             }
-
+            
+            //clear customer session information
+            
+            request.getSession().removeAttribute("DiscountType");
+            request.getSession().removeAttribute("CustomerFirst");
+            request.getSession().removeAttribute("CustomerLast");
+            request.getSession().removeAttribute("CustomerID");
+            
             request.getRequestDispatcher("receptionist_screen.jsp").forward(request, response);
         }
     }

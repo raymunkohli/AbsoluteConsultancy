@@ -47,5 +47,21 @@ public class viewCustomerQuery extends Query{
             Logger.getLogger(viewCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-       } 
+       }
+       
+       public ResultSet selectPaymentCust(){
+           try{
+               String query ="SELECT distinct customer.customerID,customer.name,customer.surname,customer.address,customer.phoneNo,customer.postcode\n" +
+                             "FROM customer\n" +
+                                "INNER JOIN job on job.CustomercustomerID = customer.customerID\n" +
+                               "WHERE job.paid = 0 AND job.finished = 1;";
+                 PreparedStatement s = this.getC().prepareStatement(query);
+                 return s.executeQuery();
+                 
+           } catch (SQLException ex) {
+                Logger.getLogger(viewCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+
+       }
 }

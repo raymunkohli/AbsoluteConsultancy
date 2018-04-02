@@ -528,7 +528,7 @@
             <div id="u89" class="ax_default button">
                 <div id="u89_div" class=""></div>
                 <div id="u89_text" class="text ">
-                    <p><span>Payment</span></p>
+                    <p><span><form action="payment.jsp"><input type="submit" value="Payment"></form></span></p>
                 </div>
             </div>
         </div>
