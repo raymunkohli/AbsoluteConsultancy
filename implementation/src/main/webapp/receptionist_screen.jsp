@@ -6,6 +6,8 @@
 --%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="receptionistCheck.jsp" %>
 <!DOCTYPE html>
@@ -161,7 +163,6 @@
                     <c:set var="totalPrice" value="0"/>
                     <c:set var="totalTasks" value=""/>
                     <c:forEach items="${SelectedTasks}" var="tasks" varStatus="taskStatus">
-
                         <tr>
                             <td><c:out value="${tasks.baseTaskID}"/></td>
                             <td><c:out value="${tasks.taskName}"/></td>
@@ -169,6 +170,7 @@
                             <td><c:out value="${tasks.price}"/></td>
                             <td> <c:out value= "${calculatedDiscounts[taskStatus.index]}"/> </td>
                             <td> <c:set var="taskWithDiscount" value="${tasks.price * ((100-calculatedDiscounts[taskStatus.index])/100)}" />
+                                <fmt:formatNumber maxFractionDigits="2" value="${taskWithDiscount}" var="taskWithDiscount" />
                                 <c:set var="totalPrice" value="${totalPrice + taskWithDiscount}"/>
                                 <c:out value="${taskWithDiscount}"/> </td>
                                 <c:set var="totalTasks" value="${totalTasks}${tasks.baseTaskID}`"/>
@@ -176,9 +178,6 @@
                         <input type="hidden" value="${tasks.baseTaskID}" name="${tasks.baseTaskID}" form="addJobForm"/>
                     </c:forEach>
                         <input type="hidden" value="${totalTasks}" name="TotalTasks" form="addJobForm"/>
-
-
-
                 </table>
             </div>
 
