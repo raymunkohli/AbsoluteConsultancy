@@ -16,6 +16,7 @@
     <table class="">
         <tr>
             <th> Customer ID </th>
+            <th> Account Holder </th>
             <th> First Name </th>
             <th> Last Name </th>
             <th> Email </th>
@@ -31,6 +32,7 @@
             <tr>
             <form action="selectedCustomerServlet" method="post">
                 <td> <c:out value="${cust.customerID}" /> <input type="hidden" name="id" value="${cust.customerID}"></td>
+                <td> <c:out value="${cust.holder}" /> <input type="hidden" name="id" value="${cust.holder}"></td>
                 <td> <c:out value="${cust.name}" /> <input type="hidden" name="firstname" value="${cust.name}"></td>
                 <td> <c:out value="${cust.surname}" /> <input type="hidden" name="lastname" value="${cust.surname}"></td>
                 <td> <c:out value="${cust.email}" /> <input type="hidden" name="email" value="${cust.email}"></td>

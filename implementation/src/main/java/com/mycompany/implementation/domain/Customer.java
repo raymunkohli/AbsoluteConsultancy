@@ -6,9 +6,7 @@
 package com.mycompany.implementation.domain;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,13 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Customer.findByPhoneNo", query = "SELECT c FROM Customer c WHERE c.phoneNo = :phoneNo")
     , @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")
     , @NamedQuery(name = "Customer.findByAddress", query = "SELECT c FROM Customer c WHERE c.address = :address")
-    , @NamedQuery(name = "Customer.findByPostcode", query = "SELECT c FROM Customer c WHERE c.postcode = :postcode")})
+    , @NamedQuery(name = "Customer.findByPostcode", query = "SELECT c FROM Customer c WHERE c.postcode = :postcode")
+    , @NamedQuery(name = "Customer.findByHolder", query = "SELECT c FROM Customer c WHERE c.holder = :holder")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -79,10 +75,11 @@ public class Customer implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "postcode")
     private String postcode;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customercustomerID")
-    private Collection<Job> jobCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
-    private Valuedcustomer valuedcustomer;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "holder")
+    private String holder;
 
     public Customer() {
     }
@@ -91,7 +88,7 @@ public class Customer implements Serializable {
         this.customerID = customerID;
     }
 
-    public Customer(Integer customerID, String name, String surname, String phoneNo, String email, String address, String postcode) {
+    public Customer(Integer customerID, String name, String surname, String phoneNo, String email, String address, String postcode, String holder) {
         this.customerID = customerID;
         this.name = name;
         this.surname = surname;
@@ -99,6 +96,7 @@ public class Customer implements Serializable {
         this.email = email;
         this.address = address;
         this.postcode = postcode;
+        this.holder = holder;
     }
 
     public Integer getCustomerID() {
@@ -157,21 +155,12 @@ public class Customer implements Serializable {
         this.postcode = postcode;
     }
 
-    @XmlTransient
-    public Collection<Job> getJobCollection() {
-        return jobCollection;
+    public String getHolder() {
+        return holder;
     }
 
-    public void setJobCollection(Collection<Job> jobCollection) {
-        this.jobCollection = jobCollection;
-    }
-
-    public Valuedcustomer getValuedcustomer() {
-        return valuedcustomer;
-    }
-
-    public void setValuedcustomer(Valuedcustomer valuedcustomer) {
-        this.valuedcustomer = valuedcustomer;
+    public void setHolder(String holder) {
+        this.holder = holder;
     }
 
     @Override

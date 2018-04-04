@@ -7,6 +7,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,6 +73,14 @@ public class viewInvoiceServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //System.out.println(((ArrayList<Integer>) request.getAttribute("Jobs")));
+        
+        
+        
+        for(int a:(ArrayList<Integer>) request.getAttribute("Jobs")){
+            
+            
+        }
         request.getRequestDispatcher("invoice.jsp").forward(request,response);
     }
 

@@ -27,7 +27,7 @@ public class viewCustomerQuery extends Query{
           
         try {
             String query = "SELECT customer.customerID, customer.name, customer.surname,"
-                    + " customer.phoneNo, customer.email, customer.address, customer.postcode,\n" +
+                    + " customer.phoneNo, customer.email, customer.address, customer.postcode,customer.holder,\n" +
                         "fixeddiscount.percentDiscount, band.discount,discount.discountType\n" +
                         "FROM customer\n" +
                         "LEFT JOIN valuedcustomer ON valuedcustomer.CustomercustomerID = customer.customerID\n" +
@@ -51,7 +51,7 @@ public class viewCustomerQuery extends Query{
        
        public ResultSet selectPaymentCust(){
            try{
-               String query ="SELECT distinct customer.customerID,customer.name,customer.surname,customer.address,customer.phoneNo,customer.postcode\n" +
+               String query ="SELECT distinct customer.customerID,customer.name,customer.surname,customer.address,customer.phoneNo,customer.postcode,customer.holder\n" +
                 "FROM customer\n" +
                 "INNER JOIN job on job.CustomercustomerID = customer.customerID\n" +
                 "LEFT JOIN payment ON job.JobID = payment.JobJobID WHERE payment.JobJobID IS NULL;";

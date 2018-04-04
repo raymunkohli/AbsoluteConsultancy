@@ -27,9 +27,9 @@ public class addCustomerQuery extends Query {
     public void doAddCustomerQuery(Customer c){
         PreparedStatement s;
             try {
-                String query = "INSERT INTO customer (name,surname,phoneNo,email,address,postcode) VALUES('"
+                String query = "INSERT INTO customer (name,surname,phoneNo,email,address,postcode,holder) VALUES('"
                 + c.getName() +"','" +c.getSurname() + "','" + c.getPhoneNo() + "','" + c.getEmail() +"','"
-                + c.getAddress() +"','"+c.getPostcode() +"');";
+                + c.getAddress() +"','"+c.getPostcode() +"','"+c.getHolder()+"');";
                 System.out.println(query);
                 s = this.getC().prepareStatement(query);
                 s.execute();

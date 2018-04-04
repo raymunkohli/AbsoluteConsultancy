@@ -98,6 +98,7 @@ public class viewCustomerServlet extends HttpServlet {
                 singleCust.setPhoneNo(a.getString("phoneNo"));
                 singleCust.setPostcode(a.getString("postcode"));
                 singleCust.setAddress(a.getString("address"));
+                singleCust.setHolder(a.getString("holder"));
                 allCustomers.add(singleCust);
                 if (a.getString("discountType")!= null){
                     

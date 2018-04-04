@@ -261,8 +261,9 @@
                 <div id="u49" class="ax_default text_field">
                     <input name="postcode" type="text" value="" required/>
                 </div>
-
-
+                <div id="u49a" class="ax_default text_field">
+                    Holder: <input name="holder" type="text" value="" required/>
+                </div>
                 <div id="u73" class="ax_default html_button">
                     <input id="u73_input" type="submit" value="Add Customer"/>
                 </div>

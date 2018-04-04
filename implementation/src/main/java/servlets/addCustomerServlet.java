@@ -84,6 +84,7 @@ public class addCustomerServlet extends HttpServlet {
         c.setSurname(request.getParameter("surname"));
         c.setPostcode(request.getParameter("postcode"));
         c.setPhoneNo(request.getParameter("phone"));
+        c.setHolder(request.getParameter("holder"));
         
         cust.doAddCustomerQuery(c);
         

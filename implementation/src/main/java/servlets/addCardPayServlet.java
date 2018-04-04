@@ -79,13 +79,13 @@ public class addCardPayServlet extends HttpServlet {
         addPaymentQuery a = new addPaymentQuery();
         List<Integer> jobs = new ArrayList();
         for(int num = 0; num !=Integer.parseInt(request.getParameter("numberofjobs")); num++){
-           jobs.add(Integer.parseInt(request.getParameter("numberofjobs")));
+           jobs.add(Integer.parseInt(request.getParameter(String.valueOf(num))));
            a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cardPayDate")));
            a.addCardPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), request.getParameter("digits"), request.getParameter("expdate"), request.getParameter("type"));
         }
         
         request.setAttribute("Jobs", jobs);
-        response.sendRedirect("viewInvoiceServlet");
+        request.getRequestDispatcher("viewInvoiceServlet").forward(request, response);
     }
 
     /**

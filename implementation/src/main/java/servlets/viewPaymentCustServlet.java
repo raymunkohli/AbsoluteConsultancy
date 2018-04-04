@@ -92,6 +92,7 @@ public class viewPaymentCustServlet extends HttpServlet {
                 singleCust.setPhoneNo(a.getString("phoneNo"));
                 singleCust.setPostcode(a.getString("postcode"));
                 singleCust.setAddress(a.getString("address"));
+                singleCust.setHolder(a.getString("holder"));
                 custlist.add(singleCust);
             }
             request.setAttribute("Customer", custlist);

@@ -19,6 +19,7 @@
         <table>
     <tr>
         <th> Cust ID </th>
+        <th> Account Holder </th>
         <th> Firstname </th>
         <th> Surname </th>
         <th> Address </th>
@@ -33,6 +34,7 @@
             <tr>
             <form action="selectedPaymentCust" method="post">
                 <td> <c:out value="${cust.customerID}" /> <input type="hidden" name="id" value="${cust.customerID}"></td>
+                <td> <c:out value="${cust.holder}" /> <input type="hidden" name="id" value="${cust.holder}"></td>
                 <td> <c:out value="${cust.name}" /> <input type="hidden" name="firstname" value="${cust.name}"></td>
                 <td> <c:out value="${cust.surname}" /> <input type="hidden" name="lastname" value="${cust.surname}"></td>
                 <td> <c:out value="${cust.address}" /> <input type="hidden" name="address" value="${cust.address}"></td>

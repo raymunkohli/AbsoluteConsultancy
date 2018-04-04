@@ -1123,6 +1123,29 @@
   color:#000000;
   text-align:left;
 }
+#u49a {
+  border-width:0px;
+  position:absolute;
+  left:785px;
+  top:178px;
+  width:1720px;
+  height:21px;
+}
+#u49_inputa {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:172px;
+  height:21px;
+  font-family:'Arial';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  text-decoration:none;
+  color:#000000;
+  text-align:left;
+}
+
 #u50_img {
   border-width:0px;
   position:absolute;
@@ -1671,7 +1694,7 @@
   border-width:0px;
   position:absolute;
   left:812px;
-  top:196px;
+  top:235px;
   width:140px;
   height:40px;
 }
