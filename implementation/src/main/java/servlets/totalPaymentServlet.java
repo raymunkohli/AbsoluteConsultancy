@@ -5,12 +5,12 @@
  */
 package servlets;
 
-import com.mycompany.implementation.domain.Basetask;
-import com.mycompany.implementation.domain.Variablediscount;
-import com.mycompany.implementation.query.getVariableDiscount;
-import com.mycompany.implementation.query.viewTasksQuery;
+import com.mycompany.implementation.domain.Job;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "addTaskServlet", urlPatterns = {"/addTaskServlet"})
-public class addTaskServlet extends HttpServlet {
+@WebServlet(name = "totalPaymentServlet", urlPatterns = {"/totalPaymentServlet"})
+public class totalPaymentServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +42,10 @@ public class addTaskServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addTaskServlet</title>");
+            out.println("<title>Servlet totalPaymentServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet addTaskServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet totalPaymentServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -77,25 +77,29 @@ public class addTaskServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getSession().getAttribute("DiscountType") != null) {
+        Enumeration<String> a = request.getParameterNames();
+        List<Job> jobID = new ArrayList();
+        Double price = 0.0;  
+        while(a.hasMoreElements()){
+            String c = a.nextElement();
+            System.out.println(c);
+            String temp = request.getParameter(c);
+            String[] fullJob = temp.split("`");
+            Job singlejob = new Job();
+            singlejob.setJobID(Integer.parseInt(fullJob[0]));
+            singlejob.setValue(Double.parseDouble(fullJob[1]));
+            singlejob.setOrderDate(Date.valueOf((fullJob[2])));
+            singlejob.setDeadline(Date.valueOf((fullJob[3])));
+            price = price + singlejob.getValue();
             
-            if ((request.getSession().getAttribute("DiscountType").equals("Variable Discount"))) {
-                viewTasksQuery a = new viewTasksQuery();
-                List<Basetask> theTasks = a.doViewTasks();
-                request.setAttribute("Tasks", theTasks);
-
-                List<Variablediscount> theDiscounts;
-                getVariableDiscount b = new getVariableDiscount();
-                theDiscounts = b.doGetVariableDiscount(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")));
-                request.setAttribute("VariableDiscounts", theDiscounts);
-                
-            } else {
-                viewTasksQuery a = new viewTasksQuery();
-                List<Basetask> theTasks = a.doViewTasks();
-                request.setAttribute("Tasks", theTasks);
-            }
+            jobID.add(singlejob);
         }
-        request.getRequestDispatcher("viewAllTasks.jsp").forward(request, response);
+       request.setAttribute("selectedJobs",jobID);
+       request.setAttribute("Jobs",jobID);
+       request.setAttribute("price",price);
+       request.getRequestDispatcher("payment.jsp").forward(request,response);
+        
+        
     }
 
     /**

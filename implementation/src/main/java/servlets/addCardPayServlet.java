@@ -5,13 +5,8 @@
  */
 package servlets;
 
-import com.mycompany.implementation.domain.Basetask;
-import com.mycompany.implementation.domain.Variablediscount;
-import com.mycompany.implementation.query.getVariableDiscount;
-import com.mycompany.implementation.query.viewTasksQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "addTaskServlet", urlPatterns = {"/addTaskServlet"})
-public class addTaskServlet extends HttpServlet {
+@WebServlet(name = "addCardPayServlet", urlPatterns = {"/addCardPayServlet"})
+public class addCardPayServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +37,10 @@ public class addTaskServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addTaskServlet</title>");
+            out.println("<title>Servlet addCardPayServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet addTaskServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addCardPayServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -77,25 +72,7 @@ public class addTaskServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getSession().getAttribute("DiscountType") != null) {
-            
-            if ((request.getSession().getAttribute("DiscountType").equals("Variable Discount"))) {
-                viewTasksQuery a = new viewTasksQuery();
-                List<Basetask> theTasks = a.doViewTasks();
-                request.setAttribute("Tasks", theTasks);
-
-                List<Variablediscount> theDiscounts;
-                getVariableDiscount b = new getVariableDiscount();
-                theDiscounts = b.doGetVariableDiscount(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")));
-                request.setAttribute("VariableDiscounts", theDiscounts);
-                
-            } else {
-                viewTasksQuery a = new viewTasksQuery();
-                List<Basetask> theTasks = a.doViewTasks();
-                request.setAttribute("Tasks", theTasks);
-            }
-        }
-        request.getRequestDispatcher("viewAllTasks.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

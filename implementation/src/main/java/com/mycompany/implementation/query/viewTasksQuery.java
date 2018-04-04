@@ -21,9 +21,9 @@ import java.util.logging.Logger;
  *
  * @author raymun
  */
-public class viewTasks extends Query{
+public class viewTasksQuery extends Query{
 
-    public viewTasks() {
+    public viewTasksQuery() {
         super();
     }
 
@@ -47,7 +47,7 @@ public class viewTasks extends Query{
             return allTheTasks;
             
         } catch (SQLException ex) {
-            Logger.getLogger(viewTasks.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(viewTasksQuery.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
 

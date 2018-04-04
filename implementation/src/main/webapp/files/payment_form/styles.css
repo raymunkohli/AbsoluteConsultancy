@@ -31,6 +31,7 @@
   box-shadow:none;
   color:#000000;
   text-align:left;
+  z-index: -1;
 }
 #u400 {
   border-width:0px;
@@ -2002,4 +2003,8 @@
   width:0px;
   visibility:hidden;
   word-wrap:break-word;
+}
+#fakespace{
+    position:relative;
+    height:30px;
 }

@@ -26,7 +26,6 @@ public class addJobQuery extends Query {
     public int doAddJobQuery(int c, LocalDateTime order, LocalDateTime deadline, String Spec, double value) {
         PreparedStatement s;
         try {
-            System.out.println(deadline);
             String query = "INSERT INTO Job(CustomercustomerID,orderDate,specInstructions,deadline,paid,value)"
                     + "Values('" + c + "','" + order + "','" + Spec + "','" 
                     + deadline + "','0','" + value + "');";
