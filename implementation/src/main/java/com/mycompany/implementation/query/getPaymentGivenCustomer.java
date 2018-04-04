@@ -24,9 +24,10 @@ public class getPaymentGivenCustomer extends Query{
                 PreparedStatement s;
             try {
                 String query = "SELECT job.JobID, job.value, job.orderDate,job.deadline \n" +
-                                "FROM Job\n" +
-                                "INNER JOIN customer ON customer.customerID = job.CustomercustomerID\n" +
-                                "WHERE customer.customerID ='"+custid+"' AND job.finished=1;";
+"                                FROM Job\n" +
+"                                INNER JOIN customer ON customer.customerID = job.CustomercustomerID\n" +
+"                                LEFT JOIN payment ON job.JobID = payment.JobJobID\n" +
+"                                WHERE customer.customerID ='"+custid+"' AND payment.JobJobID IS NULL;";
                 
                 System.out.println(query);
                 s = this.getC().prepareStatement(query);
