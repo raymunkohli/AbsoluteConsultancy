@@ -52,9 +52,10 @@ public class viewCustomerQuery extends Query{
        public ResultSet selectPaymentCust(){
            try{
                String query ="SELECT distinct customer.customerID,customer.name,customer.surname,customer.address,customer.phoneNo,customer.postcode\n" +
-                             "FROM customer\n" +
-                                "INNER JOIN job on job.CustomercustomerID = customer.customerID\n" +
-                               "WHERE job.paid = 0 AND job.finished = 1;";
+                "FROM customer\n" +
+                "INNER JOIN job on job.CustomercustomerID = customer.customerID\n" +
+                "LEFT JOIN payment ON job.JobID = payment.JobJobID WHERE payment.JobJobID IS NULL;";
+               System.out.println(query);
                  PreparedStatement s = this.getC().prepareStatement(query);
                  return s.executeQuery();
                  

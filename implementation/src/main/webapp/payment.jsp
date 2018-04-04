@@ -138,11 +138,11 @@
  <form method="post" action="addCardPayServlet" name="addCardPayment">
         <!-- Unnamed (Droplist) -->
         <div id="u429" class="ax_default droplist">
-            <select id="u429_input" required>
+            <select id="u429_input" name="type" required>
                 <option selected value=""> </option>
-                <option selected value="Mastercard">Mastercard</option>
-                <option selected value="American Express">American Express</option>
-                <option selected value="Visa">Visa</option>
+                <option value="Mastercard">Mastercard</option>
+                <option value="American Express">American Express</option>
+                <option value="Visa">Visa</option>
             </select>
         </div>
         <!-- Unnamed (Text Field) -->

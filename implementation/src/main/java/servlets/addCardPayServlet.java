@@ -5,8 +5,10 @@
  */
 package servlets;
 
+import com.mycompany.implementation.query.addPaymentQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,7 +74,12 @@ public class addCardPayServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        addPaymentQuery a = new addPaymentQuery();
+        
+        for(int num = 0; num !=Integer.parseInt(request.getParameter("numberofjobs")); num++){
+           a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cardPayDate")));
+           a.addCardPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), request.getParameter("digits"), request.getParameter("expdate"), request.getParameter("type"));
+        }
     }
 
     /**

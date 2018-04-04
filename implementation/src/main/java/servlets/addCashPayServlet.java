@@ -75,9 +75,9 @@ public class addCashPayServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         addPaymentQuery a = new addPaymentQuery();
+        
         for(int num = 0; num !=Integer.parseInt(request.getParameter("numberofjobs")); num++){
-            System.out.println(a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cashDate"))));
-            System.out.println(123123);
+           a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cashDate")));
         }
     }
 
