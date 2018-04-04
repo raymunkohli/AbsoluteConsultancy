@@ -41,10 +41,12 @@ public class addPaymentQuery extends Query{
             System.out.println(query);
             s = this.getC().prepareStatement(query);
             s.executeUpdate(query);
+            
         } catch (SQLException ex) {
             Logger.getLogger(addPaymentQuery.class.getName()).log(Level.SEVERE, null, ex);
             
         }
+        
         
         
     }

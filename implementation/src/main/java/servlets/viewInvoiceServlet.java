@@ -5,12 +5,8 @@
  */
 package servlets;
 
-import com.mycompany.implementation.query.addPaymentQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "addCardPayServlet", urlPatterns = {"/addCardPayServlet"})
-public class addCardPayServlet extends HttpServlet {
+@WebServlet(name = "viewInvoiceServlet", urlPatterns = {"/viewInvoiceServlet"})
+public class viewInvoiceServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +37,10 @@ public class addCardPayServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addCardPayServlet</title>");            
+            out.println("<title>Servlet viewInvoiceServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet addCardPayServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet viewInvoiceServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,7 +58,7 @@ public class addCardPayServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -76,16 +72,7 @@ public class addCardPayServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        addPaymentQuery a = new addPaymentQuery();
-        List<Integer> jobs = new ArrayList();
-        for(int num = 0; num !=Integer.parseInt(request.getParameter("numberofjobs")); num++){
-           jobs.add(Integer.parseInt(request.getParameter("numberofjobs")));
-           a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cardPayDate")));
-           a.addCardPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), request.getParameter("digits"), request.getParameter("expdate"), request.getParameter("type"));
-        }
-        
-        request.setAttribute("Jobs", jobs);
-        response.sendRedirect("viewInvoiceServlet");
+        request.getRequestDispatcher("invoice.jsp").forward(request,response);
     }
 
     /**

@@ -79,6 +79,7 @@ public class addCashPayServlet extends HttpServlet {
         for(int num = 0; num !=Integer.parseInt(request.getParameter("numberofjobs")); num++){
            a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cashDate")));
         }
+        response.sendRedirect("viewInvoiceServlet");
     }
 
     /**
