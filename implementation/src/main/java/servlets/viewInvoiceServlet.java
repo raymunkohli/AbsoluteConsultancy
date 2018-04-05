@@ -73,9 +73,7 @@ public class viewInvoiceServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //System.out.println(((ArrayList<Integer>) request.getAttribute("Jobs")));
-        
-        
+        System.out.println(((ArrayList<Integer>) request.getAttribute("Jobs")));
         
         for(int a:(ArrayList<Integer>) request.getAttribute("Jobs")){
             
