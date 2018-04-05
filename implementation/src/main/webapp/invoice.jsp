@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -44,7 +45,7 @@
       <div id="u2" class="ax_default label">
         <div id="u2_div" class=""></div>
         <div id="u2_text" class="text ">
-          <p><span>Invoice 30123 l 13/01/2018</span></p>
+          <p><span>Invoice l ${Date}</span></p>
         </div>
       </div>
 
@@ -52,7 +53,7 @@
       <div id="u3" class="ax_default label">
         <div id="u3_div" class=""></div>
         <div id="u3_text" class="text ">
-          <p><span>Account: ACC0001</span></p>
+          <p><span>Account: ACC${Cust.customerID}</span></p>
         </div>
       </div>
 
@@ -60,7 +61,7 @@
       <div id="u4" class="ax_default label">
         <div id="u4_div" class=""></div>
         <div id="u4_text" class="text ">
-          <p><span style="font-family:'Arial Bold', 'Arial';font-weight:700;">Account Holder Name: </span><span style="font-family:'Arial';font-weight:400;">City University</span></p><p><span style="font-family:'Arial Bold', 'Arial';font-weight:700;">Account No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="font-family:'Arial';font-weight:400;">ACC0001</span></p><p><span style="font-family:'Arial Bold', 'Arial';font-weight:700;">Contact Name:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="font-family:'Arial';font-weight:400;">Prod David Rhind</span></p><p><span style="font-family:'Arial Bold', 'Arial';font-weight:700;">Address:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span style="font-family:'Arial';font-weight:400;">Northampton Square</span></p><p><span style="font-family:'Arial';font-weight:400;">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; London EC1v 0HB</span></p><p><span style="font-family:'Arial Bold', 'Arial';font-weight:700;">Phone:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="font-family:'Arial';font-weight:400;">0207 040 8000</span></p>
+          <p><span style="font-family:'Arial Bold', 'Arial';font-weight:700;">Account Holder Name: </span><span style="font-family:'Arial';font-weight:400;">${Cust.holder}</span></p><p><span style="font-family:'Arial Bold', 'Arial';font-weight:700;">Account No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="font-family:'Arial';font-weight:400;">ACC${Cust.customerID}</span></p><p><span style="font-family:'Arial Bold', 'Arial';font-weight:700;">Contact Name:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="font-family:'Arial';font-weight:400;">${Cust.name} ${Cust.surname}</span></p><p><span style="font-family:'Arial Bold', 'Arial';font-weight:700;">Address:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span><span style="font-family:'Arial';font-weight:400;">${Cust.address}</span></p><p><span style="font-family:'Arial';font-weight:400;">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; ${Cust.postcode}</span></p><p><span style="font-family:'Arial Bold', 'Arial';font-weight:700;">Phone:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="font-family:'Arial';font-weight:400;">${Cust.phoneNo}</span></p>
         </div>
       </div>
 
@@ -69,14 +70,6 @@
         <div id="u5_div" class=""></div>
         <div id="u5_text" class="text ">
           <p><span>Job No:1245</span></p>
-        </div>
-      </div>
-
-      <!-- Unnamed (Rectangle) -->
-      <div id="u6" class="ax_default label">
-        <div id="u6_div" class=""></div>
-        <div id="u6_text" class="text ">
-          <p><span>Completed: 13 January 2018</span></p>
         </div>
       </div>
 
@@ -90,60 +83,45 @@
 
       <!-- Unnamed (Table) -->
       <div id="u8" class="ax_default">
-
-        <!-- Unnamed (Table Cell) -->
-        <div id="u9" class="ax_default table_cell">
-          <img id="u9_img" class="img " src="images/home/u9.png"/>
-          <div id="u9_text" class="text ">
-            <p><span>Column 1</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Table Cell) -->
-        <div id="u10" class="ax_default table_cell">
-          <img id="u10_img" class="img " src="images/home/u9.png"/>
-          <div id="u10_text" class="text ">
-            <p><span>Column 2</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Table Cell) -->
-        <div id="u11" class="ax_default table_cell">
-          <img id="u11_img" class="img " src="images/home/u11.png"/>
-          <div id="u11_text" class="text ">
-            <p><span>Column 3</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Table Cell) -->
-        <div id="u12" class="ax_default table_cell">
-          <img id="u12_img" class="img " src="images/home/u9.png"/>
-        </div>
-
-        <!-- Unnamed (Table Cell) -->
-        <div id="u13" class="ax_default table_cell">
-          <img id="u13_img" class="img " src="images/home/u9.png"/>
-        </div>
-
-        <!-- Unnamed (Table Cell) -->
-        <div id="u14" class="ax_default table_cell">
-          <img id="u14_img" class="img " src="images/home/u11.png"/>
-        </div>
-
-        <!-- Unnamed (Table Cell) -->
-        <div id="u15" class="ax_default table_cell">
-          <img id="u15_img" class="img " src="images/home/u15.png"/>
-        </div>
-
-        <!-- Unnamed (Table Cell) -->
-        <div id="u16" class="ax_default table_cell">
-          <img id="u16_img" class="img " src="images/home/u15.png"/>
-        </div>
-
-        <!-- Unnamed (Table Cell) -->
-        <div id="u17" class="ax_default table_cell">
-          <img id="u17_img" class="img " src="images/home/u17.png"/>
-        </div>
+          <table>
+              <tr>
+                  <th>Job ID</th>
+                  <th>Description </th>
+                  <th> Price </th>
+                  <th> Tasks </th>
+              </tr>
+              <c:set var="priceBeforeDiscount" value="0" />
+              <c:set var="priceAfterDiscount" value="0" />
+              <c:forEach items="${Jobs}" var="singleJob" varStatus="jobStatus">
+                  <tr>
+                      <td>  ${singleJob.jobID} </td> <c:set var="priceAfterDiscount" value="${priceAfterDiscount+singleJob.value}"/>
+                      <td>  ${singleJob.specInstructions}</td>
+                      <td>  ${price[jobStatus.index]} </td> <c:set var="priceBeforeDiscount" value="${priceBeforeDiscount + price[jobStatus.index]}" />
+                      <td>  ${task[jobStatus.index]} </td>
+                  </tr>
+            </c:forEach>
+                  <tr><td></td><td></td><td></td><td></td></tr>
+                  <tr>
+                      <td>Subtotal</td>
+                      <td></td><td></td>
+                      <td>${priceBeforeDiscount}</td> 
+                  </tr>
+                  <tr>
+                      <td>Discount Agreed</td>
+                      <td></td><td></td>
+                      <td></td>
+                  </tr>
+                  <tr> 
+                      <td></td><td></td><td></td>
+                      <td>${priceAfterDiscount}</td>
+                  </tr>
+                  <tr>
+                      <td>Total (20% VAT)</td> <td></td><td></td>
+                      <td>${priceAfterDiscount *1.2}</td>
+                  </tr>
+              
+          </table>
+        
       </div>
 
       <!-- Unnamed (Rectangle) -->

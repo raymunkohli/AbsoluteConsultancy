@@ -5,9 +5,13 @@
  */
 package servlets;
 
+import com.mycompany.implementation.domain.Basetask;
+import com.mycompany.implementation.domain.Job;
+import com.mycompany.implementation.query.getDataForInvoiceQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +42,7 @@ public class viewInvoiceServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewInvoiceServlet</title>");            
+            out.println("<title>Servlet viewInvoiceServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet viewInvoiceServlet at " + request.getContextPath() + "</h1>");
@@ -74,12 +78,31 @@ public class viewInvoiceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println(((ArrayList<Integer>) request.getAttribute("Jobs")));
-        
-        for(int a:(ArrayList<Integer>) request.getAttribute("Jobs")){
+        getDataForInvoiceQuery Data = new getDataForInvoiceQuery();
+        List<Job> allTheJobs = new ArrayList();
+        List<Double> price = new ArrayList();
+        List<String> taskID = new ArrayList();
+        for (int a : (ArrayList<Integer>) request.getAttribute("Jobs")) {
+            allTheJobs.add(Data.getJobInfo(a));
+            double tempPrice = 0;
+            String temptaskID = new String();
             
-            
+            List<Basetask> tasks = Data.getTaskInformation(a);
+ 
+            for (Basetask b : tasks) {
+                System.out.println(1231);
+                tempPrice = tempPrice +b.getPrice();
+                temptaskID = temptaskID + String.valueOf(b.getBaseTaskID())+",";
+            }
+            temptaskID = temptaskID.substring(0, temptaskID.length()-1);
+            price.add(tempPrice);
+            taskID.add(temptaskID);
         }
-        request.getRequestDispatcher("invoice.jsp").forward(request,response);
+        request.setAttribute("task",taskID);
+        request.setAttribute("price", price);
+        request.setAttribute("Cust", Data.getCustomerFromJob(allTheJobs.get(0).getJobID()));
+        request.setAttribute("Jobs", allTheJobs);
+        request.getRequestDispatcher("invoice.jsp").forward(request, response);
     }
 
     /**

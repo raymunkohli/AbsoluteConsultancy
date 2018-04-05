@@ -58,9 +58,9 @@ public class getDataForInvoiceQuery extends Query{
             try {
                 String query = "SELECT basetask.baseTaskID,basetask.price \n" +
                                 "FROM basetask\n" +
-                                "INNER JOIN task on basetask.baseTaskID = task.taskID\n" +
+                                "INNER JOIN task on basetask.baseTaskID = task.baseTaskbaseTaskID\n" +
                                 "INNER JOIN job ON job.JobID = task.JobJobID\n" +
-                                "WHERE job.JobID ";
+                                "WHERE job.JobID='"+JobID+"'";
                 System.out.println(query);
                 s = this.getC().prepareStatement(query);
                 ResultSet a = s.executeQuery();
