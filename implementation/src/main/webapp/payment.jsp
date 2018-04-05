@@ -424,7 +424,7 @@
             <div id="u476" class="ax_default label">
                 <div id="u476_div" class=""></div>
                 <div id="u476_text" class="text ">
-                    <p><span><c:if test="${not empty price}">Price after discount: £ <c:out value="${price}"/> </c:if></span></p>
+                    <p><span><c:if test="${not empty price}"><p>Price after discount: £ <c:out value="${price}"/></p><p>Price inc VAT at 20%: £<c:out value="${price * 1.2}"/> </c:if></span></p>
                 </div>
             </div>
         </div>
