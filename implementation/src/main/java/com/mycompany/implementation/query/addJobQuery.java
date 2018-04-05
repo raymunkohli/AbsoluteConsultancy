@@ -23,12 +23,12 @@ public class addJobQuery extends Query {
         super();
     }
 
-    public int doAddJobQuery(int c, LocalDateTime order, LocalDateTime deadline, String Spec, double value) {
+    public int doAddJobQuery(int c, LocalDateTime order, LocalDateTime deadline, String Spec, double value, double surcharge) {
         PreparedStatement s;
         try {
-            String query = "INSERT INTO Job(CustomercustomerID,orderDate,specInstructions,deadline,value)"
+            String query = "INSERT INTO Job(CustomercustomerID,orderDate,specInstructions,deadline,value,surcharge)"
                     + "Values('" + c + "','" + order + "','" + Spec + "','" 
-                    + deadline + "','" + value + "');";
+                    + deadline + "','" + value + "','"+surcharge+"');";
                     
             s = this.getC().prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             

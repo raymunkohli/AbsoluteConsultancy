@@ -31,7 +31,7 @@ public class getDataForInvoiceQuery extends Query{
                 String query = "SELECT customer.*\n" +
                         "FROM customer\n" +
                         "INNER JOIN job on job.CustomercustomerID = customer.customerID\n" +
-                        "WHERE job.JobID =37;";
+                        "WHERE job.JobID ='"+JobID+"';";
                 System.out.println(query);
                 s = this.getC().prepareStatement(query);
                 ResultSet a = s.executeQuery();

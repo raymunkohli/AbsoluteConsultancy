@@ -574,3 +574,28 @@
   width:391px;
   word-wrap:break-word;
 }
+#fakespace{
+    position:relative;
+    height:30px;
+    
+}
+
+#tophalf {
+  border-width:0px;
+  position:relative;
+  left:2px;
+  top:12px;
+  width:136px;
+  height:450px;
+  word-wrap:break-word;
+}
+
+#bottomhalf{
+  border-width:0px;
+  position:relative;
+  left:2px;
+  top:-400px;
+  width:136px;
+  height:0px;
+  word-wrap:break-word;
+}

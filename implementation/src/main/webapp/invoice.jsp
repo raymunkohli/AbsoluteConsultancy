@@ -24,7 +24,7 @@
   </head>
   <body>
     <div id="base" class="">
-
+        <div id="tophalf">
       <!-- Unnamed (Rectangle) -->
       <div id="u0" class="ax_default label">
         <div id="u0_div" class=""></div>
@@ -101,6 +101,7 @@
                   </tr>
             </c:forEach>
                   <tr><td></td><td></td><td></td><td></td></tr>
+                  <tr> <td> Surcharge </td><td></td><td></td> <td> <c:out value="${priceAfterDiscount-priceBeforeDiscount}" /> </tr>
                   <tr>
                       <td>Subtotal</td>
                       <td></td><td></td>
@@ -123,7 +124,13 @@
           </table>
         
       </div>
-
+                      <c:forEach items="${Jobs}" >
+                      <div id="fakespace">
+                          
+                      </div>
+                    </c:forEach>
+        </div>
+                  <div id="bottomhalf">
       <!-- Unnamed (Rectangle) -->
       <div id="u18" class="ax_default label">
         <div id="u18_div" class=""></div>
@@ -139,6 +146,7 @@
           <p><span>'The Lab', Bloomsbury's Image Processing Laboratory</span></p><p><span>Barclays Plc, City University Branch, 10, Northampton Square</span></p><p><span>Sort Code 30-20-70</span></p><p><span>Account number: 67103456</span></p>
         </div>
       </div>
+    </div>
     </div>
   </body>
 </html>

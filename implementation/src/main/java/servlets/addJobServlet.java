@@ -111,12 +111,16 @@ public class addJobServlet extends HttpServlet {
                     Deadline = Current.plusDays(1);
                     break;
             }
+            double surcharge = 0;
             Job job = new Job();
             //job.setDeadline(new Date(Deadline.getYear(),Deadline.getMonthValue(),Deadline.getDayOfMonth(),Deadline.getHour(),Deadline.getMinute(),Deadline.getSecond()));
             job.setSpecInstructions(request.getParameter("SpecInstruct"));
             job.setValue(Price);
+            if (request.getParameter("StipulatedAmount")!= null){
+                surcharge = Double.parseDouble(request.getParameter("StipulatedAmount"));
+            }
             addJobQuery j = new addJobQuery();
-            int jobid = j.doAddJobQuery(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")), Current, Deadline, job.getSpecInstructions(), Price);
+            int jobid = j.doAddJobQuery(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")), Current, Deadline, job.getSpecInstructions(), Price,surcharge);
             
             
             //insert each task
