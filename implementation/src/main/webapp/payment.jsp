@@ -225,9 +225,18 @@
                         <p><span><input type="submit" value="Add cash pay" form="cashPay"/></span></p>
                     </div>
                 </div>
-
             </form>
-            <!-- Unnamed (Droplist) -->
+                    
+                    <form name="viewInvoice" action="viewInvoiceServlet" method ="post" />
+                    <c:set var="numberofjobs" value="0"/>
+                     <c:forEach items="${selectedJobs}" var="jobs" varStatus="jobStatus">
+                        <input type="hidden" value="${jobs.jobID}" name="${jobStatus.index}" />
+                    <c:set var="numberofjobs" value="${numberofjobs+1}"/>
+                        </c:forEach>
+                        <input type ="hidden" value="${numberofjobs}" name="numberofjobs"/>
+                    
+                    <input type="submit" value="View Invoice"/>
+                    </form>
 
             <!-- Unnamed (Table) -->
             <div id="u448" class="ax_default">

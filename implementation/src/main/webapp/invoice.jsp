@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
-    <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
-    <link href="data/styles.css" type="text/css" rel="stylesheet"/>
-    <link href="files/home/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet" media="all"/>
+    <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"  media="all"/>
+    <link href="data/styles.css" type="text/css" rel="stylesheet"  media="all"/>
+    <link href="resources/tablecss.css" type="text/css" rel="stylesheet"  media="all"/>
+    <link href="files/home/styles.css" type="text/css" rel="stylesheet"  media="all"/>
     <script src="resources/scripts/jquery-1.7.1.min.js"></script>
     <script src="resources/scripts/jquery-ui-1.8.10.custom.min.js"></script>
     <script src="resources/scripts/prototypePre.js"></script>
@@ -21,9 +22,13 @@
       $axure.utils.getOtherPath = function() { return 'resources/Other.html'; };
       $axure.utils.getReloadPath = function() { return 'resources/reload.html'; };
     </script>
+
   </head>
   <body>
     <div id="base" class="">
+
+            <a href="payment.jsp"> <input type="button" value="Return" class="no-print"/></a>
+            <input type="button" value="Print" onclick="window.print()" class="no-print" />
         <div id="tophalf">
       <!-- Unnamed (Rectangle) -->
       <div id="u0" class="ax_default label">
@@ -65,13 +70,6 @@
         </div>
       </div>
 
-      <!-- Unnamed (Rectangle) -->
-      <div id="u5" class="ax_default label">
-        <div id="u5_div" class=""></div>
-        <div id="u5_text" class="text ">
-          <p><span>Job No:1245</span></p>
-        </div>
-      </div>
 
       <!-- Unnamed (Rectangle) -->
       <div id="u7" class="ax_default label">
@@ -92,16 +90,16 @@
               </tr>
               <c:set var="priceBeforeDiscount" value="0" />
               <c:set var="priceAfterDiscount" value="0" />
+              <c:set var="totalSurcharge" value="0" />
               <c:forEach items="${Jobs}" var="singleJob" varStatus="jobStatus">
                   <tr>
                       <td>  ${singleJob.jobID} </td> <c:set var="priceAfterDiscount" value="${priceAfterDiscount+singleJob.value}"/>
                       <td>  ${singleJob.specInstructions}</td>
                       <td>  ${price[jobStatus.index]} </td> <c:set var="priceBeforeDiscount" value="${priceBeforeDiscount + price[jobStatus.index]}" />
-                      <td>  ${task[jobStatus.index]} </td>
+                      <td>  ${task[jobStatus.index]} </td> <c:set var="totalSurcharge" value="${totalSurcharge+singleJob.surcharge}"/>
                   </tr>
             </c:forEach>
-                  <tr><td></td><td></td><td></td><td></td></tr>
-                  <tr> <td> Surcharge </td><td></td><td></td> <td> <c:out value="${priceAfterDiscount-priceBeforeDiscount}" /> </tr>
+                  <tr style="border-top:3px solid black;"> <td> Surcharge </td><td></td><td></td> <td> <c:out value="${totalSurcharge}" /> </tr>
                   <tr>
                       <td>Subtotal</td>
                       <td></td><td></td>
@@ -110,13 +108,31 @@
                   <tr>
                       <td>Discount Agreed</td>
                       <td></td><td></td>
-                      <td></td>
+                      <td><c:choose>
+                              <c:when test="${discount == 'none'}">
+                                None
+                              </c:when>
+                              <c:when test="${discount == 'Fixed'}">
+                                 Fixed at ${DiscountAmount}
+                              </c:when>
+                              <c:when test="${discount == 'Flexible'}">
+                                 Flexible at ${DiscountAmount} 
+                              </c:when>
+                              <c:when test="${discount == 'Variable'}">
+                                 Variable see table Below
+                              </c:when>
+                                 <c:otherwise>
+                                     Error
+                                 </c:otherwise>
+                                  
+                              
+                      </c:choose></td>
                   </tr>
                   <tr> 
-                      <td></td><td></td><td></td>
+                      <td>Subtotal inc Discount</td><td></td><td></td>
                       <td>${priceAfterDiscount}</td>
                   </tr>
-                  <tr>
+                  <tr style="border-top:3px solid black;">
                       <td>Total (20% VAT)</td> <td></td><td></td>
                       <td>${priceAfterDiscount *1.2}</td>
                   </tr>
@@ -124,12 +140,13 @@
           </table>
         
       </div>
-                      <c:forEach items="${Jobs}" >
+                      
+        </div>
+                  <c:forEach items="${Jobs}" >
                       <div id="fakespace">
                           
                       </div>
                     </c:forEach>
-        </div>
                   <div id="bottomhalf">
       <!-- Unnamed (Rectangle) -->
       <div id="u18" class="ax_default label">
@@ -147,6 +164,17 @@
         </div>
       </div>
     </div>
+   
+                  <div style="position:relative;  left:150px;">
+                      <table>
+                      <c:if test="${discount eq 'Variable'}">
+                          <tr> <th>Task ID </th> <th> Discount Amount </th> </tr>
+                          <c:forEach items="${DiscountAmount}" var="d">
+                              <tr> <td> ${d.variablediscountPK.basetaskbaseTaskID} </td> <td> ${d.amount} </td></tr>
+                          </c:forEach>
+                      </c:if>
+                      </table>
+                  </div>       
     </div>
   </body>
 </html>

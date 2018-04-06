@@ -116,7 +116,7 @@ public class addJobServlet extends HttpServlet {
             //job.setDeadline(new Date(Deadline.getYear(),Deadline.getMonthValue(),Deadline.getDayOfMonth(),Deadline.getHour(),Deadline.getMinute(),Deadline.getSecond()));
             job.setSpecInstructions(request.getParameter("SpecInstruct"));
             job.setValue(Price);
-            if (request.getParameter("StipulatedAmount")!= null){
+            if (!"".equals(request.getParameter("StipulatedAmount"))){
                 surcharge = Double.parseDouble(request.getParameter("StipulatedAmount"));
             }
             addJobQuery j = new addJobQuery();
