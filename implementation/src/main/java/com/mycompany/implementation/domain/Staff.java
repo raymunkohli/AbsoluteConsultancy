@@ -8,6 +8,7 @@ package com.mycompany.implementation.domain;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -37,6 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Staff.findByEmployeeType", query = "SELECT s FROM Staff s WHERE s.employeeType = :employeeType")
     , @NamedQuery(name = "Staff.findByPassword", query = "SELECT s FROM Staff s WHERE s.password = :password")})
 public class Staff implements Serializable {
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "staff")
+    private Technicianroom technicianroom;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -154,6 +159,14 @@ public class Staff implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.implementation.domain.Staff[ staffID=" + staffID + " ]";
+    }
+
+    public Technicianroom getTechnicianroom() {
+        return technicianroom;
+    }
+
+    public void setTechnicianroom(Technicianroom technicianroom) {
+        this.technicianroom = technicianroom;
     }
     
 }
