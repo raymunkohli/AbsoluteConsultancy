@@ -3,18 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.payment;
 
-import com.mycompany.implementation.domain.Customer;
-import com.mycompany.implementation.query.viewCustomerQuery;
+import com.mycompany.implementation.query.addPaymentQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "viewInvoiceCust", urlPatterns = {"/viewInvoiceCust"})
-public class viewInvoiceCust extends HttpServlet {
+@WebServlet(name = "addCashPayServlet", urlPatterns = {"/addCashPayServlet"})
+public class addCashPayServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +41,10 @@ public class viewInvoiceCust extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewInvoiceCust</title>");            
+            out.println("<title>Servlet addCashPay</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet viewInvoiceCust at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addCashPay at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,8 +62,7 @@ public class viewInvoiceCust extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request,response);
-        
+
     }
 
     /**
@@ -81,27 +76,18 @@ public class viewInvoiceCust extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                        try {
-            viewCustomerQuery query = new viewCustomerQuery();
-            ResultSet a = query.selectInvoiceCust();
-            List <Customer> custlist = new ArrayList();
-            while (a.next()){
-                Customer singleCust = new Customer();
-                singleCust.setName(a.getString("name"));
-                singleCust.setCustomerID(a.getInt("customerID"));
-                singleCust.setSurname(a.getString("surname"));
-                singleCust.setPhoneNo(a.getString("phoneNo"));
-                singleCust.setPostcode(a.getString("postcode"));
-                singleCust.setAddress(a.getString("address"));
-                singleCust.setHolder(a.getString("holder"));
-                custlist.add(singleCust);
-            }
-            request.setAttribute("Customer", custlist);
-            
-            request.getRequestDispatcher("viewInvoiceCust.jsp").forward(request,response);
-        } catch (SQLException ex) {
-            Logger.getLogger(viewPaymentCustServlet.class.getName()).log(Level.SEVERE, null, ex);
+        addPaymentQuery a = new addPaymentQuery();
+        List<Integer> jobs = new ArrayList();
+        double price = Double.parseDouble(request.getParameter("TotalPrice")) * 1.2;
+        for (int num = 0; num != Integer.parseInt(request.getParameter("numberofjobs")); num++) {
+            jobs.add(Integer.parseInt(request.getParameter(String.valueOf(num))));
+            a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cashDate")));
         }
+        List<Double> flexdiscount = a.checkForFlexDiscount(jobs.get(0));
+        if (flexdiscount != null) {
+            a.upgradeBand(flexdiscount.get(0).intValue(), flexdiscount.get(1) + price);
+        }
+        request.getRequestDispatcher("generateRecieptServlet").forward(request, response);
     }
 
     /**

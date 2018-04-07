@@ -3,18 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.recept;
 
 import com.mycompany.implementation.domain.Customer;
-import com.mycompany.implementation.query.viewCustomerQuery;
+import com.mycompany.implementation.query.addCustomerQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "viewPaymentCust", urlPatterns = {"/viewPaymentCust"})
-public class viewPaymentCustServlet extends HttpServlet {
+@WebServlet(name = "addCustomerServlet", urlPatterns = {"/addCustomerServlet"})
+public class addCustomerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +39,10 @@ public class viewPaymentCustServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewPaymentCust</title>");            
+            out.println("<title>Servlet addCustomerServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet viewPaymentCust at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addCustomerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -80,29 +74,21 @@ public class viewPaymentCustServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            viewCustomerQuery query = new viewCustomerQuery();
-            ResultSet a = query.selectPaymentCust();
-            List <Customer> custlist = new ArrayList();
-            while (a.next()){
-                Customer singleCust = new Customer();
-                singleCust.setName(a.getString("name"));
-                singleCust.setCustomerID(a.getInt("customerID"));
-                singleCust.setSurname(a.getString("surname"));
-                singleCust.setPhoneNo(a.getString("phoneNo"));
-                singleCust.setPostcode(a.getString("postcode"));
-                singleCust.setAddress(a.getString("address"));
-                singleCust.setHolder(a.getString("holder"));
-                custlist.add(singleCust);
-            }
-            request.setAttribute("Customer", custlist);
-            
-            request.getRequestDispatcher("viewPaymentCust.jsp").forward(request,response);
-        } catch (SQLException ex) {
-            Logger.getLogger(viewPaymentCustServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        addCustomerQuery cust = new addCustomerQuery();
         
         
+        Customer c = new Customer();
+        c.setAddress(request.getParameter("address"));
+        c.setEmail(request.getParameter("email"));
+        c.setName(request.getParameter("name"));
+        c.setSurname(request.getParameter("surname"));
+        c.setPostcode(request.getParameter("postcode"));
+        c.setPhoneNo(request.getParameter("phone"));
+        c.setHolder(request.getParameter("holder"));
+        
+        cust.doAddCustomerQuery(c);
+        
+        response.sendRedirect("receptionist_screen.jsp");
     }
 
     /**

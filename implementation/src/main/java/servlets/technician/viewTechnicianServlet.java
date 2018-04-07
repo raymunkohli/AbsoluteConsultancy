@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.technician;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lukas
  */
-@WebServlet(name = "viewJobServlet", urlPatterns = {"/viewJobServlet"})
-public class viewJobServlet extends HttpServlet {
+@WebServlet(name = "viewTechnicianServlet", urlPatterns = {"/viewTechnicianServlet"})
+public class viewTechnicianServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +37,10 @@ public class viewJobServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewJobServlet</title>");            
+            out.println("<title>Servlet viewTechnicianServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet viewJobServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet viewTechnicianServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

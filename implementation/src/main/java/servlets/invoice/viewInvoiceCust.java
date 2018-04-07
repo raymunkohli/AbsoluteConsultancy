@@ -3,25 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.invoice;
 
-import com.mycompany.implementation.query.getVariableDiscount;
+import com.mycompany.implementation.domain.Customer;
+import com.mycompany.implementation.query.viewCustomerQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import servlets.payment.viewPaymentCustServlet;
 
 /**
  *
  * @author raymun
  */
-@WebServlet(name = "selectedCustomerServlet", urlPatterns = {"/selectedCustomerServlet"})
-public class selectedCustomerServlet extends HttpServlet {
+@WebServlet(name = "viewInvoiceCust", urlPatterns = {"/viewInvoiceCust"})
+public class viewInvoiceCust extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +46,10 @@ public class selectedCustomerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet selectedCustomerServlet</title>");            
+            out.println("<title>Servlet viewInvoiceCust</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet selectedCustomerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet viewInvoiceCust at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,7 +67,8 @@ public class selectedCustomerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request,response);
+        
     }
 
     /**
@@ -75,18 +82,27 @@ public class selectedCustomerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        session.removeAttribute("VariableDiscount");
-        session.setAttribute("CustomerFirst", request.getParameter("firstname"));
-        session.setAttribute("CustomerLast", request.getParameter("lastname"));
-        session.setAttribute("CustomerID", request.getParameter("id"));
-        
-            session.setAttribute("DiscountType", request.getParameter("discountType"));
-            session.setAttribute("Discount", request.getParameter("discount"));
-            System.out.println("123");
-        
-        
-        request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
+                        try {
+            viewCustomerQuery query = new viewCustomerQuery();
+            ResultSet a = query.selectInvoiceCust();
+            List <Customer> custlist = new ArrayList();
+            while (a.next()){
+                Customer singleCust = new Customer();
+                singleCust.setName(a.getString("name"));
+                singleCust.setCustomerID(a.getInt("customerID"));
+                singleCust.setSurname(a.getString("surname"));
+                singleCust.setPhoneNo(a.getString("phoneNo"));
+                singleCust.setPostcode(a.getString("postcode"));
+                singleCust.setAddress(a.getString("address"));
+                singleCust.setHolder(a.getString("holder"));
+                custlist.add(singleCust);
+            }
+            request.setAttribute("Customer", custlist);
+            
+            request.getRequestDispatcher("viewInvoiceCust.jsp").forward(request,response);
+        } catch (SQLException ex) {
+            Logger.getLogger(viewPaymentCustServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

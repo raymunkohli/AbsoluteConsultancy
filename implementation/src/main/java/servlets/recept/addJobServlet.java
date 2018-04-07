@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.recept;
 
 import com.mycompany.implementation.domain.Job;
 import com.mycompany.implementation.query.addJobQuery;

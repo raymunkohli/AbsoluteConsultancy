@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.invoice;
 
 import com.mycompany.implementation.domain.Basetask;
 import com.mycompany.implementation.domain.Customer;

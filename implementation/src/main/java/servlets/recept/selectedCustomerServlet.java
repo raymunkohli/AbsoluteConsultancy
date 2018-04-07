@@ -3,26 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.recept;
 
-import com.mycompany.implementation.domain.Basetask;
+import com.mycompany.implementation.query.getVariableDiscount;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author raymun
  */
-@WebServlet(name = "selectedTasksServlet", urlPatterns = {"/selectedTasksServlet"})
-public class selectedTasksServlet extends HttpServlet {
+@WebServlet(name = "selectedCustomerServlet", urlPatterns = {"/selectedCustomerServlet"})
+public class selectedCustomerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +40,10 @@ public class selectedTasksServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet selectedStaffServlet</title>");            
+            out.println("<title>Servlet selectedCustomerServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet selectedStaffServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet selectedCustomerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,7 +61,7 @@ public class selectedTasksServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -76,35 +75,18 @@ public class selectedTasksServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        session.removeAttribute("VariableDiscount");
+        session.setAttribute("CustomerFirst", request.getParameter("firstname"));
+        session.setAttribute("CustomerLast", request.getParameter("lastname"));
+        session.setAttribute("CustomerID", request.getParameter("id"));
         
-        Enumeration<String> a = request.getParameterNames(); 
-        //creates an array of strings containing all the attribute names sent in the request 
-        List<Basetask> d = new ArrayList<Basetask>();
-        List<Double> discounts = new ArrayList<>();
+            session.setAttribute("DiscountType", request.getParameter("discountType"));
+            session.setAttribute("Discount", request.getParameter("discount"));
+            System.out.println("123");
         
-        System.out.println(a);
-        while (a.hasMoreElements()){
-                     
-            String[] John = request.getParameter(a.nextElement()).split("`");
-            Basetask c = new Basetask();
-            
-            
-            c.setBaseTaskID(Integer.parseInt(John[0]));
-            c.setTaskName(John[1]);
-            c.setDescription(John[2]);
-            c.setDepartment(John[3]);
-            c.setPrice(Double.parseDouble(John[4]));
-            discounts.add(Double.parseDouble(John[5]));
-            
-            d.add(c);
-        }
-        //System.out.println(d.get(0).getBaseTaskID());
-        request.setAttribute("SelectedTasks", d);
-        request.setAttribute("calculatedDiscounts",discounts);
         
         request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
-        
-        
     }
 
     /**

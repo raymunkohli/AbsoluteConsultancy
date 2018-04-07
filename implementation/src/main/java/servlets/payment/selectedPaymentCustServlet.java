@@ -3,10 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.payment;
 
+import com.mycompany.implementation.domain.Job;
+import com.mycompany.implementation.query.getPaymentGivenCustomer;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "viewReceptionistServlet", urlPatterns = {"/viewReceptionistServlet"})
-public class viewReceptionistServlet extends HttpServlet {
+@WebServlet(name = "selectedPaymentCust", urlPatterns = {"/selectedPaymentCust"})
+public class selectedPaymentCustServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +45,10 @@ public class viewReceptionistServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewReceptionistServlet</title>");            
+            out.println("<title>Servlet selectedPaymentCust</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet viewReceptionistServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet selectedPaymentCust at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -72,8 +80,26 @@ public class viewReceptionistServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+        getPaymentGivenCustomer getCust = new getPaymentGivenCustomer();
+        ResultSet jobs = getCust.doGetPaymentGivenCustomer(Integer.parseInt(request.getParameter("id")));
+        List<Job> jobList = new ArrayList();
+        try {
+            while(jobs.next()){
+                Job a = new Job();
+                a.setJobID(jobs.getInt("JobID"));
+                a.setValue(jobs.getDouble("value"));
+                a.setOrderDate(jobs.getDate("orderDate"));
+                a.setDeadline(jobs.getDate("deadline"));
+                jobList.add(a);
+            }
+            
+            
+            request.setAttribute("Jobs", jobList);
+            request.getRequestDispatcher("payment.jsp").forward(request,response);
+        } catch (SQLException ex) {
+            Logger.getLogger(selectedPaymentCustServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("Jobs", jobList);
+        }
         
         
     }

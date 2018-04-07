@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.recept;
 
-import com.mycompany.implementation.query.addPaymentQuery;
+import com.mycompany.implementation.domain.Basetask;
+import com.mycompany.implementation.domain.Variablediscount;
+import com.mycompany.implementation.query.getVariableDiscount;
+import com.mycompany.implementation.query.viewTasksQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "addCashPayServlet", urlPatterns = {"/addCashPayServlet"})
-public class addCashPayServlet extends HttpServlet {
+@WebServlet(name = "addTaskServlet", urlPatterns = {"/addTaskServlet"})
+public class addTaskServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +42,10 @@ public class addCashPayServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addCashPay</title>");
+            out.println("<title>Servlet addTaskServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet addCashPay at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addTaskServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,7 +63,7 @@ public class addCashPayServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**
@@ -76,18 +77,25 @@ public class addCashPayServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        addPaymentQuery a = new addPaymentQuery();
-        List<Integer> jobs = new ArrayList();
-        double price = Double.parseDouble(request.getParameter("TotalPrice")) * 1.2;
-        for (int num = 0; num != Integer.parseInt(request.getParameter("numberofjobs")); num++) {
-            jobs.add(Integer.parseInt(request.getParameter(String.valueOf(num))));
-            a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cashDate")));
+        if (request.getSession().getAttribute("DiscountType") != null) {
+            
+            if ((request.getSession().getAttribute("DiscountType").equals("Variable Discount"))) {
+                viewTasksQuery a = new viewTasksQuery();
+                List<Basetask> theTasks = a.doViewTasks();
+                request.setAttribute("Tasks", theTasks);
+
+                List<Variablediscount> theDiscounts;
+                getVariableDiscount b = new getVariableDiscount();
+                theDiscounts = b.doGetVariableDiscount(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")));
+                request.setAttribute("VariableDiscounts", theDiscounts);
+                
+            } else {
+                viewTasksQuery a = new viewTasksQuery();
+                List<Basetask> theTasks = a.doViewTasks();
+                request.setAttribute("Tasks", theTasks);
+            }
         }
-        List<Double> flexdiscount = a.checkForFlexDiscount(jobs.get(0));
-        if (flexdiscount != null) {
-            a.upgradeBand(flexdiscount.get(0).intValue(), flexdiscount.get(1) + price);
-        }
-        request.getRequestDispatcher("generateRecieptServlet").forward(request, response);
+        request.getRequestDispatcher("viewAllTasks.jsp").forward(request, response);
     }
 
     /**

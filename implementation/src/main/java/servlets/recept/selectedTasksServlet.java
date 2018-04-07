@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.recept;
 
-import com.mycompany.implementation.domain.Job;
+import com.mycompany.implementation.domain.Basetask;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -22,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "totalPaymentServlet", urlPatterns = {"/totalPaymentServlet"})
-public class totalPaymentServlet extends HttpServlet {
+@WebServlet(name = "selectedTasksServlet", urlPatterns = {"/selectedTasksServlet"})
+public class selectedTasksServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +41,10 @@ public class totalPaymentServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet totalPaymentServlet</title>");            
+            out.println("<title>Servlet selectedStaffServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet totalPaymentServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet selectedStaffServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,7 +62,7 @@ public class totalPaymentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -77,29 +76,33 @@ public class totalPaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Enumeration<String> a = request.getParameterNames();
-        List<Job> jobID = new ArrayList();
-        Double price = 0.0;  
-        boolean jobsSelected = false;
-        while(a.hasMoreElements()){
-            String c = a.nextElement();
-            System.out.println(c);
-            String temp = request.getParameter(c);
-            String[] fullJob = temp.split("`");
-            Job singlejob = new Job();
-            singlejob.setJobID(Integer.parseInt(fullJob[0]));
-            singlejob.setValue(Double.parseDouble(fullJob[1]));
-            singlejob.setOrderDate(Date.valueOf((fullJob[2])));
-            singlejob.setDeadline(Date.valueOf((fullJob[3])));
-            price = price + singlejob.getValue();
-            jobID.add(singlejob);
-            jobsSelected = true;
+        
+        Enumeration<String> a = request.getParameterNames(); 
+        //creates an array of strings containing all the attribute names sent in the request 
+        List<Basetask> d = new ArrayList<Basetask>();
+        List<Double> discounts = new ArrayList<>();
+        
+        System.out.println(a);
+        while (a.hasMoreElements()){
+                     
+            String[] John = request.getParameter(a.nextElement()).split("`");
+            Basetask c = new Basetask();
+            
+            
+            c.setBaseTaskID(Integer.parseInt(John[0]));
+            c.setTaskName(John[1]);
+            c.setDescription(John[2]);
+            c.setDepartment(John[3]);
+            c.setPrice(Double.parseDouble(John[4]));
+            discounts.add(Double.parseDouble(John[5]));
+            
+            d.add(c);
         }
-       request.setAttribute("jobsselected",jobsSelected);
-       request.setAttribute("selectedJobs",jobID);
-       request.setAttribute("Jobs",jobID);
-       request.setAttribute("price",price);
-       request.getRequestDispatcher("payment.jsp").forward(request,response);
+        //System.out.println(d.get(0).getBaseTaskID());
+        request.setAttribute("SelectedTasks", d);
+        request.setAttribute("calculatedDiscounts",discounts);
+        
+        request.getRequestDispatcher("receptionist_screen.jsp").forward(request,response);
         
         
     }

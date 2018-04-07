@@ -3,40 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.login;
 
-import com.mycompany.implementation.domain.Job;
-import com.mycompany.implementation.query.getPaymentGivenCustomer;
+import com.mycompany.implementation.query.loginQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author raymun
  */
-@WebServlet(name = "selectedInvoiceCustServlet", urlPatterns = {"/selectedInvoiceCustServlet"})
-public class selectedInvoiceCustServlet extends HttpServlet {
+@WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
+public class loginServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -45,10 +30,10 @@ public class selectedInvoiceCustServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet selectedInvoiceCustServlet</title>");            
+            out.println("<title>Servlet loginServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet selectedInvoiceCustServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet loginServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,7 +51,7 @@ public class selectedInvoiceCustServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request,response);
+        doPost(request,response); // sends as a post request rather than a get request
     }
 
     /**
@@ -80,24 +65,19 @@ public class selectedInvoiceCustServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        getPaymentGivenCustomer getCust = new getPaymentGivenCustomer();
-        ResultSet jobs = getCust.doGetPaymentGivenCustomer(Integer.parseInt(request.getParameter("id")));
-        List<Job> jobList = new ArrayList();
-        try {
-            while(jobs.next()){
-                Job a = new Job();
-                a.setJobID(jobs.getInt("JobID"));
-                a.setValue(jobs.getDouble("value"));
-                a.setOrderDate(jobs.getDate("orderDate"));
-                a.setDeadline(jobs.getDate("deadline"));
-                jobList.add(a);
-            }
-            request.setAttribute("Jobs", jobList);
-            request.getRequestDispatcher("createInvoice.jsp").forward(request,response);
-        } catch (SQLException ex) {
-            Logger.getLogger(selectedPaymentCustServlet.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("Jobs", jobList);
+        loginQuery lq = new loginQuery(); //create the query
+        HttpSession session = request.getSession(true);
+        String found = lq.doLoginQuery(request.getParameter("Username"), request.getParameter("Password"));
+        
+    
+        if(found!=null){
+            session.setAttribute("userType", found);
+            response.sendRedirect("success.jsp");
         }
+        else{
+            response.sendRedirect("failure.jsp");
+        }
+
     }
 
     /**

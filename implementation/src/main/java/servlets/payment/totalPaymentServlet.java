@@ -3,18 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.payment;
 
 import com.mycompany.implementation.domain.Job;
-import com.mycompany.implementation.query.getPaymentGivenCustomer;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "selectedPaymentCust", urlPatterns = {"/selectedPaymentCust"})
-public class selectedPaymentCustServlet extends HttpServlet {
+@WebServlet(name = "totalPaymentServlet", urlPatterns = {"/totalPaymentServlet"})
+public class totalPaymentServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +42,10 @@ public class selectedPaymentCustServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet selectedPaymentCust</title>");            
+            out.println("<title>Servlet totalPaymentServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet selectedPaymentCust at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet totalPaymentServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -80,26 +77,29 @@ public class selectedPaymentCustServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        getPaymentGivenCustomer getCust = new getPaymentGivenCustomer();
-        ResultSet jobs = getCust.doGetPaymentGivenCustomer(Integer.parseInt(request.getParameter("id")));
-        List<Job> jobList = new ArrayList();
-        try {
-            while(jobs.next()){
-                Job a = new Job();
-                a.setJobID(jobs.getInt("JobID"));
-                a.setValue(jobs.getDouble("value"));
-                a.setOrderDate(jobs.getDate("orderDate"));
-                a.setDeadline(jobs.getDate("deadline"));
-                jobList.add(a);
-            }
-            
-            
-            request.setAttribute("Jobs", jobList);
-            request.getRequestDispatcher("payment.jsp").forward(request,response);
-        } catch (SQLException ex) {
-            Logger.getLogger(selectedPaymentCustServlet.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("Jobs", jobList);
+        Enumeration<String> a = request.getParameterNames();
+        List<Job> jobID = new ArrayList();
+        Double price = 0.0;  
+        boolean jobsSelected = false;
+        while(a.hasMoreElements()){
+            String c = a.nextElement();
+            System.out.println(c);
+            String temp = request.getParameter(c);
+            String[] fullJob = temp.split("`");
+            Job singlejob = new Job();
+            singlejob.setJobID(Integer.parseInt(fullJob[0]));
+            singlejob.setValue(Double.parseDouble(fullJob[1]));
+            singlejob.setOrderDate(Date.valueOf((fullJob[2])));
+            singlejob.setDeadline(Date.valueOf((fullJob[3])));
+            price = price + singlejob.getValue();
+            jobID.add(singlejob);
+            jobsSelected = true;
         }
+       request.setAttribute("jobsselected",jobsSelected);
+       request.setAttribute("selectedJobs",jobID);
+       request.setAttribute("Jobs",jobID);
+       request.setAttribute("price",price);
+       request.getRequestDispatcher("payment.jsp").forward(request,response);
         
         
     }

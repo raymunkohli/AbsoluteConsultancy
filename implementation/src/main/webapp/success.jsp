@@ -17,6 +17,9 @@
     else if( session.getAttribute("userType").equals("Technician") ){
         response.sendRedirect("technician_screen.jsp");
            }
+    else if (session.getAttribute("userType").equals("Shiftmanager")){
+        response.sendRedirect("shiftManager.jsp");
+    }
 
 %>
 
