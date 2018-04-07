@@ -236,24 +236,6 @@
                 </div>
             </form>
 
-            <form name="viewInvoice" action="viewInvoiceServlet" method ="post" id="viewInvoice"/>
-            <c:set var="numberofjobs" value="0"/>
-            <c:forEach items="${selectedJobs}" var="jobs" varStatus="jobStatus">
-                <input type="hidden" value="${jobs.jobID}" name="${jobStatus.index}" />
-                <c:set var="numberofjobs" value="${numberofjobs+1}"/>
-            </c:forEach>
-            <input type ="hidden" value="${numberofjobs}" name="numberofjobs"/>
-        </form>
-
-
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u474" class="ax_default label">
-            <div id="u474_div" class=""></div>
-            <div id="u474_text" class="text ">
-                <input type="submit" value="View Invoice" form="viewInvoice"/>
-            </div>
-        </div>
         <!-- Unnamed (Rectangle) -->
         <div id="u476" class="ax_default label">
             <div id="u476_div" class=""></div>

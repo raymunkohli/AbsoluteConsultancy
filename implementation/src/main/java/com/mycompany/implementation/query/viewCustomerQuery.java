@@ -54,8 +54,7 @@ public class viewCustomerQuery extends Query{
                String query ="SELECT distinct customer.customerID,customer.name,customer.surname,customer.address,customer.phoneNo,customer.postcode,customer.holder\n" +
                 "FROM customer\n" +
                 "INNER JOIN job on job.CustomercustomerID = customer.customerID\n" +
-                "LEFT JOIN payment ON job.JobID = payment.JobJobID WHERE payment.JobJobID IS NULL;";
-               System.out.println(query);
+                "LEFT JOIN payment ON job.JobID = payment.JobJobID WHERE payment.JobJobID IS NULL AND job.finished='1';";
                  PreparedStatement s = this.getC().prepareStatement(query);
                  return s.executeQuery();
                  
@@ -64,5 +63,20 @@ public class viewCustomerQuery extends Query{
                 return null;
             }
 
+       }
+       public ResultSet selectInvoiceCust(){
+                      try{
+               String query ="SELECT distinct customer.customerID,customer.name,customer.surname,customer.address,customer.phoneNo,customer.postcode,customer.holder\n" +
+                "FROM customer\n" +
+                "INNER JOIN job on job.CustomercustomerID = customer.customerID\n" +
+                "LEFT JOIN payment ON job.JobID = payment.JobJobID WHERE payment.JobJobID IS NULL AND job.finished='0';";
+                System.out.println(query);
+                 PreparedStatement s = this.getC().prepareStatement(query);
+                 return s.executeQuery();
+                 
+           } catch (SQLException ex) {
+                Logger.getLogger(viewCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
        }
 }

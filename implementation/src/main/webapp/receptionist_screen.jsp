@@ -487,11 +487,8 @@
         <input id="u8_input" type="submit" value="Submit" form="addJobForm"/>
       </div>
           
-           
             <input type="hidden" value="${totalPrice}" name="Price"/>
-            
-            
-            
+
             </form>
             
 
@@ -499,7 +496,7 @@
             <div id="u80" class="ax_default button">
                 <div id="u80_div" class=""></div>
                 <div id="u80_text" class="text ">
-                    <p><span>Print label</span></p>
+                    <p><span><form action="createInvoice.jsp"><input type="submit" value="Invoice"></form></span></p>
                 </div>
             </div>
 
