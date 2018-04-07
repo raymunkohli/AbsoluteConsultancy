@@ -31,7 +31,7 @@
       </div>
 
       <!-- Unnamed (Group) -->
-      <% if(session.getAttribute("userType").equals("shiftmanager")){ %>
+      <% if(session.getAttribute("userType")!=null && session.getAttribute("userType").equals("shiftmanager")){ %>
       <%@include  file="shiftBar.jsp" %>
       <% } %>
       <!-- Unnamed (Rectangle) -->
@@ -42,6 +42,12 @@
           <p><span>Performance report</span></p>
         </div>
       </div>
+        <div id="u191" style="left:500px" class="ax_default label">
+            <div id="u191_text" class="text ">
+                <font color="red"> ${perErr} </font>
+            </div>
+        </div>
+    
 
       <!-- Unnamed (Checkbox) -->
       <div id="u192" class="ax_default checkbox">
@@ -75,9 +81,6 @@
           </div>
 
           <!-- Unnamed (Shape) -->
-          <div id="u197" class="ax_default icon">
-            <img id="u197_img" class="img " src="images/shift_manager_screen/u197.png"/>
-          </div>
         </div>
 
         <!-- Unnamed (Rectangle) -->
@@ -101,9 +104,7 @@
           </div>
 
           <!-- Unnamed (Shape) -->
-          <div id="u202" class="ax_default icon">
-            <img id="u202_img" class="img " src="images/shift_manager_screen/u202.png"/>
-          </div>
+
         </div>
 
         <!-- Unnamed (Rectangle) -->
@@ -125,7 +126,7 @@
               <p><span>Copy room</span></p>
             </div>
           </label>
-          <input id="u205_input" type="radio" value="radio" name="u205" checked/>
+            <input id="u205_input" type="checkbox" value="radio" name="CopyRoom" />
         </div>
 
         <!-- Unnamed (Radio Button) -->
@@ -135,7 +136,7 @@
               <p><span>Development</span></p>
             </div>
           </label>
-          <input id="u206_input" type="radio" value="radio" name="u206" checked/>
+            <input id="u206_input" type="checkbox" value="radio" name="Development" />
         </div>
 
         <!-- Unnamed (Radio Button) -->
@@ -145,7 +146,7 @@
               <p><span>Finishing</span></p>
             </div>
           </label>
-          <input id="u207_input" type="radio" value="radio" name="u207" checked/>
+            <input id="u207_input" type="checkbox" value="radio" name="Finishing" />
         </div>
 
         <!-- Unnamed (Radio Button) -->
@@ -155,7 +156,7 @@
               <p><span>Packing</span></p>
             </div>
           </label>
-          <input id="u208_input" type="radio" value="radio" name="u208" checked/>
+            <input id="u208_input" type="checkbox" value="radio" name="Packing" />
         </div>
       </div>
 
@@ -163,7 +164,7 @@
       <div id="u209" class="ax_default button">
         <div id="u209_div" class=""></div>
         <div id="u209_text" class="text ">
-          <p><span>Generate performance report</span></p>
+            <p><span><input type="submit" value="Generate performance report" /></span></p>
         </div>
       </div>
       </form>
