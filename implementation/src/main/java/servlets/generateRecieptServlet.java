@@ -5,13 +5,8 @@
  */
 package servlets;
 
-import com.mycompany.implementation.domain.Job;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "totalPaymentServlet", urlPatterns = {"/totalPaymentServlet"})
-public class totalPaymentServlet extends HttpServlet {
+@WebServlet(name = "generateRecieptServlet", urlPatterns = {"/generateRecieptServlet"})
+public class generateRecieptServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +37,10 @@ public class totalPaymentServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet totalPaymentServlet</title>");            
+            out.println("<title>Servlet generateRecieptServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet totalPaymentServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet generateRecieptServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -77,31 +72,7 @@ public class totalPaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Enumeration<String> a = request.getParameterNames();
-        List<Job> jobID = new ArrayList();
-        Double price = 0.0;  
-        boolean jobsSelected = false;
-        while(a.hasMoreElements()){
-            String c = a.nextElement();
-            System.out.println(c);
-            String temp = request.getParameter(c);
-            String[] fullJob = temp.split("`");
-            Job singlejob = new Job();
-            singlejob.setJobID(Integer.parseInt(fullJob[0]));
-            singlejob.setValue(Double.parseDouble(fullJob[1]));
-            singlejob.setOrderDate(Date.valueOf((fullJob[2])));
-            singlejob.setDeadline(Date.valueOf((fullJob[3])));
-            price = price + singlejob.getValue();
-            jobID.add(singlejob);
-            jobsSelected = true;
-        }
-       request.setAttribute("jobsselected",jobsSelected);
-       request.setAttribute("selectedJobs",jobID);
-       request.setAttribute("Jobs",jobID);
-       request.setAttribute("price",price);
-       request.getRequestDispatcher("payment.jsp").forward(request,response);
-        
-        
+        processRequest(request, response);
     }
 
     /**

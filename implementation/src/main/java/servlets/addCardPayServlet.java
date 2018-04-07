@@ -85,9 +85,7 @@ public class addCardPayServlet extends HttpServlet {
            a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cardPayDate")));
            a.addCardPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), request.getParameter("digits"), request.getParameter("expdate"), request.getParameter("type"));
         }
-        request.setAttribute("Date", ZonedDateTime.now().format(RFC_1123_DATE_TIME));
-        request.setAttribute("Jobs", jobs);
-        request.getRequestDispatcher("viewInvoiceServlet").forward(request, response);
+        request.getRequestDispatcher("generateRecieptServlet").forward(request, response);
     }
 
     /**
