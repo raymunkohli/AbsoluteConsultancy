@@ -1,3 +1,4 @@
+<%@ include file="receptionistCheck.jsp" %>
 <%-- 
     Document   : viewAllTasks
     Created on : 20-Mar-2018, 18:25:12

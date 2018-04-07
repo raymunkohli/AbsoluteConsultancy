@@ -1,3 +1,4 @@
+<%@ include file="receptionistCheck.jsp" %>
 <%-- 
     Document   : viewCustomers
     Created on : 18-Mar-2018, 21:15:19

@@ -3,7 +3,7 @@
     Created on : 02-Apr-2018, 18:25:34
     Author     : raymun
 --%>
-
+<%@ include file="receptionistCheck.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
