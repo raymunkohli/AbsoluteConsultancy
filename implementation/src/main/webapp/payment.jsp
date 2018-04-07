@@ -84,6 +84,7 @@
                                 <td> <c:out value="${Jobs.orderDate}" /> </td>
                                 <td> <c:out value="${Jobs.deadline}" /> </td>
                                 <td> <input type="checkbox" name="${Jobs.jobID}" value ="${Jobs.jobID}`${Jobs.value}`${Jobs.orderDate}`${Jobs.deadline}"/> </td>
+                                <c:set var="TotalPrice" value ="${TotalPrice + Jobs.value}" />
                             </tr>
                         </c:forEach>
                     </table>
@@ -146,6 +147,7 @@
                 </div>
             </div>
             <form method="post" action="addCardPayServlet" name="addCardPayment">
+                <input type="hidden" value="${TotalPrice}" name="TotalPrice"/>
                 <!-- Unnamed (Droplist) -->
                 <div id="u429" class="ax_default droplist">
                     <select id="u429_input" name="type" required>
@@ -214,6 +216,7 @@
             <!-- Unnamed (Rectangle) -->
 
             <form method="post" action="addCashPayServlet" id="cashPay">
+                <input type="hidden" value="${TotalPrice}" name="TotalPrice"/>
                 <!-- Unnamed (Group) -->
                 <div id="u444" class="ax_default" data-left="153" data-top="355" data-width="120" data-height="21">
                     <c:set var="numberofjobs" value="0"/>

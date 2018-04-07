@@ -121,11 +121,15 @@ public class getDataForInvoiceQuery extends Query {
 
     }
 
-    public double updateFlexDiscount(int discountID, double value) {
+    /*
+    public double updateFlexDiscount(int custID, double value) {
         PreparedStatement s;
         try {
-            String query = "UPDATE flexiblediscount SET flexiblediscount.aquiredValue = flexiblediscount.aquiredValue +" + value + " "
-                    + "WHERE flexiblediscount.DiscountdiscountID='" + discountID + "';";
+            String query = "UPDATE flexiblediscount \n" +
+            "INNER JOIN discount ON discount.discountID = flexiblediscount.DiscountdiscountID\n" +
+            "INNER JOIN valuedcustomer ON valuedcustomer.DiscountdiscountID = discount.discountID\n" +
+            "SET flexiblediscount.aquiredValue = flexiblediscount.aquiredValue +"+value+"\n" +
+            "WHERE valuedcustomer.CustomercustomerID ='"+custID+"';";
             s = this.getC().prepareStatement(query);
             s.executeUpdate();
             String secondQuery = "SELECT flexiblediscount.aquiredValue \n"
@@ -156,5 +160,6 @@ public class getDataForInvoiceQuery extends Query {
         }
 
     }
+*/
 
 }

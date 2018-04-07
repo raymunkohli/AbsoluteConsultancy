@@ -132,11 +132,6 @@ public class viewInvoiceServlet extends HttpServlet {
                 case "Flexible":
                     Discount ="Flexible";
                     request.setAttribute("DiscountAmount",DiscountInfo.getDouble("discount"));
-                    Double value=0.00;
-                    for(Job j:allTheJobs){
-                        value = Data.updateFlexDiscount(DiscountInfo.getInt("discountID"),j.getValue()) +value;
-                    }
-                    Data.upgradeBand(DiscountInfo.getInt("discountID"),value);
                     break;
                 case "Variable":
                     Discount = "Variable";

@@ -43,7 +43,7 @@ public class addCardPayServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addCardPayServlet</title>");            
+            out.println("<title>Servlet addCardPayServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet addCardPayServlet at " + request.getContextPath() + "</h1>");
@@ -80,10 +80,16 @@ public class addCardPayServlet extends HttpServlet {
             throws ServletException, IOException {
         addPaymentQuery a = new addPaymentQuery();
         List<Integer> jobs = new ArrayList();
-        for(int num = 0; num !=Integer.parseInt(request.getParameter("numberofjobs")); num++){
-           jobs.add(Integer.parseInt(request.getParameter(String.valueOf(num))));
-           a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cardPayDate")));
-           a.addCardPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), request.getParameter("digits"), request.getParameter("expdate"), request.getParameter("type"));
+        double price = Double.parseDouble(request.getParameter("TotalPrice"))*1.2;
+
+        for (int num = 0; num != Integer.parseInt(request.getParameter("numberofjobs")); num++) {
+            jobs.add(Integer.parseInt(request.getParameter(String.valueOf(num))));
+            a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cardPayDate")));
+            a.addCardPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), request.getParameter("digits"), request.getParameter("expdate"), request.getParameter("type"));
+        }
+        List<Double> flexdiscount = a.checkForFlexDiscount(jobs.get(0));
+        if (flexdiscount != null) {
+            a.upgradeBand(flexdiscount.get(0).intValue(), flexdiscount.get(1) + price);
         }
         request.getRequestDispatcher("generateRecieptServlet").forward(request, response);
     }

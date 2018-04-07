@@ -9,6 +9,8 @@ import com.mycompany.implementation.query.addPaymentQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +41,7 @@ public class addCashPayServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addCashPay</title>");            
+            out.println("<title>Servlet addCashPay</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet addCashPay at " + request.getContextPath() + "</h1>");
@@ -60,7 +62,7 @@ public class addCashPayServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
@@ -75,10 +77,17 @@ public class addCashPayServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         addPaymentQuery a = new addPaymentQuery();
-        for(int num = 0; num !=Integer.parseInt(request.getParameter("numberofjobs")); num++){
-           a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cashDate")));
+        List<Integer> jobs = new ArrayList();
+        double price = Double.parseDouble(request.getParameter("TotalPrice")) * 1.2;
+        for (int num = 0; num != Integer.parseInt(request.getParameter("numberofjobs")); num++) {
+            jobs.add(Integer.parseInt(request.getParameter(String.valueOf(num))));
+            a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cashDate")));
         }
-       request.getRequestDispatcher("generateRecieptServlet").forward(request, response);
+        List<Double> flexdiscount = a.checkForFlexDiscount(jobs.get(0));
+        if (flexdiscount != null) {
+            a.upgradeBand(flexdiscount.get(0).intValue(), flexdiscount.get(1) + price);
+        }
+        request.getRequestDispatcher("generateRecieptServlet").forward(request, response);
     }
 
     /**
