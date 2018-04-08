@@ -30,7 +30,7 @@
       <div id="u0" class="ax_default label">
         <div id="u0_div" class=""></div>
         <div id="u0_text" class="text ">
-          <p><span>9.2. By Mr Rick Evans, Office Manager</span></p>
+          
         </div>
       </div>
 

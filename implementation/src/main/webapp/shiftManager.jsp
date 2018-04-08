@@ -59,14 +59,22 @@
                 <div id="u192" class="ax_default checkbox">
                     <label for="u192_input" style="position: absolute;">
                         <div id="u192_text" class="text ">
-                            <p><span>Day shift</span></p>
+                            <p><span>Day shift (early)</span></p>
                         </div>
                     </label>
-                    <input id="u192_input" type="checkbox" name="dayShift"/>
+                    <input id="u192_input" type="checkbox" name="dayShiftEarly"/>
+                </div>
+                <div id="u193" class="ax_default checkbox">
+                    <label for="u193_input" style="position: absolute;">
+                        <div id="u193_text" class="text ">
+                            <p><span>Day shift (late)</span></p>
+                        </div>
+                    </label>
+                    <input id="u192_input" type="checkbox" name="dayShiftLate"/>
                 </div>
 
                 <!-- Unnamed (Checkbox) -->
-                <div id="u193" class="ax_default checkbox">
+                <div id="u193" class="ax_default checkbox" style="left:300px">
                     <label for="u193_input" style="position: absolute;">
                         <div id="u193_text" class="text ">
                             <p><span>Night shift</span></p>
@@ -122,49 +130,6 @@
                     </div>
                 </div>
 
-                <!-- Unnamed (Group) -->
-                <div id="u204" class="ax_default" data-left="31" data-top="368" data-width="579" data-height="22">
-
-                    <!-- Unnamed (Radio Button) -->
-                    <div id="u205" class="ax_default radio_button">
-                        <label for="u205_input" style="position: absolute;">
-                            <div id="u205_text" class="text ">
-                                <p><span>Copy room</span></p>
-                            </div>
-                        </label>
-                        <input id="u205_input" type="checkbox" value="radio" name="CopyRoom" />
-                    </div>
-
-                    <!-- Unnamed (Radio Button) -->
-                    <div id="u206" class="ax_default radio_button">
-                        <label for="u206_input" style="position: absolute;">
-                            <div id="u206_text" class="text ">
-                                <p><span>Development</span></p>
-                            </div>
-                        </label>
-                        <input id="u206_input" type="checkbox" value="radio" name="Development" />
-                    </div>
-
-                    <!-- Unnamed (Radio Button) -->
-                    <div id="u207" class="ax_default radio_button">
-                        <label for="u207_input" style="position: absolute;">
-                            <div id="u207_text" class="text ">
-                                <p><span>Finishing</span></p>
-                            </div>
-                        </label>
-                        <input id="u207_input" type="checkbox" value="radio" name="Finishing" />
-                    </div>
-
-                    <!-- Unnamed (Radio Button) -->
-                    <div id="u208" class="ax_default radio_button">
-                        <label for="u208_input" style="position: absolute;">
-                            <div id="u208_text" class="text ">
-                                <p><span>Packing</span></p>
-                            </div>
-                        </label>
-                        <input id="u208_input" type="checkbox" value="radio" name="Packing" />
-                    </div>
-                </div>
 
                 <!-- Unnamed (Rectangle) -->
                 <div id="u209" class="ax_default button">
@@ -177,14 +142,6 @@
             <!-- Unnamed (Horizontal Line) -->
             <div id="u210" class="ax_default line">
                 <img id="u210_img" class="img " src="images/shift_manager_screen/u210.png"/>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u211" class="ax_default label">
-                <div id="u211_div" class=""></div>
-                <div id="u211_text" class="text ">
-                    <p><span>Select department</span></p>
-                </div>
             </div>
 
             <!-- Unnamed (Rectangle) -->
