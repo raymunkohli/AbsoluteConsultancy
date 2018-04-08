@@ -15,8 +15,9 @@ public class getPerformanceReportQuery extends Query{
     public getPerformanceReportQuery(){
         super();
     }
-    
-    public ResultSet doGetPerformanceReportQuery(){
+    //finish this SQL
+    public void doGetPerformanceReportQuery(){
         
+    
     }
 }
