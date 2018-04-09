@@ -5,8 +5,19 @@
  */
 package servlets.technician;
 
+import com.mycompany.implementation.domain.Basetask;
+import com.mycompany.implementation.domain.Customer;
+import com.mycompany.implementation.domain.Job;
+import com.mycompany.implementation.domain.Task;
+import com.mycompany.implementation.query.viewTechQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +48,7 @@ public class viewTechnicianServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewTechnicianServlet</title>");            
+            out.println("<title>Servlet viewTechnicianServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet viewTechnicianServlet at " + request.getContextPath() + "</h1>");
@@ -58,7 +69,7 @@ public class viewTechnicianServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -72,7 +83,45 @@ public class viewTechnicianServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        //initalise Query
+        viewTechQuery a = new viewTechQuery();
+
+        //Return room which member of staff can access
+        String StaffRoom = a.doViewTechQuery(Integer.parseInt(request.getSession().getAttribute("staffID").toString()));
+        if (StaffRoom == null) {
+            // If shift/office manager select all the rooms 
+            StaffRoom = "Copy' OR basetask.department='Development' OR basetask.department='Finishing' OR basetask.department='Packaging";
+        }
+        //run the query to get the data for all the rooms
+        ResultSet Results = a.getJobs(StaffRoom);
+        List<Job> Jobs = new ArrayList();
+        List<Task> Tasks = new ArrayList();
+        List<Customer> Customers = new ArrayList();
+        List<Basetask> Base = new ArrayList();
+        
+        try {
+            while(Results.next()){
+                Job j = new Job();
+                j.setJobID(Results.getInt("JobID"));
+                j.setDeadline(Results.getTimestamp("deadline"));
+                
+                Task t = new Task();
+                t.setTaskID(Results.getInt("taskID"));
+                //FINISH THIS
+                
+                Jobs.add(j);
+                Tasks.add(t);
+                System.out.println(123);
+            }
+            request.setAttribute("Jobs",Jobs);
+            request.setAttribute("Tasks",Tasks);
+        } catch (SQLException ex) {
+            Logger.getLogger(viewTechnicianServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        request.getRequestDispatcher("technician_screen.jsp").forward(request, response);
     }
 
     /**

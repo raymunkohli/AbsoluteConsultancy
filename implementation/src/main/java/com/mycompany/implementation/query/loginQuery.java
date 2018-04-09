@@ -27,7 +27,7 @@ public class loginQuery extends Query{
         super();
     }
     
-    public String doLoginQuery(String user, String pass){
+    public ResultSet doLoginQuery(String user, String pass){
        
         
         try {
@@ -36,8 +36,7 @@ public class loginQuery extends Query{
                 String query = "SELECT * FROM staff WHERE staff.firstName = '" + theuser[0] + "' AND staff.surName = '" +theuser[1] +"' AND staff.password = "+ pass + ";" ;
                 PreparedStatement s = this.getC().prepareStatement(query); //create statement 
                 this.r = s.executeQuery(); //execute statement
-                r.next();
-                return r.getObject("employeeType").toString(); //returns if any rows are found
+                return r;
             }
             return null;
         } catch (SQLException ex) {

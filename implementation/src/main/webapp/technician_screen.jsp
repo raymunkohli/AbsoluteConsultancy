@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
     <head>
         <title>Technician screen</title>
@@ -60,37 +61,27 @@
                 <table id="table" border="1" width="670px">
                     <tr>
                         <th> ID </th>
+                        <th> Holder</th>
                         <th> Customer </th>
                         <th> Status </th>
                         <th> Location </th>
                         <th> Deadline </th>
+                        <th> Select </th>
                     </tr>
 
-                    <c:forEach items="${Jobs}" var="Jobs">
+                    <c:forEach items="${Jobs}" var="Job" varStatus="Status">
                         <tr>
-                            <td> <c:out value="${Jobs.jobID}" /> </td>
+                            <td> ${Job.jobID} </td>
                             <td> <c:out value="${Customer.name}" /> </td>
-                            <td> <c:out value="${Jobs.specInstructions}" /> </td>
+                            <td> ${Tasks[Status.index].taskID} </td>
                             <td> <c:out value="${Customer.address}" /> </td>
-                            <td> <c:out value="${Jobs.deadline}" /> </td>
+                            <td> <c:out value="${Job.deadline}" /> </td>
+                        <form method="post" action="selectedJobTechician">
+                            <input type="hidden" value="${Tasks[Status.index].taskID}"/> 
+                            <td> <input type="Submit" value="Select"/> </td>
+                        </form>
                         </tr>
-                    </c:forEach>
-
-                    <tr>
-                        <td> 34 </td>
-                        <td> M.Lark </td>
-                        <td> Use of small copy camera </td>
-                        <td> Copy Room </td>
-                        <td> 22/02/19 </td>
-                    </tr>
-
-                    <tr>
-                        <td> 27 </td>
-                        <td> A.Peterson </td>
-                        <td> Mount transparencies </td>
-                        <td> Finishing Room </td>
-                        <td> 03/03/19 </td>
-                    </tr>
+                    </c:forEach>  
                 </table>
 
                 <script>
