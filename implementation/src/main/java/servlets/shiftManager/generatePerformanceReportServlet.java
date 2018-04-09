@@ -166,7 +166,9 @@ public class generatePerformanceReportServlet extends HttpServlet {
                     Logger.getLogger(generatePerformanceReportServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            request.getRequestDispatcher("summaryReport").forward(request, response);
+            request.setAttribute("From", LocalDate.parse(request.getParameter("fromDate")));
+            request.setAttribute("To", LocalDate.parse(request.getParameter("toDate")));
+            request.getRequestDispatcher("summaryReport.jsp").forward(request, response);
 
         }
 

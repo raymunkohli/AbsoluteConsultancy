@@ -31,13 +31,8 @@
   <body>
     <div id="base" class="">
 
-      <!-- Unnamed (Rectangle) -->
-      <div id="u186" class="ax_default box_1">
-        <div id="u186_div" class=""></div>
-      </div>
-
       <!-- Unnamed (Group) -->
-      <div id="u187" class="ax_default" data-left="73" data-top="77" data-width="819" data-height="40">
+      <div id="u187" class="ax_default" data-left="50" data-top="0" data-width="819" data-height="40">
 
         <!-- Unnamed (Rectangle) -->
         <div id="u189" class="ax_default button">

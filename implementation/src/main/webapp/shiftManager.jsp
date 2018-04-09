@@ -37,7 +37,7 @@
             </div>
 
             <!-- Unnamed (Group) -->
-            <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("shiftmanager")) { %>
+            <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("ShiftManager")) { %>
             <%@include  file="shiftBar.jsp" %>
             <% }%>
             <!-- Unnamed (Rectangle) -->
@@ -114,7 +114,7 @@
 
                         <!-- Unnamed (Text Field) -->
                         <div id="u201" class="ax_default text_field">
-                            <input id="u201_input" type="Date" value="toDate" required>
+                            <input id="u201_input" type="Date" name="toDate" required>
                         </div>
 
                         <!-- Unnamed (Shape) -->

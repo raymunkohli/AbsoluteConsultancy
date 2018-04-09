@@ -33,9 +33,10 @@ public class getPerformanceReportQuery extends Query {
                     + "FROM Task RIGHT JOIN baseTask ON baseTask.baseTaskID = task.baseTaskbaseTaskID \n"
                     + "WHERE task.startDate IS NOT NULL\n"
                     + "AND time(task.endDate) >= \"05:00\" AND time(task.endDate) <=\"14:30\"\n"
-                    + "AND date(task.endDate) >= " + Start + " AND date(task.endDate) <= " + End + "\n"
+                    + "AND date(task.endDate) >= '" + Start + "' AND date(task.endDate) <= '" + End + "'\n"
                     + "GROUP by Date;";
             PreparedStatement s;
+            System.out.println(Query);
             s = this.getC().prepareStatement(Query);
             ResultSet results = s.executeQuery();
             return results;
@@ -55,7 +56,7 @@ public class getPerformanceReportQuery extends Query {
                     + "FROM Task RIGHT JOIN baseTask ON baseTask.baseTaskID = task.baseTaskbaseTaskID \n"
                     + "WHERE task.startDate IS NOT NULL\n"
                     + "AND time(task.endDate) >= \"14:31\" AND time(task.endDate)<=\"22:00\"\n"
-                    + "AND date(task.endDate) >= " + Start + " AND date(task.endDate) <= " + End + "\n"
+                    + "AND date(task.endDate) >= '" + Start + "' AND date(task.endDate) <= '" + End + "'\n"
                     + "GROUP by Date;";
             PreparedStatement s;
             s = this.getC().prepareStatement(Query);
@@ -78,7 +79,7 @@ public class getPerformanceReportQuery extends Query {
                     + "WHERE task.startDate IS NOT NULL\n"
                     + "AND (time(task.endDate) >= time(\"22:01\") AND time(task.endDate)<=time(\"23:59\")) OR\n"
                     + "(time(task.endDate) <= time(\"04:59\") AND time(task.endDate) >= time(\"00:00\"))\n"
-                    + "AND date(task.endDate) >= " + Start + " AND date(task.endDate) <= " + End + "\n"
+                    + "AND date(task.endDate) >= '" + Start + "' AND date(task.endDate) <= '" + End + "'\n"
                     + "GROUP by Date;";
             PreparedStatement s;
             s = this.getC().prepareStatement(Query);
