@@ -25,7 +25,7 @@
   </head>
   <body>
     <div id="base" class="">
-            <a href="shiftManager.jsp"> <input type="button" value="Return" class="no-print"/></a>
+                    <a href="shiftManager.jsp"> <input type="button" value="Return" class="no-print"/></a>
             <input type="button" value="Print" onclick="window.print()" class="no-print" />
 
       <!-- Unnamed (Rectangle) -->
@@ -40,64 +40,34 @@
       <div id="u1" class="ax_default label">
         <div id="u1_div" class=""></div>
         <div id="u1_text" class="text ">
-          <p><span>Individual Performance Report</span></p>
+          <p><span>Customer Report</span></p>
         </div>
       </div>
 
       <!-- Unnamed (Rectangle) -->
-      <div id="u2" class="ax_default label">
+      <div id="u2" class="ax_default label" style="left:150px">
         <div id="u2_div" class=""></div>
         <div id="u2_text" class="text ">
           <p><span>Period: ${from} - ${to}</span></p>
+          <div style="left:20px">
+            <p> Customer: ${name} </p>
+          </div>
         </div>
       </div>
-        <div style="top:150px;position:relative"  class="ax_default">
+        <div style="top:150px;position:relative;left:100px"  class="ax_default">
       <table>
           <tr>
-              <th>Name </th>
-              <th>Job ID </th>
-              <th>Task ID </th>
-              <th>Department </th>
               <th>Date </th>
-              <th>Start time </th>
-              <th>Time Taken (Minutes)</th>
-              <th>Total(Minutes)</th>
+              <th>Number of Jobs </th>
+              <th>Value Of Jobs </th>
           </tr>
-          
-          <c:set var="overallTotal" value="0"/>
-          <c:forEach items="${Staff}" var="staff" varStatus="Status">
-                            <c:choose>
-                      <c:when test="${timePerPerson[Status.index] != -1}">
-                          <tr style="border-bottom:1px solid black;">
-                          <c:set var="overallTotal" value="${overallTotal+timePerPerson[Status.index] }" />
-                      </c:when>
-                  <c:otherwise>
-                  <tr>
-                  </c:otherwise>
-                  </c:choose>
-                  <td>
-                      ${staff.firstName} ${staff.surName}
-                  </td>
-                  <td>${Task[Status.index].jobJobID.jobID} </td>
-                  <td>${Base[Status.index].baseTaskID} </td>
-                  <td>${Base[Status.index].department} </td>
-                  <td>${Task[Status.index].startDate} </td>
-                  <td>${startTime[Status.index]} </td>
-                  <td>${takenTime[Status.index]} </td>
-                  <c:choose>
-                      <c:when test="${timePerPerson[Status.index] != -1}">
-                          <td>${timePerPerson[Status.index]}</td>
-                          <c:set var="overallTotal" value="${overallTotal+timePerPerson[Status.index] }" />
-                      </c:when>
-                  <c:otherwise>
-                      <td> </td>
-                  </c:otherwise>
-                  </c:choose>
+          <c:forEach items="${time}" var="date" varStatus="Status">
+              <tr>
+                <td>${date}</td>
+                <td>${amount[Status.index]}</td>
+                <td>${value[Status.index]}</td>
               </tr>
           </c:forEach>
-              <tr style="border-top:2px solid black;"><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                  <td style="border-top:2px solid black;border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;"> Total Effort : ${overallTotal} Minutes</td>
-              </tr>
       </table>
     </div>
     </div>
