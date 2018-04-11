@@ -34,13 +34,27 @@
     </head>
     <body>
         <div id="base" class="">
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u521" class="ax_default box_1">
-                <div id="u521_div" class=""></div>
+            <div id="tophalf" style="position:relative;height:150px">
+                            <!-- Unnamed (Rectangle) -->
+            <div id="u584" class="ax_default label">
+                <div id="u584_div" class=""></div>
+                <div id="u584_text" class="text ">
+                    <p><span>BIPL Admin</span></p>
+                </div>
             </div>
 
-            <!-- Unnamed (Table) -->
+            <!-- Unnamed (Shape) -->
+
+            <!-- Unnamed (Horizontal Line) -->
+            <div id="u586" class="ax_default line">
+                <img id="u586_img" class="img " src="images/receptionist_screen/u84.png"/>
+            </div>
+
+            <!-- Unnamed (Shape) -->
+            <div id="u587" class="ax_default icon">
+                <img id="u587_img" class="img " src="images/receptionist_screen/u88.png"/>
+            </div>
+
             <div id="u522" class="ax_default">
                 <table>
                     <tr>
@@ -63,7 +77,11 @@
                 </table>
 
             </div>
-
+            </div>
+            <c:forEach items="${Staff}">
+                <div id="fakespace" style="height:30px"></div>
+            </c:forEach> 
+                <div id="bottomhalf" class="" style="position:relative; top:-250px">
             <!-- Unnamed (Rectangle) -->
             <div id="u553" class="ax_default label">
                 <div id="u553_div" class=""></div>
@@ -298,28 +316,8 @@
                 </div>
             </div>
 
-            <!-- Unnamed (Rectangle) -->
-            <div id="u584" class="ax_default label">
-                <div id="u584_div" class=""></div>
-                <div id="u584_text" class="text ">
-                    <p><span>BIPL Admin</span></p>
-                </div>
-            </div>
 
-            <!-- Unnamed (Shape) -->
-            <div id="u585" class="ax_default icon">
-                <img id="u585_img" class="img " src="images/technician_screen/u184.png"/>
-            </div>
-
-            <!-- Unnamed (Horizontal Line) -->
-            <div id="u586" class="ax_default line">
-                <img id="u586_img" class="img " src="images/receptionist_screen/u84.png"/>
-            </div>
-
-            <!-- Unnamed (Shape) -->
-            <div id="u587" class="ax_default icon">
-                <img id="u587_img" class="img " src="images/receptionist_screen/u88.png"/>
-            </div>
+        </div>
         </div>
     </body>
 </html>
