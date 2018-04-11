@@ -20,6 +20,10 @@
     else if (session.getAttribute("userType").equals("ShiftManager")){
         response.sendRedirect("shiftManager.jsp");
     }
+     else if (session.getAttribute("userType").equals("OfficeManager")){
+        response.sendRedirect("officeManager.jsp");
+    }
+
 
 %>
 

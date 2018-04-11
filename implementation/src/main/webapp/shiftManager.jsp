@@ -38,6 +38,9 @@
             <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("ShiftManager")) { %>
             <%@include  file="shiftBar.jsp" %>
             <% }%>
+            <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("OfficeManager")) { %>
+            <%@include  file="officeBar.jsp" %>
+            <% }%>
             <!-- Unnamed (Rectangle) -->
             <form action="generatePerformanceReportServlet" method="post" name="performace" id="performance">
                 <div id="u191" class="ax_default label">
@@ -169,60 +172,60 @@
             </div>
 
             <form action="generateCustReportServlet" method="post" name="CustReport"> 
-            <!-- Unnamed (Rectangle) -->
-            <div id="u217" class="ax_default button">
-                <div id="u217_div" class=""></div>
-                <div id="u217_text" class="text ">
-                    <p><span><input type="submit" value="Generate customer report"></span></p> 
+                <!-- Unnamed (Rectangle) -->
+                <div id="u217" class="ax_default button">
+                    <div id="u217_div" class=""></div>
+                    <div id="u217_text" class="text ">
+                        <p><span><input type="submit" value="Generate customer report"></span></p> 
+                    </div>
                 </div>
-            </div>
-            <div id="u241" class="ax_default label" style="width:500px;height:300px">
-                <div id="" class="text " style="top:50px;width:500px;position:absolute;">
+                <div id="u241" class="ax_default label" style="width:500px;height:300px">
+                    <div id="" class="text " style="top:50px;width:500px;position:absolute;">
                         Day: <input type="radio" value="Day" name="group1" required>
                         Month: <input type="radio" value="Month" name="group1">
                         Year: <input type="radio" value="Year" name="group1">
-                   
-                </div>
-            </div>
-            <!-- Unnamed (Group) -->
-            <div id="u242" class="ax_default" data-left="31" data-top="724" data-width="170" data-height="24">
-                <div id="u243" class="ax_default" data-left="78" data-top="724" data-width="123" data-height="21">
-                    <!-- Unnamed (Text Field) -->
-                    <div id="u244" class="ax_default text_field">
-                        <input id="u244_input" type="date" value="" name="from" required/>
+
                     </div>
                 </div>
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u246" class="ax_default label">
-                    <div id="u246_div" class=""></div>
-                    <div id="u246_text" class="text ">
-                        <p><span>From</span></p>
-                    </div>
-                </div>
-            </div>
-             <div id="u247" class="ax_default" data-left="336" data-top="724" data-width="144" data-height="24">
-
                 <!-- Unnamed (Group) -->
-                <div id="u248" class="ax_default" data-left="360" data-top="724" data-width="120" data-height="21">
-
-                    <!-- Unnamed (Text Field) -->
-                    <div id="u249" class="ax_default text_field">
-                        <input id="u249_input" type="date" value="" name="to" required/>
+                <div id="u242" class="ax_default" data-left="31" data-top="724" data-width="170" data-height="24">
+                    <div id="u243" class="ax_default" data-left="78" data-top="724" data-width="123" data-height="21">
+                        <!-- Unnamed (Text Field) -->
+                        <div id="u244" class="ax_default text_field">
+                            <input id="u244_input" type="date" value="" name="from" required/>
+                        </div>
                     </div>
 
-                </div>
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u251" class="ax_default label">
-                    <div id="u251_div" class=""></div>
-                    <div id="u251_text" class="text ">
-                        <p><span>To</span></p>
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u246" class="ax_default label">
+                        <div id="u246_div" class=""></div>
+                        <div id="u246_text" class="text ">
+                            <p><span>From</span></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <input type="hidden" value="<% out.write(request.getParameter("Customer"));%>" name="Cust"/>
-            <input type="hidden" value="<% out.write(request.getParameter("CustomerName"));%>" name="name" />
+                <div id="u247" class="ax_default" data-left="336" data-top="724" data-width="144" data-height="24">
+
+                    <!-- Unnamed (Group) -->
+                    <div id="u248" class="ax_default" data-left="360" data-top="724" data-width="120" data-height="21">
+
+                        <!-- Unnamed (Text Field) -->
+                        <div id="u249" class="ax_default text_field">
+                            <input id="u249_input" type="date" value="" name="to" required/>
+                        </div>
+
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u251" class="ax_default label">
+                        <div id="u251_div" class=""></div>
+                        <div id="u251_text" class="text ">
+                            <p><span>To</span></p>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" value="<% out.write(request.getParameter("Customer"));%>" name="Cust"/>
+                <input type="hidden" value="<% out.write(request.getParameter("CustomerName"));%>" name="name" />
             </form>
             <!-- Unnamed (Rectangle) -->
             <div id="u218" class="ax_default label">
@@ -323,7 +326,7 @@
                     <p><span>Selected customer</span></p>
                 </div>
             </div>
-            
+
 
             <!-- Unnamed (Droplist) -->
             <div id="u252" class="ax_default droplist" style="width:600px">
@@ -340,9 +343,7 @@
             </div>
 
             <!-- Unnamed (Shape) -->
-            <div id="u254" class="ax_default icon">
-                <img id="u254_img" class="img " src="images/receptionist_screen/u88.png"/>
-            </div>
+
             <div id="u240" class="ax_default button">
                 <div id="u240_div" class=""></div>
                 <div id="u240_text" class="text ">

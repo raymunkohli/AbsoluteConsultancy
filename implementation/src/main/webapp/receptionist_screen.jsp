@@ -7,6 +7,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+        <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("OfficeManager")) { %>
+        <%@include  file="officeBar.jsp" %>
+        <% }%>
             <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("ShiftManager")) { %>
             <%@include  file="shiftBar.jsp" %>
             <% }%>
@@ -49,10 +52,7 @@
             <!-- Unnamed (Rectangle) -->
             <div id="tophalf">
 
-                            <!-- Unnamed (Shape) -->
-            <div id="u88" class="ax_default icon">
-                <img id="u88_img" class="img " src="images/receptionist_screen/u88.png"/>
-            </div>
+
             
              <!-- Unnamed (Rectangle) -->
             <form method="post" action="viewCustomerServlet" id="viewCust">
