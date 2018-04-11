@@ -62,12 +62,14 @@
       </div>
 
       <!-- Unnamed (Rectangle) -->
+      <a href="viewAdminServlet">
       <div id="u274" class="ax_default button">
         <div id="u274_div" class=""></div>
         <div id="u274_text" class="text ">
           <p><span>Admin</span></p>
         </div>
       </div>
+      </a>
 
       <!-- Unnamed (Rectangle) -->
       <div id="u275" class="ax_default button">

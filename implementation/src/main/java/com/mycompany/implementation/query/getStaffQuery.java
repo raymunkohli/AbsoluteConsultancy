@@ -45,5 +45,22 @@ public class getStaffQuery extends Query{
             return null;
         }
     }
+    public ResultSet getAllStaff(){
+        PreparedStatement s;
+        try {
+            List<Staff> AllStaff = new ArrayList();
+            String query = "SELECT staff.*,technicianroom.technicianroom FROM staff \n" +
+                           "LEFT JOIN technicianroom ON technicianroom.staff_staffID = staff.staffID "
+                            + "ORDER BY staff.staffID";
+            System.out.println(query);
+            s = this.getC().prepareStatement(query);
+            ResultSet staff = s.executeQuery();
+            return staff;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(addCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
     
 }
