@@ -7,6 +7,7 @@ package servlets.admin;
 
 import com.mycompany.implementation.domain.Staff;
 import com.mycompany.implementation.query.getStaffQuery;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -80,12 +81,13 @@ public class viewAdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //get all the backups
+        File folder = new File("C:\\Users\\raymun\\Documents\\Team project git\\AbsoluteConsultancy\\implementation\\sqlBackups");
+        request.setAttribute("Files",folder.listFiles());
+        
         if(request.getParameter("Err")!=null){
             request.setAttribute("Err",request.getAttribute("err"));
         }
-        
-        
-        
         try {
             getStaffQuery a = new getStaffQuery();
             ResultSet staff = a.getAllStaff();

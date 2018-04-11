@@ -183,7 +183,7 @@
             <div id="u566" class="ax_default label">
                 <div id="u566_div" class=""></div>
                 <div id="u566_text" class="text ">
-                    <p><span>Last back up: 20/02/18</span></p><p><span><br></span></p>
+                    
                 </div>
             </div>
 
@@ -196,7 +196,7 @@
             <div id="u568" class="ax_default label">
                 <div id="u568_div" class=""></div>
                 <div id="u568_text" class="text ">
-                    <p><span>Back up due: 01/04/18</span></p>
+                   
                 </div>
             </div>
 
@@ -204,7 +204,7 @@
             <div id="u569" class="ax_default button">
                 <div id="u569_div" class=""></div>
                 <div id="u569_text" class="text ">
-                    <p><span>Back up now</span></p>
+                    <form action="createBackUpServlet" method="post"><p><span><input type="submit" value="Back up now" > </span></p> </form>
                 </div>
             </div>
 
@@ -218,102 +218,17 @@
 
             <!-- Unnamed (Table) -->
             <div id="u571" class="ax_default">
-
-                <!-- Unnamed (Table Cell) -->
-                <div id="u572" class="ax_default table_cell">
-                    <img id="u572_img" class="img " src="images/admin_form/u572.png"/>
-                    <div id="u572_text" class="text ">
-                        <p><span>Date</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Table Cell) -->
-                <div id="u573" class="ax_default table_cell">
-                    <img id="u573_img" class="img " src="images/admin_form/u572.png"/>
-                    <div id="u573_text" class="text ">
-                        <p><span>Version</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Table Cell) -->
-                <div id="u574" class="ax_default table_cell">
-                    <img id="u574_img" class="img " src="images/admin_form/u574.png"/>
-                    <div id="u574_text" class="text ">
-                        <p><span>Performed by</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Table Cell) -->
-                <div id="u575" class="ax_default table_cell">
-                    <img id="u575_img" class="img " src="images/admin_form/u572.png"/>
-                    <div id="u575_text" class="text ">
-                        <p><span>01/02/18</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Table Cell) -->
-                <div id="u576" class="ax_default table_cell">
-                    <img id="u576_img" class="img " src="images/admin_form/u572.png"/>
-                    <div id="u576_text" class="text ">
-                        <p><span>4.1.3</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Table Cell) -->
-                <div id="u577" class="ax_default table_cell">
-                    <img id="u577_img" class="img " src="images/admin_form/u574.png"/>
-                    <div id="u577_text" class="text ">
-                        <p><span>Jay</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Table Cell) -->
-                <div id="u578" class="ax_default table_cell">
-                    <img id="u578_img" class="img " src="images/admin_form/u572.png"/>
-                    <div id="u578_text" class="text ">
-                        <p><span>01/01/18</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Table Cell) -->
-                <div id="u579" class="ax_default table_cell">
-                    <img id="u579_img" class="img " src="images/admin_form/u572.png"/>
-                    <div id="u579_text" class="text ">
-                        <p><span>4.1.0</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Table Cell) -->
-                <div id="u580" class="ax_default table_cell">
-                    <img id="u580_img" class="img " src="images/admin_form/u574.png"/>
-                    <div id="u580_text" class="text ">
-                        <p><span>Jay</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Table Cell) -->
-                <div id="u581" class="ax_default table_cell">
-                    <img id="u581_img" class="img " src="images/admin_form/u581.png"/>
-                    <div id="u581_text" class="text ">
-                        <p><span>etc</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Table Cell) -->
-                <div id="u582" class="ax_default table_cell">
-                    <img id="u582_img" class="img " src="images/admin_form/u581.png"/>
-                    <div id="u582_text" class="text ">
-                        <p><span>etc</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Table Cell) -->
-                <div id="u583" class="ax_default table_cell">
-                    <img id="u583_img" class="img " src="images/admin_form/u583.png"/>
-                    <div id="u583_text" class="text ">
-                        <p><span>etc</span></p>
-                    </div>
-                </div>
+                <table>
+                <tr>
+                    <th> Date </th>
+                    <th> Select </th>
+                        
+                </tr>
+                <c:forEach items="${Files}" var="file">
+                    <tr><td>${file.name}</td><td>123</td></tr>
+                    
+                </c:forEach>
+                </table>
             </div>
 
 

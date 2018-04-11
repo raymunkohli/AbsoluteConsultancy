@@ -5,9 +5,11 @@
  */
 package servlets.admin;
 
-import com.mycompany.implementation.query.addStaffQuery;
+import com.mycompany.implementation.query.createBackUpQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "addStaffServlet", urlPatterns = {"/addStaffServlet"})
-public class addStaffServlet extends HttpServlet {
+@WebServlet(name = "createBackUpServlet", urlPatterns = {"/createBackUpServlet"})
+public class createBackUpServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +40,10 @@ public class addStaffServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addStaffServlet</title>");            
+            out.println("<title>Servlet createBackUpServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet addStaffServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet createBackUpServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +61,7 @@ public class addStaffServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request,response);
     }
 
     /**
@@ -73,21 +75,13 @@ public class addStaffServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("Type").equals("Technician")&& request.getParameter("Department").isEmpty()){
-            request.setAttribute("Err","Select a Tech Room for the Technician");
-            System.out.println(123);
-            request.getRequestDispatcher("viewAdminServlet").forward(request, response);
+        createBackUpQuery a = new createBackUpQuery();
+        try {
+            a.doCreateBackUpQuery();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(createBackUpServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else{
-            addStaffQuery a = new addStaffQuery();
-            if (request.getParameter("Type").equals("Technician")){
-                a.addTechnicianQuery(request.getParameter("Name"), request.getParameter("Surname"), request.getParameter("Password"), request.getParameter("Type"), request.getParameter("Department"));
-            }
-            else{
-                a.doAddStaffQuery(request.getParameter("Name"), request.getParameter("Surname"), request.getParameter("Password"), request.getParameter("Type"));
-            }
-            response.sendRedirect("viewAdminServlet");
-        }
+        request.getRequestDispatcher("viewAdminServlet").forward(request,response);
     }
 
     /**
