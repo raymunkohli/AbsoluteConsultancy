@@ -69,22 +69,26 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        loginQuery lq = new loginQuery(); //create the query
-        HttpSession session = request.getSession(true);
-        ResultSet Staff = lq.doLoginQuery(request.getParameter("Username"), request.getParameter("Password"));
-        
-        if (Staff==null){
-            response.sendRedirect("failure.jsp");
-        }
-        else{
-            try {
-                Staff.next();
-                session.setAttribute("userType", Staff.getString("employeeType"));
-                session.setAttribute("staffID", Staff.getInt("staffID"));
-                response.sendRedirect("success.jsp;");
-            } catch (SQLException ex) {
-                Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            loginQuery lq = new loginQuery(); //create the query
+            HttpSession session = request.getSession(true);
+            ResultSet Staff = lq.doLoginQuery(request.getParameter("Username"), request.getParameter("Password"));
+            
+            if (Staff.isLast()){
+                response.sendRedirect("failure.jsp");
             }
+            else{
+                try {
+                    Staff.next();
+                    session.setAttribute("userType", Staff.getString("employeeType"));
+                    session.setAttribute("staffID", Staff.getInt("staffID"));
+                    response.sendRedirect("success.jsp;");
+                } catch (SQLException ex) {
+                    Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     
     }
