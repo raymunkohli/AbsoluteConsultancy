@@ -208,13 +208,6 @@
                 </div>
             </div>
 
-            <!-- Unnamed (Rectangle) -->
-            <div id="u570" class="ax_default button">
-                <div id="u570_div" class=""></div>
-                <div id="u570_text" class="text ">
-                    <p><span>Restore selected version</span></p>
-                </div>
-            </div>
 
             <!-- Unnamed (Table) -->
             <div id="u571" class="ax_default">
@@ -225,7 +218,13 @@
                         
                 </tr>
                 <c:forEach items="${Files}" var="file">
-                    <tr><td>${file.name}</td><td>123</td></tr>
+                    <tr><td>${file.name}</td><td>
+                    <form action="restoreFromBackupServlet" method="post"> 
+                        <input type="hidden" name="path" value="${file.name}"/>
+                    <input type="submit" value="Select" />
+                    </form>
+                        </td>
+                    </tr>
                     
                 </c:forEach>
                 </table>

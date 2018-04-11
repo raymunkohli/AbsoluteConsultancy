@@ -5,11 +5,9 @@
  */
 package servlets.admin;
 
-import com.mycompany.implementation.query.createBackUpQuery;
+import com.mycompany.implementation.query.restoreFromBackupQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "createBackUpServlet", urlPatterns = {"/createBackUpServlet"})
-public class createBackUpServlet extends HttpServlet {
+@WebServlet(name = "restoreFromBackupServlet", urlPatterns = {"/restoreFromBackupServlet"})
+public class restoreFromBackupServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +38,10 @@ public class createBackUpServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet createBackUpServlet</title>");            
+            out.println("<title>Servlet restoreFromBackupServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet createBackUpServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet restoreFromBackupServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -75,12 +73,8 @@ public class createBackUpServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        createBackUpQuery a = new createBackUpQuery();
-        try {
-            a.doCreateBackUpQuery();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(createBackUpServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        restoreFromBackupQuery a = new restoreFromBackupQuery();
+        a.restore(request.getParameter("path"));
         response.sendRedirect("viewAdminServlet");
     }
 
