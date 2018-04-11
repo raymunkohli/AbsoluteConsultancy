@@ -19,7 +19,7 @@
         </div>
           </a>
         <!-- Unnamed (Rectangle) -->
-        <a href="technician_screen.jsp">
+        <a href="viewTechnicianServlet">
         <div id="u265" class="ax_default button">
           <div id="u265_div" class=""></div>
           <div id="u265_text" class="text ">

@@ -46,14 +46,6 @@
       </div>
 
       <!-- Unnamed (Rectangle) -->
-      <div id="u272" class="ax_default button">
-        <div id="u272_div" class=""></div>
-        <div id="u272_text" class="text ">
-          <p><span>Payment</span></p>
-        </div>
-      </div>
-
-      <!-- Unnamed (Rectangle) -->
       <div id="u273" class="ax_default button">
         <div id="u273_div" class=""></div>
         <div id="u273_text" class="text ">

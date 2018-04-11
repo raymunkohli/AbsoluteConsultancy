@@ -17,7 +17,7 @@
         </div>
           </a>
         <!-- Unnamed (Rectangle) -->
-        <a href="technician_screen.jsp">
+        <a href="viewTechnicianServlet">
         <div id="u189" class="ax_default button">
           <div id="u189_div" class=""></div>
           <div id="u189_text" class="text ">
