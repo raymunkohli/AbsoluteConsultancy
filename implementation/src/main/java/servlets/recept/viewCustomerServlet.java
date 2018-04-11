@@ -127,6 +127,9 @@ public class viewCustomerServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(viewCustomerServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (request.getParameter("Err")!= null){
+            request.setAttribute("Err",request.getParameter("Err"));
+        }
         
         request.setAttribute("allCustomers",allCustomers);
         request.setAttribute("discountType",DiscountType);
