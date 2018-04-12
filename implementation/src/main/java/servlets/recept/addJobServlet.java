@@ -92,11 +92,12 @@ public class addJobServlet extends HttpServlet {
         
         else { //tests are passed so job can be created
             double Price = Double.parseDouble(request.getParameter("Price"));
-            
+            Long time = Long.parseLong(request.getParameter("TotalTime"));
             //get timestamps
             LocalDateTime Current = LocalDateTime.now();
             LocalDateTime Deadline = Current;
             //setup deadline +price if stipulated
+            int isLate =0;
             switch (request.getParameter("Type")) {
                 case "stipulated":
                     LocalTime StipTime = LocalTime.parse(request.getParameter("StipulatedTime"));
@@ -111,6 +112,12 @@ public class addJobServlet extends HttpServlet {
                     Deadline = Current.plusDays(1);
                     break;
             }
+            if (Current.plusMinutes(time).isAfter(Deadline)){
+                isLate = 1;
+            }
+            
+            
+            
             double surcharge = 0;
             Job job = new Job();
             //job.setDeadline(new Date(Deadline.getYear(),Deadline.getMonthValue(),Deadline.getDayOfMonth(),Deadline.getHour(),Deadline.getMinute(),Deadline.getSecond()));
@@ -120,7 +127,7 @@ public class addJobServlet extends HttpServlet {
                 surcharge = Double.parseDouble(request.getParameter("StipulatedAmount"));
             }
             addJobQuery j = new addJobQuery();
-            int jobid = j.doAddJobQuery(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")), Current, Deadline, job.getSpecInstructions(), Price,surcharge);
+            int jobid = j.doAddJobQuery(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")), Current, Deadline, job.getSpecInstructions(), Price,surcharge, isLate);
             
             
             //insert each task

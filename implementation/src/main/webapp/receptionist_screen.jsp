@@ -162,6 +162,7 @@
                         <th> Discount </th>  
                         <th> Price (after discount </th>
                     </tr>
+                    <c:set var="totalTime" value="0" />
                     <c:set var="totalPrice" value="0"/>
                     <c:set var="totalTasks" value=""/>
                     <c:forEach items="${SelectedTasks}" var="tasks" varStatus="taskStatus">
@@ -178,7 +179,9 @@
                                 <c:set var="totalTasks" value="${totalTasks}${tasks.baseTaskID}`"/>
                         </tr>
                         <input type="hidden" value="${tasks.baseTaskID}" name="${tasks.baseTaskID}" form="addJobForm"/>
+                        <c:set var="totalTime" value="${totalTime+tasks.duration}"/> 
                     </c:forEach>
+                        <input type="hidden" value="${totalTime}" name="TotalTime" form="addJobForm" />
                         <input type="hidden" value="${totalTasks}" name="TotalTasks" form="addJobForm"/>
                 </table>
             </div>

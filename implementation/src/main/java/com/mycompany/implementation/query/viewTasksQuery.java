@@ -42,6 +42,7 @@ public class viewTasksQuery extends Query{
                 a.setPrice(taskResultSet.getDouble("price"));
                 a.setDescription(taskResultSet.getString("description"));
                 a.setBaseTaskID(taskResultSet.getInt("baseTaskID"));
+                a.setDuration(taskResultSet.getInt("duration"));
                 allTheTasks.add(a);
             }
             return allTheTasks;

@@ -68,10 +68,10 @@
                         
                         <c:choose>
                             <c:when test="${sessionScope.DiscountType eq 'Variable Discount'}">
-                                <td><input type="checkbox" value="${tasks.baseTaskID}`${tasks.taskName}`${tasks.description}`${tasks.department}`${tasks.price}`${VariableDiscounts[tasksStatus.index].amount}" id="${tasks.baseTaskID}" name="${tasks.baseTaskID}"/> </td>
+                                <td><input type="checkbox" value="${tasks.baseTaskID}`${tasks.taskName}`${tasks.description}`${tasks.department}`${tasks.price}`${VariableDiscounts[tasksStatus.index].amount}`${tasks.duration}" id="${tasks.baseTaskID}" name="${tasks.baseTaskID}"/> </td>
                                 </c:when>
                                 <c:otherwise>
-                                <td><input type="checkbox" value="${tasks.baseTaskID}`${tasks.taskName}`${tasks.description}`${tasks.department}`${tasks.price}`${sessionScope.Discount}" id="${tasks.baseTaskID}" name="${tasks.baseTaskID}"/> </td>
+                                <td><input type="checkbox" value="${tasks.baseTaskID}`${tasks.taskName}`${tasks.description}`${tasks.department}`${tasks.price}`${sessionScope.Discount}`${tasks.duration}" id="${tasks.baseTaskID}" name="${tasks.baseTaskID}"/> </td>
                                 </c:otherwise>
                             </c:choose>
                     </tr>

@@ -39,6 +39,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Basetask.findByBaseTaskID", query = "SELECT b FROM Basetask b WHERE b.baseTaskID = :baseTaskID")})
 public class Basetask implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "duration")
+    private int duration;
+
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -154,6 +159,14 @@ public class Basetask implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.implementation.domain.Basetask[ baseTaskID=" + baseTaskID + " ]";
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
     
 }

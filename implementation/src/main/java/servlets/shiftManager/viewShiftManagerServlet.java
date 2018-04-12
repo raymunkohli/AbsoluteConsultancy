@@ -80,6 +80,14 @@ public class viewShiftManagerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String deadlineExceed = "false";
+        
+        
+        
+        
+        
+        
+        
                 //new job checker
         
         String newJobAlert = "false";

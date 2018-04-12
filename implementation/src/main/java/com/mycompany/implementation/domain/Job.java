@@ -45,23 +45,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Job implements Serializable {
 
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "value")
-    private Double value;
-    @Column(name = "finished")
-    private Short finished;
+    private double value;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "surcharge")
     private double surcharge;
-
+    @Column(name = "alert")
+    private Short alert;
+    @Column(name = "finished")
+    private Short finished;
     @Basic(optional = false)
     @NotNull
     @Column(name = "paid")
     private short paid;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -188,13 +189,6 @@ public class Job implements Serializable {
         this.paid = paid;
     }
 
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
-    }
 
     public Short getFinished() {
         return finished;
@@ -204,12 +198,28 @@ public class Job implements Serializable {
         this.finished = finished;
     }
 
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
     public double getSurcharge() {
         return surcharge;
     }
 
     public void setSurcharge(double surcharge) {
         this.surcharge = surcharge;
+    }
+
+    public Short getAlert() {
+        return alert;
+    }
+
+    public void setAlert(Short alert) {
+        this.alert = alert;
     }
     
 }

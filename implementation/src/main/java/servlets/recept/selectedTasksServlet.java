@@ -95,6 +95,7 @@ public class selectedTasksServlet extends HttpServlet {
             c.setDepartment(John[3]);
             c.setPrice(Double.parseDouble(John[4]));
             discounts.add(Double.parseDouble(John[5]));
+            c.setDuration(Integer.parseInt(John[6]));
             
             d.add(c);
         }
