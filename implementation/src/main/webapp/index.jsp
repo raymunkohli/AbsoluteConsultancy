@@ -31,7 +31,7 @@
   </head>
   <body>
     
-    <div id="base" class="">
+    <div id="base" class="" style="left:35%;position:absolute;z-index:50">
         <form action="loginServlet" method ="post">
       <!-- Unnamed (Rectangle) -->
       <div id="u0" class="ax_default html_button">

@@ -18,7 +18,7 @@
         response.sendRedirect("viewTechnicianServlet");
            }
     else if (session.getAttribute("userType").equals("ShiftManager")){
-        response.sendRedirect("shiftManager.jsp");
+        response.sendRedirect("viewShiftManagerServlet");
     }
      else if (session.getAttribute("userType").equals("OfficeManager")){
         response.sendRedirect("viewOfficeManagerServlet");

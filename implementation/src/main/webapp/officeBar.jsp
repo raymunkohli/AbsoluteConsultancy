@@ -30,7 +30,7 @@
 
 
         <!-- Unnamed (Rectangle) -->
-        <a href="shiftManager.jsp">
+        <a href="viewShiftManagerServlet">
         <div id="u266" class="ax_default button">
           <div id="u266_div" class=""></div>
           <div id="u266_text" class="text ">
