@@ -21,7 +21,7 @@
         response.sendRedirect("shiftManager.jsp");
     }
      else if (session.getAttribute("userType").equals("OfficeManager")){
-        response.sendRedirect("officeManager.jsp");
+        response.sendRedirect("viewOfficeManagerServlet");
     }
 
 

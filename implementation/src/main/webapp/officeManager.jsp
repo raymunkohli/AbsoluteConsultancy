@@ -34,9 +34,23 @@
     </script>
   </head>
   <body>
+      <div style="width:100%;height:100%;left:25%;position:absolute;">
     <div id="base" class="">
+        <%
+        if(request.getAttribute("newJobAlert").toString().equals("true")){
+            %>
+            <script>
+               var alert = confirm('New Job Detected:\n Customer: <%out.write(request.getAttribute("cust").toString()); %> \n\
+Deadline: <%out.write(request.getAttribute("deadline").toString()); %> \n\
+Tasks: <%out.write(request.getAttribute("tasks").toString()); %>');
+               if(alert){
+                   window.location = 'newJobAlertServlet?job=+<% out.write(request.getAttribute("jobid").toString()); %>';
+               }
 
-
+            </script>
+            <%
+        }        
+        %>
       <!-- Unnamed (Rectangle) -->
       <div id="u271" class="ax_default button">
         <div id="u271_div" class=""></div>
@@ -71,6 +85,7 @@
         </div>
       </div>
 
+    </div>
     </div>
   </body>
 

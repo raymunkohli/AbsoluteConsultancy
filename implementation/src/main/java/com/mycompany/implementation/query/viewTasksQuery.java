@@ -28,7 +28,7 @@ public class viewTasksQuery extends Query{
     }
 
     public List<Basetask> doViewTasks() {
-        List<Basetask> allTheTasks = new ArrayList<Basetask>();
+        List<Basetask> allTheTasks = new ArrayList();
         ResultSet taskResultSet;
         try {
             String query = "SELECT * FROM basetask";

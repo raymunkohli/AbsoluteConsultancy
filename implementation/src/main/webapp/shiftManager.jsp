@@ -30,6 +30,7 @@
         </script>
     </head>
     <body>
+        <div style="width:100%;height:100%;left:25%;position:absolute;">
         <div id="base" class="">
 
             <!-- Unnamed (Rectangle) -->
@@ -350,7 +351,7 @@
                     <form action="viewStaff" method="post"> <p><span><input type="submit" value="Select staff"></span></p></form>
                 </div>
             </div>
-
+        </div>
         </div>
     </body>
 </html>

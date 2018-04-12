@@ -5,15 +5,9 @@
  */
 package servlets.admin;
 
-import com.mycompany.implementation.query.getAlertQuery;
+import com.mycompany.implementation.query.stopAlertQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "viewOfficeManagerServlet", urlPatterns = {"/viewOfficeManagerServlet"})
-public class viewOfficeManagerServlet extends HttpServlet {
+@WebServlet(name = "newJobAlertServlet", urlPatterns = {"/newJobAlertServlet"})
+public class newJobAlertServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +38,10 @@ public class viewOfficeManagerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewOfficeManagerServlet</title>");            
+            out.println("<title>Servlet newJobAlertServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet viewOfficeManagerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet newJobAlertServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -79,37 +73,9 @@ public class viewOfficeManagerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //new job checker
-        
-        String newJobAlert = "false";
-        String cust = new String();
-        String deadline = new String();
-        List<String> tasks = new ArrayList();
-        String theTask = new String();
-        String jobID = new String();
-        try {
-            getAlertQuery a= new getAlertQuery();
-            ResultSet info = a.getNewJobQuery();
-            if (info.next()){
-                newJobAlert = "true";
-                cust = info.getString("name") + " " +info.getString("surname");
-                deadline = info.getString("deadline");
-                tasks = a.getTasksFromJob(info.getInt("JobID"));
-                jobID = info.getString("JobID");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(viewOfficeManagerServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for(String a: tasks){
-            theTask = theTask+" \\n "+a;
-        }
-        request.setAttribute("jobid",jobID);
-        request.setAttribute("tasks",theTask);
-        request.setAttribute("deadline",deadline);
-        request.setAttribute("cust",cust);
-        request.setAttribute("newJobAlert",newJobAlert);
-        request.getRequestDispatcher("officeManager.jsp").forward(request, response);   
+        stopAlertQuery a = new stopAlertQuery();
+        a.stopNewJobQuery(request.getParameter("job"));
+        response.sendRedirect("viewOfficeManagerServlet");
     }
 
     /**

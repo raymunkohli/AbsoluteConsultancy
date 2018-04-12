@@ -31,7 +31,7 @@
         </script>
     </head>
     <body>
-
+<div style="width:100%;height:100%;left:25%;position:absolute;">
         <div style='position:relative;height:170px;z-index: 1'>
             <div id="u475" class="ax_default button">
                 <div id="u475_div" class=""></div>
@@ -127,6 +127,6 @@
             </div>
     </c:if>
 </div>
-
+</div>
 </body>
 </html>

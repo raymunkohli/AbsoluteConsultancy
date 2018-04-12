@@ -7,7 +7,7 @@
     <div id="base" class="">
 
       <!-- Unnamed (Group) -->
-      <div id="u187" class="ax_default" data-left="50" data-top="0" data-width="819" data-height="40">
+      <div id="u187" class="ax_default" data-left="50" data-top="0" data-width="819" data-height="40" style="left:25%;position:absolute;">
           <a href="receptionist_screen.jsp">
         <div id="u188" class="ax_default button">
           <div id="u188_div" class=""></div>

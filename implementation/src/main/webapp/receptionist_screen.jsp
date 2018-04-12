@@ -47,7 +47,7 @@
 
     </head>
     <body>
-        <div id="base" class="">
+        <div id="base" class="" style="width:100%;height:100%;left:25%;position:absolute;" >
 
             <!-- Unnamed (Rectangle) -->
             <div id="tophalf">

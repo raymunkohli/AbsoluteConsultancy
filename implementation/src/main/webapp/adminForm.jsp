@@ -33,7 +33,7 @@
         </script>
     </head>
     <body>
-        <div id="base" class="">
+        <div id="base" class="" style="width:100%;height:100%;left:25%;position:absolute;">
             <div id="tophalf" style="position:relative;height:150px">
                             <!-- Unnamed (Rectangle) -->
             <div id="u584" class="ax_default label">

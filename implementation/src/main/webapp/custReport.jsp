@@ -24,6 +24,7 @@
     </script>
   </head>
   <body>
+      <div style="width:100%;height:100%;left:25%;position:absolute;">
     <div id="base" class="">
                     <a href="shiftManager.jsp"> <input type="button" value="Return" class="no-print"/></a>
             <input type="button" value="Print" onclick="window.print()" class="no-print" />
@@ -71,6 +72,7 @@
       </table>
     </div>
     </div>
+  </div>
   </div>
   </body>
 </html>

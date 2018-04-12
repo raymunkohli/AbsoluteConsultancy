@@ -79,10 +79,14 @@ public class loginServlet extends HttpServlet {
             }
             else{
                 try {
-                    Staff.next();
+                    if(Staff.next()){
                     session.setAttribute("userType", Staff.getString("employeeType"));
                     session.setAttribute("staffID", Staff.getInt("staffID"));
                     response.sendRedirect("success.jsp;");
+                    }
+                    else{
+                        response.sendRedirect("failure.jsp");
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
