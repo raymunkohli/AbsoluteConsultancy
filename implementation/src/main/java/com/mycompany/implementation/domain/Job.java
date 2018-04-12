@@ -6,6 +6,7 @@
 package com.mycompany.implementation.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -43,6 +44,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Job.findByValue", query = "SELECT j FROM Job j WHERE j.value = :value")})
 public class Job implements Serializable {
 
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "value")
+    private Double value;
+    @Column(name = "finished")
+    private Short finished;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "surcharge")
+    private double surcharge;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "paid")
@@ -72,14 +86,6 @@ public class Job implements Serializable {
     @Column(name = "deadline")
     @Temporal(TemporalType.TIMESTAMP)
     private Date deadline;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "surcharge")
-    private double surcharge;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "value")
-    private double value;
     @JoinColumn(name = "CustomercustomerID", referencedColumnName = "customerID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Customer customercustomerID;
@@ -140,21 +146,6 @@ public class Job implements Serializable {
         this.deadline = deadline;
     }
 
-    public double getSurcharge() {
-        return surcharge;
-    }
-
-    public void setSurcharge(double surcharge) {
-        this.surcharge = surcharge;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
 
     public Customer getCustomercustomerID() {
         return customercustomerID;
@@ -195,6 +186,30 @@ public class Job implements Serializable {
 
     public void setPaid(short paid) {
         this.paid = paid;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public Short getFinished() {
+        return finished;
+    }
+
+    public void setFinished(Short finished) {
+        this.finished = finished;
+    }
+
+    public double getSurcharge() {
+        return surcharge;
+    }
+
+    public void setSurcharge(double surcharge) {
+        this.surcharge = surcharge;
     }
     
 }
