@@ -26,7 +26,7 @@
         </div>
         </a>
         <!-- Unnamed (Rectangle) -->
-        <a href="shiftManager.jsp">
+        <a href="viewShiftManagerServlet">
         <div id="u190" class="ax_default button">
           <div id="u190_div" class=""></div>
           <div id="u190_text" class="text ">

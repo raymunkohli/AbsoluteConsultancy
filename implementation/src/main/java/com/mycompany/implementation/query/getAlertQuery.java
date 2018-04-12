@@ -26,7 +26,7 @@ public class getAlertQuery extends Query {
     public ResultSet getNewJobQuery() {
         try {
             PreparedStatement s;
-            String query = "SELECT job.deadline, job.JobID,\n"
+            String query = "SELECT job.deadline, job.JobID, job.specInstructions,\n"
                     + "customer.name, customer.surname\n"
                     + "FROM job \n"
                     + "INNER JOIN customer ON customer.customerID = job.CustomercustomerID\n"

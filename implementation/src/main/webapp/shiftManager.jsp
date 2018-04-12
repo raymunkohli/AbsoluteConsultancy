@@ -31,11 +31,21 @@
     </head>
     <body>
         <div style="width:100%;height:100%;left:25%;position:absolute;">
+            <% 
+        if(request.getAttribute("isLate").toString().equals("true")){
+                %>
+                <script>
+                    var alert =confirm('');
+            
+                </script>
+            
                     <%
+                        }
         if(request.getAttribute("newJobAlert").toString().equals("true")){
             %>
             <script>
                var alert = confirm('New Job Detected:\n Customer: <%out.write(request.getAttribute("cust").toString()); %> \n\
+Instructions: <%out.write(request.getAttribute("spec").toString()); %>\n\
 Deadline: <%out.write(request.getAttribute("deadline").toString()); %> \n\
 Tasks: <%out.write(request.getAttribute("tasks").toString()); %>');
                if(alert){
