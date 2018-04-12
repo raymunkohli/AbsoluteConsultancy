@@ -116,7 +116,9 @@
                             <% if (request.getParameter("cashDate") == null) { %>
                             <p><span><% out.write(request.getParameter("type")); %> ending&nbsp; ************  <% out.write(request.getParameter("digits")); %> </span></p>
                             <% } else {%>
+                            <div style="left:80px;position:absolute" >
                             <p><span>Cash</span></p>
+                            </div>
                             <% } %>
 
                         </div>
@@ -132,7 +134,7 @@
                 </div>
 
                 <!-- Unnamed (Rectangle) -->
-                <div id="u14" class="ax_default label">
+                <div id="u14" class="ax_default label" style="left:650px">
                     <div id="u14_div" class=""></div>
                     <div id="u14_text" class="text ">
                                 <p><span><% out.write(request.getParameter("cashDate"));
