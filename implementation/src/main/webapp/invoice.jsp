@@ -105,15 +105,15 @@
                                 <td>  ${singleJob.jobID} </td> <c:set var="priceAfterDiscount" value="${priceAfterDiscount+singleJob.value}"/>
                                 <td>  ${singleJob.specInstructions}</td>
                                 <td>  ${task[jobStatus.index]} </td> <c:set var="totalSurcharge" value="${totalSurcharge+singleJob.surcharge}"/>
-                                <td>  ${price[jobStatus.index]} </td> <c:set var="priceBeforeDiscount" value="${priceBeforeDiscount + price[jobStatus.index]}" />
+                                <td> £ ${price[jobStatus.index]} </td> <c:set var="priceBeforeDiscount" value="${priceBeforeDiscount + price[jobStatus.index]}" />
 
                             </tr>
                         </c:forEach>
-                        <tr style="border-top:3px solid black;"> <td> Surcharge </td><td></td><td></td> <td> <c:out value="${totalSurcharge}" /> </tr>
+                        <tr style="border-top:3px solid black;"> <td> Surcharge </td><td></td><td></td> <td> £ <c:out value="${totalSurcharge}" /> </tr>
                         <tr>
                             <td>Subtotal</td>
                             <td></td><td></td>
-                            <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${priceBeforeDiscount + totalSurcharge}"/></td> 
+                            <td>£<fmt:formatNumber type="number" maxFractionDigits="2" value="${priceBeforeDiscount + totalSurcharge}"/></td> 
                         </tr>
                         <tr>
                             <td>Discount Agreed</td>
@@ -123,10 +123,10 @@
                                         None
                                     </c:when>
                                     <c:when test="${discount == 'Fixed'}">
-                                        Fixed at ${DiscountAmount}
+                                        Fixed at ${DiscountAmount} %
                                     </c:when>
                                     <c:when test="${discount == 'Flexible'}">
-                                        Flexible at ${DiscountAmount} 
+                                        Flexible at ${DiscountAmount} %
                                     </c:when>
                                     <c:when test="${discount == 'Variable'}">
                                         Variable see table Below
@@ -140,12 +140,12 @@
                         </tr>
                         <tr> 
                             <td>Subtotal inc Discount</td><td></td><td></td>
-                            <td>${priceAfterDiscount}</td>
+                            <td>£ ${priceAfterDiscount}</td>
                         </tr>
                         <tr style="border-top:3px solid black;">
                             <td>Total (20% VAT)</td> <td></td><td></td>
                             <c:set var="overalltotal" value="${priceAfterDiscount *1.2}"/>
-                            <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${overalltotal}"/></td>
+                            <td>£ <fmt:formatNumber type="number" maxFractionDigits="2" value="${overalltotal}"/></td>
                         </tr>
 
                     </table>
@@ -164,7 +164,7 @@
                     <c:if test="${discount eq 'Variable'}">
                         <tr> <th>Task ID </th> <th> Discount Amount </th> </tr>
                                 <c:forEach items="${DiscountAmount}" var="d">
-                            <tr> <td> ${d.variablediscountPK.basetaskbaseTaskID} </td> <td> ${d.amount} </td></tr>
+                            <tr> <td> ${d.variablediscountPK.basetaskbaseTaskID} </td> <td> ${d.amount} %</td></tr>
                         </c:forEach>
                     </c:if>
                 </table>

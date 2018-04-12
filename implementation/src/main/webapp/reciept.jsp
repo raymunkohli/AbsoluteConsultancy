@@ -161,12 +161,12 @@
                                     <td>${job.jobID}</td>
                                     <td>${job.specInstructions} </td>
                                     <td>${task[Status.index]} </td>
-                                    <td>${price[Status.index]} </td> <c:set var="tp" value="${price[Status.index] +tp}"/>
+                                    <td>£${price[Status.index]} </td> <c:set var="tp" value="${price[Status.index] +tp}"/>
                                 </tr>
                             </c:forEach>
                             <tr style="border-top:3px solid black;"></tr>
                             <tr>
-                                <td>Sub Total</td><td></td><td></td> <td>${tp}</td>
+                                <td>Sub Total</td><td></td><td></td> <td>£${tp}</td>
                             </tr>
                             <tr>
                                 <td>Discount Agreed</td>
@@ -176,10 +176,10 @@
                                             None
                                         </c:when>
                                         <c:when test="${discount == 'Fixed'}">
-                                            Fixed at ${DiscountAmount}
+                                            Fixed at ${DiscountAmount} %
                                         </c:when>
                                         <c:when test="${discount == 'Flexible'}">
-                                            Flexible at ${DiscountAmount} 
+                                            Flexible at ${DiscountAmount} %
                                         </c:when>
                                         <c:when test="${discount == 'Variable'}">
                                             Variable see table Below
@@ -192,13 +192,13 @@
                                     </c:choose></td>
                             </tr>
                             <tr>
-                                <td>Price after Discount</td><td></td><td></td><td> <% out.write(request.getParameter("TotalPrice")); %></td>
+                                <td>Price after Discount</td><td></td><td></td><td> £<% out.write(request.getParameter("TotalPrice")); %></td>
                             </tr>
                             <tr style="border-top:3px solid black;">
-                                <td >Total (20% VAT)</td><td></td><td></td><td> <% out.write(Double.toString(Double.parseDouble(request.getParameter("TotalPrice")) * 1.2));%></td>
+                                <td >Total (20% VAT)</td><td></td><td></td><td> £<% out.write(String.format("%.2f",Double.parseDouble(request.getParameter("TotalPrice")) * 1.2));%></td>
                             </tr>
-                            <tr>
-                                <td>Paid</td><td></td><td></td> <td> <% out.write(Double.toString(Double.parseDouble(request.getParameter("TotalPrice")) * 1.2));%></td>
+                            <tr style="border-bottom:3px solid black;">
+                                <td>Paid</td><td></td><td></td> <td> £<% out.write(String.format("%.2f",Double.parseDouble(request.getParameter("TotalPrice")) * 1.2));%></td>
                             </tr>
 
 
@@ -217,7 +217,7 @@
                     <c:if test="${discount eq 'Variable'}">
                         <tr> <th>Task ID </th> <th> Discount Amount </th> </tr>
                                 <c:forEach items="${DiscountAmount}" var="d">
-                            <tr> <td> ${d.variablediscountPK.basetaskbaseTaskID} </td> <td> ${d.amount} </td></tr>
+                            <tr> <td> ${d.variablediscountPK.basetaskbaseTaskID} </td> <td> ${d.amount} %</td></tr>
                         </c:forEach>
                     </c:if>
                 </table>        
@@ -237,9 +237,6 @@
                 </div>
 
                 <!-- Unnamed (Horizontal Line) -->
-                <div id="u26" class="ax_default line">
-                    <img id="u26_img" class="img " src="images/receipt/u22.png"/>
-                </div>
             </div>
         </div>
     </body>
