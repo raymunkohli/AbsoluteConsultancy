@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="receptionistCheck.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -92,8 +93,9 @@
                         <tr>
                             <th>Job ID</th>
                             <th>Description </th>
-                            <th> Price </th>
                             <th> Tasks </th>
+                            <th> Price </th>
+   
                         </tr>
                         <c:set var="priceBeforeDiscount" value="0" />
                         <c:set var="priceAfterDiscount" value="0" />
@@ -102,15 +104,16 @@
                             <tr>
                                 <td>  ${singleJob.jobID} </td> <c:set var="priceAfterDiscount" value="${priceAfterDiscount+singleJob.value}"/>
                                 <td>  ${singleJob.specInstructions}</td>
-                                <td>  ${price[jobStatus.index]} </td> <c:set var="priceBeforeDiscount" value="${priceBeforeDiscount + price[jobStatus.index]}" />
                                 <td>  ${task[jobStatus.index]} </td> <c:set var="totalSurcharge" value="${totalSurcharge+singleJob.surcharge}"/>
+                                <td>  ${price[jobStatus.index]} </td> <c:set var="priceBeforeDiscount" value="${priceBeforeDiscount + price[jobStatus.index]}" />
+
                             </tr>
                         </c:forEach>
                         <tr style="border-top:3px solid black;"> <td> Surcharge </td><td></td><td></td> <td> <c:out value="${totalSurcharge}" /> </tr>
                         <tr>
                             <td>Subtotal</td>
                             <td></td><td></td>
-                            <td>${priceBeforeDiscount}</td> 
+                            <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${priceBeforeDiscount + totalSurcharge}"/></td> 
                         </tr>
                         <tr>
                             <td>Discount Agreed</td>
@@ -141,7 +144,8 @@
                         </tr>
                         <tr style="border-top:3px solid black;">
                             <td>Total (20% VAT)</td> <td></td><td></td>
-                            <td>${priceAfterDiscount *1.2}</td>
+                            <c:set var="overalltotal" value="${priceAfterDiscount *1.2}"/>
+                            <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${overalltotal}"/></td>
                         </tr>
 
                     </table>
@@ -150,11 +154,12 @@
 
             </div>
             <c:forEach items="${Jobs}" >
-                <div id="fakespace">
+                <div id="fakespace" style="top:30px">
 
                 </div>
             </c:forEach>
             <div style="position:relative;  left:200px;top:0px;">
+                <c:if test="${discount eq 'Variable'}">
                 <table>
                     <c:if test="${discount eq 'Variable'}">
                         <tr> <th>Task ID </th> <th> Discount Amount </th> </tr>
@@ -169,8 +174,9 @@
                 <div id="fakespace" class="">
                 </div>
             </c:forEach>
+                </c:if>
             </div>
-            <div id="bottomhalf">
+            <div id="bottomhalf" style="position:relative; top:-500px">
                 <!-- Unnamed (Rectangle) -->
                 <div id="u18" class="ax_default label">
                     <div id="u18_div" class=""></div>

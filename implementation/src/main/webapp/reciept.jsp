@@ -209,6 +209,7 @@
                 <div id="whitespace" style="position:relative; height:30px;">
                 </div>
             </c:forEach>
+                            <c:if test="${discount eq 'Variable'}">
             <div style="position:relative;top:650px;left:300px">
                 <table>
                     <c:if test="${discount eq 'Variable'}">
@@ -223,9 +224,9 @@
                 <div id="fakespace" style="position:relative;height:30px">
                 </div>
             </c:forEach>
-
+                            </c:if>
             <!-- Unnamed (Rectangle) -->
-            <div id="bottomhalf" style="position:relative;top:-200px">
+            <div id="bottomhalf" style="position:relative;top:-120px">
                 <div id="u25" class="ax_default label">
                     <div id="u25_div" class=""></div>
                     <div id="u25_text" class="text ">

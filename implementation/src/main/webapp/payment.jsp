@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="receptionistCheck.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -244,7 +245,7 @@
         <div id="u476" class="ax_default label">
             <div id="u476_div" class=""></div>
             <div id="u476_text" class="text ">
-                <p><span><c:if test="${not empty price}"><p>Price after discount: £ <c:out value="${price}"/></p><p>Price inc VAT at 20%: £<c:out value="${price * 1.2}"/> </c:if></span></p>
+                <p><span><c:if test="${not empty price}"><p>Price after discount: £ <c:out value="${price}"/></p><p>Price inc VAT at 20%: £<fmt:formatNumber type="number" maxFractionDigits="2" value="${price*1.2}"/></c:if></span></p>
                 </div>
             </div>
     </c:if>
