@@ -90,6 +90,7 @@ public class getDataForInvoiceQuery extends Query {
             j.setSpecInstructions(a.getString("specInstructions"));
             j.setValue(Double.parseDouble(a.getString("value")));
             j.setSurcharge(Double.parseDouble(a.getString("surcharge")));
+            j.setNumber(a.getInt("number"));
             return j;
         } catch (SQLException ex) {
             Logger.getLogger(addCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);

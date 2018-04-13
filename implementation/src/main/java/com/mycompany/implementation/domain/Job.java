@@ -46,6 +46,7 @@ public class Job implements Serializable {
 
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "value")
@@ -55,6 +56,10 @@ public class Job implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "surcharge")
     private double surcharge;
+    @Column(name = "deadlineExceed")
+    private Short deadlineExceed;
+    @Column(name = "number")
+    private Integer number;
     @Column(name = "alert")
     private Short alert;
     @Column(name = "finished")
@@ -198,6 +203,15 @@ public class Job implements Serializable {
         this.finished = finished;
     }
 
+
+    public Short getAlert() {
+        return alert;
+    }
+
+    public void setAlert(Short alert) {
+        this.alert = alert;
+    }
+
     public double getValue() {
         return value;
     }
@@ -214,12 +228,20 @@ public class Job implements Serializable {
         this.surcharge = surcharge;
     }
 
-    public Short getAlert() {
-        return alert;
+    public Short getDeadlineExceed() {
+        return deadlineExceed;
     }
 
-    public void setAlert(Short alert) {
-        this.alert = alert;
+    public void setDeadlineExceed(Short deadlineExceed) {
+        this.deadlineExceed = deadlineExceed;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
     
 }

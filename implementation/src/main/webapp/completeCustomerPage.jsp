@@ -395,51 +395,51 @@
                             <p><span>Postcode/ZIP</span></p>
                         </div>
                     </div>
-
-
+                    <form method="post" action="updateCustomerServlet">
+                        <input type="hidden" value="<% out.write(request.getParameter("id"));%>" name="id">
                     <!-- Unnamed (Text Field) -->
                     <div id="u357" class="ax_default text_field">
-                        <input id="u357_input" type="text" value="<% out.write(request.getParameter("firstname"));%>"/>
+                        <input id="u357_input" type="text" name="firstname" value="<% out.write(request.getParameter("firstname"));%>"/>
                     </div>
 
                     <!-- Unnamed (Text Field) -->
                     <div id="u358" class="ax_default text_field">
-                        <input id="u358_input" type="text" value="<% out.write(request.getParameter("lastname"));%>"/>
+                        <input id="u358_input" type="text" name="surname" value="<% out.write(request.getParameter("lastname"));%>"/>
                     </div>
 
                     <!-- Unnamed (Text Field) -->
                     <div id="u359" class="ax_default text_field">
-                        <input id="u359_input" type="text" value="<% out.write(request.getParameter("phonenumber"));%>"/>
+                        <input id="u359_input" type="text" name="phone" value="<% out.write(request.getParameter("phonenumber"));%>"/>
                     </div>
 
                     <!-- Unnamed (Text Field) -->
                     <div id="u360" class="ax_default text_field">
-                        <input id="u360_input" type="text" value="<% out.write(request.getParameter("email"));%>"/>
+                        <input id="u360_input" type="text" name="email" value="<% out.write(request.getParameter("email"));%>"/>
                     </div>
 
                     <!-- Unnamed (Text Field) -->
                     <div id="u361" class="ax_default text_field">
-                        <input id="u361_input" type="text" value="<% out.write(request.getParameter("address"));%>"/>
+                        <input id="u361_input" type="text" name="address" value="<% out.write(request.getParameter("address"));%>"/>
                     </div>
 
                     <!-- Unnamed (Text Field) -->
                     <div id="u362" class="ax_default text_field">
-                        <input id="u362_input" type="text" value="<% out.write(request.getParameter("postcode"));%>"/>
+                        <input id="u362_input" type="text" name="postcode" value="<% out.write(request.getParameter("postcode"));%>"/>
                     </div>
 
                     <!-- Unnamed (Rectangle) -->
                     <div id="u363" class="ax_default button">
                         <div id="u363_div" class=""></div>
                         <div id="u363_text" class="text ">
-                            <p><span>Save changes</span></p>
+                            <p><span><input type="submit" value="Save changes" /></span></p>
                         </div>
                     </div>
-
+                    
                     <!-- Unnamed (Droplist) -->
                     <% if (request.getParameter("discountType").equals("None")) { %>
 
-                    <div id="u364" class="ax_default droplist">
-                        <select id="u364_input">
+                    <div id="u364" class="ax_default droplist" style="z-index: 20;">
+                        <select id="u364_input" name="discount">
                             <option value="None" selected>None</option>
                             <option value="Variable">Variable</option>
                             <option value="Flexible">Flexible</option>
@@ -461,16 +461,21 @@
                             <p><span>Edit Customer</span></p>
                         </div>
                     </div>
+                    <div id="u364" class="ax_default label">
+                        <div style="top:55px;position:absolute;left:-60px">
+                            <p><span>Holder</span><input style="left:57px" class="ax_default" id="u362_input" type="text" name="holder" value="<% out.write(request.getParameter("holder"));%>"/> </p>
+                        </div>
                 </div>
                 <%           }%>
                 <%  if (request.getParameter("discountType").equals("Fixed")) { %>
 
-                    <div id="u364" class="ax_default droplist">
-                        <select id="u364_input">
+                    <div id="u364" class="ax_default droplist" style="z-index: 20;">
+                        <select id="u364_input" name="discount">
                             <option value="None" >None</option>
                             <option value="Variable">Variable</option>
                             <option value="Flexible">Flexible</option>
                             <option value="Fixed" Selected>Fixed</option>
+                            <option value="newFixed"> New Fixed </option>
                         </select>
                     </div>
 
@@ -488,16 +493,22 @@
                             <p><span>Add/Edit Customer</span></p>
                         </div>
                     </div>
+                </div>
+                                    <div id="u364" class="ax_default label">
+                        <div style="top:55px;position:absolute;left:-60px">
+                            <p><span>Holder</span><input style="left:57px" class="ax_default" id="u362_input" type="text" name="holder" value="<% out.write(request.getParameter("holder"));%>"/> </p>
+                        </div>
                 </div>
                 <%           }%>
                                 <%  if (request.getParameter("discountType").equals("Flexible")) { %>
 
                     <div id="u364" class="ax_default droplist">
-                        <select id="u364_input">
+                        <select id="u364_input" name="discount" style="z-index: 20;">
                             <option value="None" >None</option>
                             <option value="Variable">Variable</option>
                             <option value="Flexible" Selected>Flexible</option>
                             <option value="Fixed" >Fixed</option>
+                            <option value="newFlexible">New Flexible</option>
                         </select>
                     </div>
 
@@ -515,16 +526,22 @@
                             <p><span>Add/Edit Customer</span></p>
                         </div>
                     </div>
+                </div>
+                                                    <div id="u364" class="ax_default label">
+                        <div style="top:55px;position:absolute;left:-60px">
+                            <p><span>Holder</span><input style="left:57px" class="ax_default" id="u362_input" type="text" name="holder" value="<% out.write(request.getParameter("holder"));%>"/> </p>
+                        </div>
                 </div>
                 <%           }%>
                  <%  if (request.getParameter("discountType").equals("Variable Discount")) { %>
 
                     <div id="u364" class="ax_default droplist">
-                        <select id="u364_input">
+                        <select id="u364_input" name="discount" style="z-index: 20;">
                             <option value="None" >None</option>
                             <option value="Variable" selected>Variable</option>
                             <option value="Flexible" >Flexible</option>
                             <option value="Fixed" >Fixed</option>
+                            <option value="newVariable">New Variable </option>
                         </select>
                     </div>
 
@@ -543,11 +560,15 @@
                         </div>
                     </div>
                 </div>
+                                     <div id="u364" class="ax_default label">
+                        <div style="top:55px;position:absolute;left:-60px">
+                            <p><span>Holder</span><input style="left:57px" class="ax_default" id="u362_input" type="text" name="holder" value="<% out.write(request.getParameter("holder"));%>"/> </p>
+                        </div>
+                </div>
                 <%           }%>
-                
+                </form>
                 
                 <%           }%>
-
 
                 <!-- Unnamed (Rectangle) -->
                 <div id="u369" class="ax_default label">
@@ -786,13 +807,13 @@
                 </div>
 
                 <!-- Unnamed (Checkbox) -->
-                <div id="u399" class="ax_default checkbox">
+                <div id="u399" class="ax_default checkbox" style="top:400px;position:relative">
                     <label for="u399_input" style="position: absolute;">
                         <div id="u399_text" class="text ">
                             <p><span>Valued</span></p>
                         </div>
                     </label>
-                    <input id="u399_input" type="checkbox" value="checkbox" checked/>
+                    <input id="u399_input" type="checkbox" value="checkbox" name="valued"checked/>
                 </div>
             </div>
         </div>

@@ -127,7 +127,7 @@ public class addJobServlet extends HttpServlet {
                 surcharge = Double.parseDouble(request.getParameter("StipulatedAmount"));
             }
             addJobQuery j = new addJobQuery();
-            int jobid = j.doAddJobQuery(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")), Current, Deadline, job.getSpecInstructions(), Price,surcharge, isLate);
+            int jobid = j.doAddJobQuery(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")), Current, Deadline, job.getSpecInstructions(), Price,surcharge, isLate,Double.parseDouble(request.getParameter("numjob")));
             
             
             //insert each task

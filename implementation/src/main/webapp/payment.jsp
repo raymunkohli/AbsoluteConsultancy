@@ -81,11 +81,11 @@
                         <c:forEach items="${Jobs}" var="Jobs">
                             <tr>
                                 <td> <c:out value="${Jobs.jobID}" /> </td>
-                                <td> <c:out value="${Jobs.value}" /> </td> 
+                                <td> <c:out value="${Jobs.value*Jobs.number}" /> </td> 
                                 <td> <c:out value="${Jobs.orderDate}" /> </td>
                                 <td> <c:out value="${Jobs.deadline}" /> </td>
-                                <td> <input type="checkbox" name="${Jobs.jobID}" value ="${Jobs.jobID}`${Jobs.value}`${Jobs.orderDate}`${Jobs.deadline}"/> </td>
-                                <c:set var="TotalPrice" value ="${TotalPrice + Jobs.value}" />
+                                <td> <input type="checkbox" name="${Jobs.jobID}" value ="${Jobs.jobID}`${Jobs.value}`${Jobs.orderDate}`${Jobs.deadline}`${Jobs.number}"/> </td>
+                                <c:set var="TotalPrice" value ="${TotalPrice + Jobs.value*Jobs.number}" />
                             </tr>
                         </c:forEach>
                     </table>

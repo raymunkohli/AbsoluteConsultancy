@@ -489,11 +489,18 @@
             
                 <div id="u8" class="ax_default html_button">
                     
-        <input id="u8_input" type="submit" value="Submit" form="addJobForm"/>
       </div>
           
             <input type="hidden" value="${totalPrice}" name="Price"/>
 
+                        <div id="u89" class="ax_default button">
+                <div id="u89_div" class=""></div>
+                <div id="u89_text" class="text ">
+                    <p><span><form action="payment.jsp"><input id="u8_input" type="submit" value="Submit" form="addJobForm"/></form></span></p>
+                </div>
+            </div>
+            
+            
             </form>
             
 
@@ -505,13 +512,7 @@
                 </div>
             </div>
 
-            <!-- Unnamed (Rectangle) -->
-            <div id="u81" class="ax_default button">
-                <div id="u81_div" class=""></div>
-                <div id="u81_text" class="text ">
-                    <p><span>Print receipt</span></p>
-                </div>
-            </div>
+
 
            
             
@@ -520,16 +521,17 @@
                 <div id="u87_div" class=""></div>
                 <div id="u87_text" class="text ">
 
-                    <p><span>Price: £ <c:if test="${not empty totalPrice}"><c:out value="${totalPrice}"/></c:if></span></p>
+                    <p><span>Price per Job: £ <c:if test="${not empty totalPrice}"><c:out value="${totalPrice}"/></c:if></span></p>
+                    <p><span> Number of Jobs: <input id="u8_input" type="text" value="1" name="numjob" form="addJobForm" style="width:30px" required/>
                     <p><c:if test="${not empty Err}"><c:out value="${Err}"/></c:if>
                 </div>
             </div>
 
 
             <!-- Unnamed (Rectangle) -->
-            <div id="u89" class="ax_default button">
+            <div id="u81" class="ax_default button">
                 <div id="u89_div" class=""></div>
-                <div id="u89_text" class="text ">
+                <div id="u89_text" class="text " style="top:8px">
                     <p><span><form action="payment.jsp"><input type="submit" value="Payment"></form></span></p>
                 </div>
             </div>

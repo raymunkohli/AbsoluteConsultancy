@@ -91,7 +91,8 @@ public class totalPaymentServlet extends HttpServlet {
             singlejob.setValue(Double.parseDouble(fullJob[1]));
             singlejob.setOrderDate(Date.valueOf((fullJob[2])));
             singlejob.setDeadline(Date.valueOf((fullJob[3])));
-            price = price + singlejob.getValue();
+            singlejob.setNumber(Integer.parseInt(fullJob[4]));
+            price = price + singlejob.getValue()*singlejob.getNumber();
             jobID.add(singlejob);
             jobsSelected = true;
         }

@@ -161,7 +161,7 @@
                                     <td>${job.jobID}</td>
                                     <td>${job.specInstructions} </td>
                                     <td>${task[Status.index]} </td>
-                                    <td>£${price[Status.index]} </td> <c:set var="tp" value="${price[Status.index] +tp}"/>
+                                    <td>£${price[Status.index] * job.number} </td> <c:set var="tp" value="${price[Status.index]*job.number +tp}"/>
                                 </tr>
                             </c:forEach>
                             <tr style="border-top:3px solid black;"></tr>

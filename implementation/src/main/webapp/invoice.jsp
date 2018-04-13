@@ -102,10 +102,10 @@
                         <c:set var="totalSurcharge" value="0" />
                         <c:forEach items="${Jobs}" var="singleJob" varStatus="jobStatus">
                             <tr>
-                                <td>  ${singleJob.jobID} </td> <c:set var="priceAfterDiscount" value="${priceAfterDiscount+singleJob.value}"/>
+                                <td>  ${singleJob.jobID} </td> <c:set var="priceAfterDiscount" value="${priceAfterDiscount+singleJob.value*singleJob.number}"/>
                                 <td>  ${singleJob.specInstructions}</td>
                                 <td>  ${task[jobStatus.index]} </td> <c:set var="totalSurcharge" value="${totalSurcharge+singleJob.surcharge}"/>
-                                <td> £ ${price[jobStatus.index]} </td> <c:set var="priceBeforeDiscount" value="${priceBeforeDiscount + price[jobStatus.index]}" />
+                                <td> £ <fmt:formatNumber type="number" maxFractionDigits="2" value="${price[jobStatus.index]*(singleJob.number)}"/></td> <c:set var="priceBeforeDiscount" value="${priceBeforeDiscount + price[jobStatus.index]*(singleJob.number)}" />
 
                             </tr>
                         </c:forEach>
@@ -113,7 +113,7 @@
                         <tr>
                             <td>Subtotal</td>
                             <td></td><td></td>
-                            <td>£<fmt:formatNumber type="number" maxFractionDigits="2" value="${priceBeforeDiscount + totalSurcharge}"/></td> 
+                            <td>£<fmt:formatNumber type="number" maxFractionDigits="2" value="${(priceBeforeDiscount + totalSurcharge)}"/></td> 
                         </tr>
                         <tr>
                             <td>Discount Agreed</td>

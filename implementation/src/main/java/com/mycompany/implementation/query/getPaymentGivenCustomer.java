@@ -23,7 +23,7 @@ public class getPaymentGivenCustomer extends Query{
     public ResultSet doGetPaymentGivenCustomer(int custid){
                 PreparedStatement s;
             try {
-                String query = "SELECT job.JobID, job.value, job.orderDate,job.deadline \n" +
+                String query = "SELECT job.JobID, job.value, job.orderDate,job.deadline,job.number \n" +
 "                                FROM Job\n" +
 "                                INNER JOIN customer ON customer.customerID = job.CustomercustomerID\n" +
 "                                LEFT JOIN payment ON job.JobID = payment.JobJobID\n" +
