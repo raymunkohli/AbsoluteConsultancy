@@ -34,6 +34,26 @@
     </script>
   </head>
   <body>
+                  <% 
+        if(request.getAttribute("isLate").toString().equals("true")){
+                %>
+                      <script>
+                    var alert1 =confirm('Deadline will not be met!\n\
+Customer: <%out.write(request.getAttribute("affectedCust").toString()); %> \n\
+Has made an order (JobID: <%out.write(request.getAttribute("lateID").toString()); %>) which will not be met ontime (<%out.write(request.getAttribute("difference").toString()); %> minutes late) \n\
+Contact Phone: <%out.write(request.getAttribute("phone").toString()); %>\n\
+Contact Email: <%out.write(request.getAttribute("email").toString()); %>');
+                
+                if(alert1){
+                    window.location = 'lateJobAlertOfficeServlet?job=<% out.write(request.getAttribute("lateID").toString()); %>';
+                }
+                
+                
+                </script>
+      
+      <% } %>
+      
+      
       <div style="width:100%;height:100%;left:25%;position:absolute;">
     <div id="base" class="">
       <!-- Unnamed (Rectangle) -->

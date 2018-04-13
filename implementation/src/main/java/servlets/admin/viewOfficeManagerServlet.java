@@ -6,10 +6,15 @@
 package servlets.admin;
 
 import com.mycompany.implementation.query.getAlertQuery;
+import com.mycompany.implementation.query.getLateJobs;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,6 +24,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import servlets.shiftManager.viewShiftManagerServlet;
 
 /**
  *
@@ -79,37 +85,50 @@ public class viewOfficeManagerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+                //jobs where deadline is not met
+        getAlertQuery a = new getAlertQuery();
+        List<String> lateTasks = new ArrayList();
+        String deadlineExceed = "false";
+        getLateJobs b = new getLateJobs();
+        ResultSet lateJobs = b.getLateJobs();
+        String affectedCust = new String();
+        String instructions = new String();
+        LocalDateTime order;
+        LocalDateTime lateDeadline;
+        String lateTask = new String();
+        String isLate = "false";
+        Long difference = 0L;
         
-        //new job checker
         
-        String newJobAlert = "false";
-        String cust = new String();
-        String deadline = new String();
-        List<String> tasks = new ArrayList();
-        String theTask = new String();
-        String jobID = new String();
         try {
-            getAlertQuery a= new getAlertQuery();
-            ResultSet info = a.getNewJobQuery();
-            if (info.next()){
-                newJobAlert = "true";
-                cust = info.getString("name") + " " +info.getString("surname");
-                deadline = info.getString("deadline");
-                tasks = a.getTasksFromJob(info.getInt("JobID"));
-                jobID = info.getString("JobID");
+            if (lateJobs.next() && lateJobs.getDate("orderDate")!= null) {
+                affectedCust = lateJobs.getString("name") + " " + lateJobs.getString("surname");
+                order = LocalDateTime.of(LocalDate.parse(lateJobs.getDate("orderDate").toString()), LocalTime.parse(lateJobs.getTime("orderDate").toString()));
+                lateDeadline = LocalDateTime.of(LocalDate.parse(lateJobs.getDate("deadline").toString()), LocalTime.parse(lateJobs.getTime("deadline").toString()));
+                order = order.plusMinutes(lateJobs.getLong("Time"));
+                difference = (Duration.between(lateDeadline, order).toMinutes());
+                System.out.println(order);
+                lateTasks = a.getTasksFromJob(lateJobs.getInt("JobID"));
+                isLate = "true";
+                for (String taskz : lateTasks) {
+                    lateTask = lateTask + " \\n " + taskz;
+                }
+                request.setAttribute("phone",lateJobs.getString("phoneNo"));
+                request.setAttribute("email",lateJobs.getString("email"));
+                request.setAttribute("order", order);
+                request.setAttribute("lateDate", lateDeadline);
+                request.setAttribute("lateID", lateJobs.getInt("JobID"));
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(viewOfficeManagerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(viewShiftManagerServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for(String a: tasks){
-            theTask = theTask+" \\n "+a;
-        }
-        request.setAttribute("jobid",jobID);
-        request.setAttribute("tasks",theTask);
-        request.setAttribute("deadline",deadline);
-        request.setAttribute("cust",cust);
-        request.setAttribute("newJobAlert",newJobAlert);
-        request.getRequestDispatcher("officeManager.jsp").forward(request, response);   
+
+        request.setAttribute("affectedCust", affectedCust);
+        request.setAttribute("difference", difference);
+        request.setAttribute("lateTask", lateTask);
+        request.setAttribute("isLate", isLate);
+        request.getRequestDispatcher("officeManager.jsp").forward(request, response);
     }
 
     /**
