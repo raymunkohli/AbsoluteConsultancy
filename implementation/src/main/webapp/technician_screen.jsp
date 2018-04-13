@@ -64,24 +64,42 @@
                         <th> Holder</th>
                         <th> Customer </th>
                         <th> Status </th>
-                        <th> Location </th>
+                        <th> Department </th>
                         <th> Deadline </th>
                         <th> Select </th>
                     </tr>
 
-                    <c:forEach items="${Jobs}" var="Job" varStatus="Status">
+                    <c:forEach items="${Jobs}" var="Jobs" varStatus="Status">
                         <tr>
-                            <td> ${Job.jobID} </td>
-                            <td> <c:out value="${Customer.name}" /> </td>
-                            <td> ${Tasks[Status.index].taskID} </td>
-                            <td> <c:out value="${Customer.address}" /> </td>
-                            <td> <c:out value="${Job.deadline}" /> </td>
+                            <td> ${Jobs.jobID} </td>
+                            <td> ${Customer[Status.index].holder} </td>
+                            <td> ${Customer.name} </td>
+                            <td> ${Basetask.description} </td>
+                            <td> ${Basetask.department} </td>
+                            <th> ${Jobs.deadline} </th>
+                            <td> <input type="checkbox" value="${Jobs.jobID}`${Customer.holder}`
+                                        ${Customer.name}`${Base.description}`${Base.department}`
+                                        ${Base.description}`${Jobs.deadline}" name="${Jobs.jobID}"/> </td>
+                            
+                        </tr>
+                    </c:forEach>
+                    
+                    
+                    <!--
+                    <c:forEach items="${Jobs}" var="Jobs" varStatus="Status">
+                        <tr>
+                            <td> ${Jobs.jobID} </td>
+                            <td> city </td>
+                            <td> ${Customer.name} </td>
+                            <td> ${Basetask.department} </td>
+                            <td> ${Jobs.deadline} </td>
                         <form method="post" action="selectedJobTechician">
                             <input type="hidden" value="${Tasks[Status.index].taskID}"/> 
                             <td> <input type="Submit" value="Select"/> </td>
                         </form>
                         </tr>
-                    </c:forEach>  
+                    </c:forEach> 
+                    -->
                 </table>
 
                 <script>
@@ -108,176 +126,181 @@
                     selectedRow();
                 </script>
             </div>
-                     
-                        
+
+
             <!-- Unnamed (Rectangle) -->
             <div id="u162" class="ax_default label">
                 <div id="u162_div" class=""></div>
                 <div id="u162_text" class="text ">
                     Selected job:<output name="jID" id="jID"><br><br>
-                </div>
-            </div>
-            
-            <!-- Unnamed (Text Field) -->
-            <div id="u163" class="ax_default text_field">
-                <input id="u163_input" type="text" value="Use of small copy camera"/>
-            </div>
+                        </div>
+                        </div>
 
-            <!-- Unnamed (Rectangle) -->
-            <div id="u164" class="ax_default paragraph">
-                <div id="u164_div" class=""></div>
-            </div>
+                        <!-- Unnamed (Text Field) -->
+                        <div id="u163" class="ax_default text_field">
+                            <input id="u163_input" type="text" value="Use of small copy camera"/>
+                        </div>
 
-            <!-- Unnamed (Rectangle) -->
-            <div id="u165" class="ax_default button">
-                <div id="u165_div" class=""></div>
-                <div id="u165_text" class="text ">
-                    <p><span><input type="submit" value="Update Task" form="" style="height: 50px; width: 135px" /></span></p>
-                </div>
-            </div>
+                        <!-- Unnamed (Rectangle) -->
+                        <div id="u164" class="ax_default paragraph">
+                            <div id="u164_div" class=""></div>
+                        </div>
 
-            <!-- Unnamed (Rectangle) -->
-            <div id="u166" class="ax_default label">
-                <div id="u166_div" class=""></div>
-                <div id="u166_text" class="text ">
-                    <p><span>Current task</span></p>
-                </div>
-            </div>
+                        <!-- Unnamed (Rectangle) -->
+                        <div id="u165" class="ax_default button">
+                            <!-- <div id="u165_div" class=""></div> -->
+                            <div id="u165_text" class="text ">
+                                <p><span><input type="submit" value="Update Task" form="" style="height: 50px; width: 135px" /></span></p>
+                            </div>
+                        </div>
 
-            <!-- Unnamed (Rectangle) -->
-            <div id="u167" class="ax_default label">
-                <div id="u167_div" class=""></div>
-                <div id="u167_text" class="text ">
-                    <p><span>Performed by: Alan</span></p>
-                </div>
-            </div>
+                        <!-- Unnamed (Rectangle) -->
+                        <div id="u166" class="ax_default label">
+                            <div id="u166_div" class=""></div>
+                            <div id="u166_text" class="text ">
+                                <p><span>Current task:</span></p>
+                            </div>
+                        </div>
 
-            <!-- Unnamed (Group) -->
-            <div id="u168" class="ax_default" data-left="78" data-top="441" data-width="247" data-height="220">
+                        <!-- Unnamed (Rectangle) -->
+                        <div id="u167" class="ax_default label">
+                            <div id="u167_div" class=""></div>
+                            <div id="u167_text" class="text ">
+                                <p><span>Performed by: Alan</span></p>
+                            </div>
+                        </div>
 
-                <!-- Unnamed (Text Area) -->
-                <div id="u169" class="ax_default text_area">
-                    <textarea id="u169_input">From: Jay
+                        <!-- Unnamed (Group) -->
+                        <div id="u168" class="ax_default" data-left="78" data-top="441" data-width="247" data-height="220">
+
+                            <!-- Unnamed (Text Area) -->
+                            <div id="u169" class="ax_default text_area">
+                                <textarea id="u169_input">From: Jay
 
 Alan have you completed task 6 for job 34?
 Let me know ASAP, customer is ready to collect!
 
 Thanks.</textarea>
-                </div>
+                            </div>
 
-                <!-- Unnamed (Rectangle) -->
-                <div id="u170" class="ax_default label">
-                    <div id="u170_div" class=""></div>
-                    <div id="u170_text" class="text ">
-                        <p><span style="text-decoration:underline;">Enquiry box</span></p>
-                    </div>
-                </div>
+                            <!-- Unnamed (Rectangle) -->
+                            <div id="u170" class="ax_default label">
+                                <div id="u170_div" class=""></div>
+                                <div id="u170_text" class="text ">
+                                    <p><span style="text-decoration:underline;">Enquiry box</span></p>
+                                </div>
+                            </div>
 
-                <!-- Unnamed (Rectangle) -->
-                <div id="u171" class="ax_default label">
-                    <div id="u171_div" class=""></div>
-                    <div id="u171_text" class="text ">
-                        <p><span>Next task</span></p>
-                    </div>
-                </div>
+                            <!-- Unnamed (Rectangle)--> 
+                            <div id="u171" class="ax_default label">
+                                <div id="u171_div" class=""></div>
+                                <div id="u171_text" class="text ">
+                                    <p><span>Shelf:</span></p>
+                                </div>
+                            </div>
+                            
+                            <!-- Unnamed (Text Field) -->
+                            <div id="u172" class="ax_default text_field">
+                                <input id="u172_input" type="text" value=""/>
+                            </div>
+                           
 
-                <!-- Unnamed (Text Field) -->
-                <div id="u172" class="ax_default text_field">
-                    <input id="u172_input" type="text" value="Colour film processing"/>
-                </div>
+                            <!-- Unnamed (Rectangle) -->
+                            <div id="u173" class="ax_default button">
+                                <!-- <div id="u173_div" class=""></div> -->
+                                <div id="u173_text" class="text ">
+                                    <p><span><input type="submit" value="Notify deadline exceed" form="" style="height: 50px; width: 135px" /></span></p>
+                                </div>
+                            </div>
 
-                <!-- Unnamed (Rectangle) -->
-                <div id="u173" class="ax_default button">
-                    <div id="u173_div" class=""></div>
-                    <div id="u173_text" class="text ">
-                        <p><span><input type="submit" value="Notify deadline exceed" form="" style="height: 50px; width: 135px" /></span></p>
-                    </div>
-                </div>
+                            <!-- Unnamed (Shape) -->
+                            <div id="u174" class="ax_default icon">
+                                <img id="u174_img" class="img " src="images/technician_screen/u174.png"/>
+                            </div>
 
-                <!-- Unnamed (Shape) -->
-                <div id="u174" class="ax_default icon">
-                    <img id="u174_img" class="img " src="images/technician_screen/u174.png"/>
-                </div>
-
-                <!-- Unnamed (Shape) -->
-                <div id="u175" class="ax_default icon">
-                    <img id="u175_img" class="img " src="images/technician_screen/u175.png"/>
-                </div>
-
-
-                <!--
-                <div id="u175" class="ax_default icon">
-                  <button type="submit">
-                      <img src="images/technician_screen/u175.png" onmouseover="this.src='images/technician_screen/u175.png';" onmouseout="this.src='images/technician_screen/u175.png';" />
-                  </button>
-                </div>
-                -->
+                            <!-- Unnamed (Shape) -->
+                            <div id="u175" class="ax_default icon">
+                                <img id="u175_img" class="img " src="images/technician_screen/u175.png"/>
+                            </div>
 
 
-                <!-- Unnamed (Rectangle) -->
-                <div id="u176" class="ax_default label">
-                    <div id="u176_div" class=""></div>
-                    <div id="u176_text" class="text ">
-                        <p><span>Previous Enquiry</span></p>
-                    </div>
-                </div>
+                            <!--
+                            <div id="u175" class="ax_default icon">
+                              <button type="submit">
+                                  <img src="images/technician_screen/u175.png" onmouseover="this.src='images/technician_screen/u175.png';" onmouseout="this.src='images/technician_screen/u175.png';" />
+                              </button>
+                            </div>
+                            -->
 
-                <!-- Unnamed (Rectangle) -->
-                <div id="u177" class="ax_default label">
-                    <div id="u177_div" class=""></div>
-                    <div id="u177_text" class="text ">
-                        <p><span>Next Enquiry</span></p>
-                    </div>
-                </div>
 
-                <!-- Unnamed (Rectangle) -->
-                <div id="u178" class="ax_default paragraph">
-                    <div id="u178_div" class=""></div>
-                    <div id="u178_text" class="text ">
-                        <p><span>To: Jay</span></p><p><span><br></span></p><p><span>Deadline is going to exceed for job 34. There is still 1 task left. I have notified both managers.</span></p><p><span><br></span></p><p><span>Thanks</span></p>
-                    </div>
-                </div>
+                            <!-- Unnamed (Rectangle) -->
+                            <div id="u176" class="ax_default label">
+                                <div id="u176_div" class=""></div>
+                                <div id="u176_text" class="text ">
+                                    <p><span>Previous Enquiry</span></p>
+                                </div>
+                            </div>
 
-                <!-- Unnamed (Rectangle) -->
-                <div id="u179" class="ax_default button">
-                    <div id="u179_div" class=""></div>
-                    <div id="u179_text" class="text ">
-                        <p><span><input type="submit" value="Respond" form="" style="height: 50px; width: 135px" /></span></p>
-                    </div>
-                </div>
+                            <!-- Unnamed (Rectangle) -->
+                            <div id="u177" class="ax_default label">
+                                <div id="u177_div" class=""></div>
+                                <div id="u177_text" class="text ">
+                                    <p><span>Next Enquiry</span></p>
+                                </div>
+                            </div>
 
-                <!-- Unnamed (Shape) -->
-                <div id="u180" class="ax_default icon">
-                    <img id="u180_img" class="img " src="images/technician_screen/u175.png"/>
-                </div>
+                            <!-- Unnamed (Rectangle) -->
+                            <div id="u178" class="ax_default paragraph">
+                                <div id="u178_div" class=""></div>
+                                <div id="u178_text" class="text ">
+                                    <p><span>To: Jay</span></p><p><span><br></span></p><p><span>Deadline is going to exceed for job 34. There is still 1 task left. I have notified both managers.</span></p><p><span><br></span></p><p><span>Thanks</span></p>
+                                </div>
+                            </div>
 
-                <!-- Unnamed (Shape) -->
-                <div id="u181" class="ax_default icon">
-                    <img id="u181_img" class="img " src="images/technician_screen/u174.png"/>
-                </div>
+                            <!-- Unnamed (Rectangle) -->
+                            <div id="u179" class="ax_default button">
+                                <!-- <div id="u179_div" class=""></div> -->
+                                <div id="u179_text" class="text ">
+                                    <p><span><input type="submit" value="Respond" form="" style="height: 50px; width: 135px" /></span></p>
+                                </div>
+                            </div>
 
-                <!-- Unnamed (Horizontal Line) -->
-                <div id="u182" class="ax_default line">
-                    <img id="u182_img" class="img " src="images/receptionist_screen/u84.png"/>
-                </div>
 
-                <!-- Unnamed (Rectangle) -->
-                <div id="u183" class="ax_default label">
-                    <div id="u183_div" class=""></div>
-                    <div id="u183_text" class="text ">
-                        <p><span>Technician</span></p>
-                    </div>
-                </div>
+                            <!-- Unnamed (Shape) 
+                            <div id="u180" class="ax_default icon">
+                                <img id="u180_img" class="img " src="images/technician_screen/u175.png"/>
+                            </div>
+            
+                            <!-- Unnamed (Shape) 
+                            <div id="u181" class="ax_default icon">
+                                <img id="u181_img" class="img " src="images/technician_screen/u174.png"/>
+                            </div>
+                            -->
 
-                <!-- Unnamed (Shape) -->
-                <div id="u184" class="ax_default icon">
-                    <img id="u184_img" class="img " src="images/technician_screen/u184.png"/>
-                </div>
 
-                <!-- Unnamed (Shape) -->
-                <div id="u185" class="ax_default icon">
-                    <img id="u185_img" class="img " src="images/receptionist_screen/u88.png"/>
-                </div>
-            </div>
-    </body>
-</html>
+                            <!-- Unnamed (Horizontal Line) -->
+                            <div id="u182" class="ax_default line">
+                                <img id="u182_img" class="img " src="images/receptionist_screen/u84.png"/>
+                            </div>
+
+                            <!-- Unnamed (Rectangle) -->
+                            <div id="u183" class="ax_default label">
+                                <div id="u183_div" class=""></div>
+                                <div id="u183_text" class="text ">
+                                    <p><span>Technician</span></p>
+                                </div>
+                            </div>
+
+                            <!-- Unnamed (Shape)
+                            <div id="u184" class="ax_default icon">
+                                <img id="u184_img" class="img " src="images/technician_screen/u184.png"/>
+                            </div>
+                            -->
+
+                            <!-- Unnamed (Shape)-->
+                            <div id="u185" class="ax_default icon">
+                                <img id="u185_img" class="img " src="images/receptionist_screen/u88.png"/>
+                            </div>
+                        </div>
+                        </body>
+                        </html>
