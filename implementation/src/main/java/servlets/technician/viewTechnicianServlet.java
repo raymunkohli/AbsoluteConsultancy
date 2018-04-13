@@ -96,25 +96,35 @@ public class viewTechnicianServlet extends HttpServlet {
         //run the query to get the data for all the rooms
         ResultSet Results = a.getJobs(StaffRoom);
         List<Job> Jobs = new ArrayList();
-        List<Task> Tasks = new ArrayList();
         List<Customer> Customers = new ArrayList();
-        List<Basetask> Base = new ArrayList();
+        List<Task> Tasks = new ArrayList();
+        List<Basetask> Basetasks = new ArrayList();
         
         try {
             while(Results.next()){
                 Job j = new Job();
-                j.setJobID(Results.getInt("JobID"));
+                j.setJobID(Results.getInt("jobID"));
                 j.setDeadline(Results.getTimestamp("deadline"));
+                
+                Customer c = new Customer();
+                c.setHolder(Results.getString("holder"));
+                c.setName(Results.getString("name"));
+                
+                Basetask b = new Basetask();
+                b.setDescription(Results.getString("description"));
+                b.setDepartment(Results.getString("department"));
                 
                 Task t = new Task();
                 t.setTaskID(Results.getInt("taskID"));
-                //FINISH THIS
                 
                 Jobs.add(j);
+                Customers.add(c);
+                Basetasks.add(b);
                 Tasks.add(t);
-                System.out.println(123);
             }
             request.setAttribute("Jobs",Jobs);
+            request.setAttribute("Customers",Customers);
+            request.setAttribute("Basetasks",Basetasks);
             request.setAttribute("Tasks",Tasks);
         } catch (SQLException ex) {
             Logger.getLogger(viewTechnicianServlet.class.getName()).log(Level.SEVERE, null, ex);
