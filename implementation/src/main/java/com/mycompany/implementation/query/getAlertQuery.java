@@ -31,6 +31,7 @@ public class getAlertQuery extends Query {
                     + "FROM job \n"
                     + "INNER JOIN customer ON customer.customerID = job.CustomercustomerID\n"
                     + "WHERE job.alert=0;";
+            System.out.println(query);
             s = this.getC().prepareStatement(query);
             ResultSet jobs = s.executeQuery();
             return jobs;

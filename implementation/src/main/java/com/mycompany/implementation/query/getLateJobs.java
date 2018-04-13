@@ -25,19 +25,31 @@ public class getLateJobs extends Query {
         try {
             PreparedStatement s;
             String Query = "SELECT job.*,\n"
-                    + "customer.name,customer.surname,\n"
+                    + "customer.name,customer.surname,customer.phoneNo,customer.email,\n"
                     + "sum(basetask.duration) AS Time\n"
                     + "FROM job\n"
                     + "INNER JOIN customer ON job.CustomercustomerID = customer.customerID\n"
                     + "INNER JOIN task ON task.JobJobID = job.JobID\n"
                     + "INNER JOIN basetask ON basetask.baseTaskID = task.baseTaskbaseTaskID\n"
                     + "WHERE deadlineExceed = 1";
+            System.out.println(Query);
             s = this.getC().prepareStatement(Query);
             ResultSet jobs = s.executeQuery();
             return jobs;
         } catch (SQLException ex) {
             Logger.getLogger(addTaskQuery.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
+    }
+    
+        public void stopLateJob(String jobid) {
+        try {
+            PreparedStatement s;
+            String Query = "UPDATE job SET job.deadlineExceed = 0 WHERE job.JobID='"+jobid+"';";
+            s = this.getC().prepareStatement(Query);
+            s.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(addTaskQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

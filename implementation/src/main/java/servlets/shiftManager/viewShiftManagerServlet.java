@@ -98,19 +98,23 @@ public class viewShiftManagerServlet extends HttpServlet {
         String lateTask = new String();
         String isLate = "false";
         Long difference = 0L;
-
+        
+        
         try {
-            if (lateJobs.next()) {
+            if (lateJobs.next() && lateJobs.getDate("orderDate")!= null) {
                 affectedCust = lateJobs.getString("name") + " " + lateJobs.getString("surname");
                 order = LocalDateTime.of(LocalDate.parse(lateJobs.getDate("orderDate").toString()), LocalTime.parse(lateJobs.getTime("orderDate").toString()));
                 lateDeadline = LocalDateTime.of(LocalDate.parse(lateJobs.getDate("deadline").toString()), LocalTime.parse(lateJobs.getTime("deadline").toString()));
-                lateDeadline.plusMinutes(lateJobs.getLong("Time"));
+                order = order.plusMinutes(lateJobs.getLong("Time"));
                 difference = (Duration.between(lateDeadline, order).toMinutes());
+                System.out.println(order);
                 lateTasks = a.getTasksFromJob(lateJobs.getInt("JobID"));
                 isLate = "true";
                 for (String taskz : lateTasks) {
                     lateTask = lateTask + " \\n " + taskz;
                 }
+                request.setAttribute("phone",lateJobs.getString("phoneNo"));
+                request.setAttribute("email",lateJobs.getString("email"));
                 request.setAttribute("order", order);
                 request.setAttribute("lateDate", lateDeadline);
                 request.setAttribute("lateID", lateJobs.getInt("JobID"));
@@ -124,6 +128,7 @@ public class viewShiftManagerServlet extends HttpServlet {
         request.setAttribute("difference", difference);
         request.setAttribute("lateTask", lateTask);
         request.setAttribute("isLate", isLate);
+        
         //new job checker
         String newJobAlert = "false";
         String cust = new String();

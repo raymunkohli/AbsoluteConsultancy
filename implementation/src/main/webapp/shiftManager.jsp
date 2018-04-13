@@ -35,8 +35,17 @@
         if(request.getAttribute("isLate").toString().equals("true")){
                 %>
                 <script>
-                    var alert =confirm('');
-            
+                    var alert1 =confirm('Deadline will not be met!\n\
+Customer: <%out.write(request.getAttribute("affectedCust").toString()); %> \n\
+Has made an order (JobID: <%out.write(request.getAttribute("lateID").toString()); %>) which will not be met ontime (<%out.write(request.getAttribute("difference").toString()); %> minutes late) \n\
+Contact Phone: <%out.write(request.getAttribute("phone").toString()); %>\n\
+Contact Email: <%out.write(request.getAttribute("email").toString()); %>');
+                
+                if(alert1){
+                    window.location = 'lateJobAlertShiftServlet?job=<% out.write(request.getAttribute("lateID").toString()); %>';
+                }
+                
+                
                 </script>
             
                     <%
@@ -49,7 +58,7 @@ Instructions: <%out.write(request.getAttribute("spec").toString()); %>\n\
 Deadline: <%out.write(request.getAttribute("deadline").toString()); %> \n\
 Tasks: <%out.write(request.getAttribute("tasks").toString()); %>');
                if(alert){
-                   window.location = 'newJobAlertServlet?job=+<% out.write(request.getAttribute("jobid").toString()); %>';
+                   window.location = 'newJobAlertShiftServlet?job=<% out.write(request.getAttribute("jobid").toString()); %>';
                }
 
             </script>
