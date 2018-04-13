@@ -57,12 +57,14 @@ Contact Email: <%out.write(request.getAttribute("email").toString()); %>');
       <div style="width:100%;height:100%;left:25%;position:absolute;">
     <div id="base" class="">
       <!-- Unnamed (Rectangle) -->
+      <a href="completeCustomerServlet">
       <div id="u271" class="ax_default button">
         <div id="u271_div" class=""></div>
         <div id="u271_text" class="text ">
           <p><span>View customers</span></p>
         </div>
       </div>
+      </a>
 
       <!-- Unnamed (Rectangle) -->
       <div id="u273" class="ax_default button">

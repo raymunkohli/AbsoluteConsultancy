@@ -84,9 +84,8 @@ public class addPaymentQuery extends Query {
         PreparedStatement s;
         try {
             String query = "UPDATE flexiblediscount \n"
-                    + "SET flexiblediscount.bandBandID = \n"
-                    + "(SELECT band.BandID from band WHERE band.lowerBound<='" + value + "' AND band.upperBound >= '" + value + "' )\n"
-                    + ",flexiblediscount.aquiredValue ='"+value+"' "
+                    + "SET "
+                    + "flexiblediscount.aquiredValue ='"+value+"' "
                     + "WHERE flexiblediscount.DiscountdiscountID ='" + discountID + "';";
             s = this.getC().prepareStatement(query);
             s.executeUpdate();

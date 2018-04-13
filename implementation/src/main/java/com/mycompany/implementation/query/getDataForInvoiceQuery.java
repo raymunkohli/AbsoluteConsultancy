@@ -100,15 +100,16 @@ public class getDataForInvoiceQuery extends Query {
     public ResultSet getDiscountGivenCust(int JobID) {
         PreparedStatement s;
         try {
-            String query = "SELECT discount.discountID,discount.discountType,\n"
-                    + "fixeddiscount.percentDiscount,\n"
-                    + "band.discount,band.upperBound, band.BandID, flexiblediscount.aquiredValue \n"
-                    + "FROM discount\n"
-                    + "LEFT JOIN fixeddiscount on discount.discountID = fixeddiscount.DiscountdiscountID\n"
-                    + "LEFT JOIN flexiblediscount ON discount.discountID = flexiblediscount.DiscountdiscountID\n"
-                    + "LEFT JOIN band ON band.BandID = flexiblediscount.bandBandID\n"
-                    + "INNER JOIN valuedcustomer ON valuedcustomer.DiscountdiscountID =discount.discountID\n"
-                    + "WHERE valuedcustomer.CustomercustomerID ='" + JobID + "';";
+            String query = "SELECT discount.discountID,discount.discountType,\n" +
+"                     fixeddiscount.percentDiscount,\n" +
+"                    band.discount,band.upperBound, band.BandID, flexiblediscount.aquiredValue \n" +
+"                    FROM discount\n" +
+"                    LEFT JOIN fixeddiscount on discount.discountID = fixeddiscount.DiscountdiscountID\n" +
+"                    LEFT JOIN flexiblediscount ON discount.discountID = flexiblediscount.DiscountdiscountID\n" +
+"                    LEFT JOIN band ON flexiblediscount.DiscountdiscountID = band.flexiblediscount_DiscountdiscountID \n" +
+"                    AND band.BandID = (SELECT band.BandID from band WHERE band.lowerBound<= flexiblediscount.aquiredValue AND band.upperBound >= flexiblediscount.aquiredValue)\n" +
+"                    INNER JOIN valuedcustomer ON valuedcustomer.DiscountdiscountID =discount.discountID\n" +
+"                    WHERE valuedcustomer.CustomercustomerID ="+JobID+";";
             System.out.println(query);
             s = this.getC().prepareStatement(query);
             ResultSet a = s.executeQuery();
