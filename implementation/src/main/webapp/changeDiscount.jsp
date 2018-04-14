@@ -14,6 +14,7 @@
         <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
         <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
         <link href="data/styles.css" type="text/css" rel="stylesheet"/>
+         <link href="resources/tablecss.css" type="text/css" rel="stylesheet"/>
         <link href="files/bands_form/styles.css" type="text/css" rel="stylesheet"/>
         <link href="files/set_discount/styles.css" type="text/css" rel="stylesheet"/>
         <script src="resources/scripts/jquery-1.7.1.min.js"></script>
@@ -75,43 +76,32 @@
                 </div>
                 <!-- Unnamed (Rectangle) -->
                 <div id="u25" class="ax_default label">
-                    <div id="u25_div" class=""></div>
-                    <div id="u25_text" class="text ">
-                        <p><span>Variable Discount</span></p>
-                    </div>
-                </div>
-
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u29" class="ax_default label">
-                    <div id="u29_div" class=""></div>
-                    <div id="u29_text" class="text ">
-                        <p><span>Task name:</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Text Field) -->
-                <div id="u30" class="ax_default text_field">
-                    <input id="u30_input" type="text" value=""/>
-                </div>
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u31" class="ax_default label">
-                    <div id="u31_div" class=""></div>
-                    <div id="u31_text" class="text ">
-                        <p><span>ID:</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Text Field) -->
-                <div id="u32" class="ax_default text_field">
-                    <input id="u32_input" type="text" value=""/>
-                </div>
-
-                <!-- Unnamed (HTML Button) -->
-                <div id="u33" class="ax_default html_button">
+        <div id="u25_div" class=""></div>
+        <div id="u25_text" class="text ">
+          <p><span>Variable Discount</span></p>
+        </div>
+      </div>
+                <form method="post" action="addVariableDiscountServlet">
+                <div id="u25" class="ax_default text" style="width:500px;top:200px;font-size:15px">
+                    <table>
+                        <tr><th>Task ID </th> <th> Task Description </th> <th> Discount </th> </tr>
+                        
+                        <c:set var="ids" value=""/>
+                        
+                        <c:forEach items="${tasks}" var="task">
+                            <tr>
+                                <td>${task.baseTaskID}</td> <td>${task.description} </td> <td><input type="text" name="${task.baseTaskID}" value="0" required></td>
+                                <c:set var="ids" value="${ids}${task.baseTaskID}`"/>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                                    <div id="u33" class="ax_default html_button">
                     <input id="u33_input" type="submit" value="Submit"/>
+                    <input type="hidden" value="${ids}" name="ids" />
+                    <input type="hidden" value="<% out.write(request.getAttribute("discountID").toString());%>" name="discountid" />
                 </div>
+                </div>
+                </form>
             </div>
             <% } else if (request.getAttribute("discount").toString().equals("Flexible")) {%>
             <!-- Unnamed (Rectangle) -->
@@ -136,7 +126,7 @@
                     <div id="u27" class="ax_default text_field" style="left:200px">
                         <input id="u27_input" type="text" name="numberOfBands" value="" required/>
                     </div>
-                    <input type="hidden" value="<% out.write(request.getAttribute("discountID").toString());%>" name="discountID">
+                    <input type="hidden" value="<% out.write(request.getAttribute("discountID").toString());%>" name="discountID"> 
                     <!-- Unnamed (Rectangle) -->
                     <div id="u26" class="ax_default label">
                         <div id="u26_div" class=""></div>

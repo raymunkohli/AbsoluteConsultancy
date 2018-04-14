@@ -24,7 +24,7 @@ public class Query {
     }
     
     public Query(){
-        String url = "jdbc:mysql://localhost:3306/sys?zeroDateTimeBehavior=convertToNull"; //db location
+        String url = "jdbc:mysql://localhost:3306/sys?zeroDateTimeBehavior=convertToNull&useSSL=false"; //db location
         try {
             Class.forName("com.mysql.jdbc.Driver"); //make instance of driver
             this.c = DriverManager.getConnection(url,"root","1234"); //connect to db

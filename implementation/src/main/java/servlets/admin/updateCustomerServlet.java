@@ -5,11 +5,14 @@
  */
 package servlets.admin;
 
+import com.mycompany.implementation.domain.Basetask;
 import com.mycompany.implementation.query.setDiscountQuery;
 import com.mycompany.implementation.query.updateCustomerQuery;
 import com.mycompany.implementation.query.valuedCustomerQuery;
+import com.mycompany.implementation.query.viewTasksQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -78,7 +81,10 @@ public class updateCustomerServlet extends HttpServlet {
         updateCustomerQuery a = new updateCustomerQuery();
         valuedCustomerQuery b = new valuedCustomerQuery();
         setDiscountQuery c = new setDiscountQuery();
-
+        viewTasksQuery d = new viewTasksQuery();
+        List<Basetask> tasks = d.doViewTasks();
+        
+        request.setAttribute("tasks", tasks);
         String custid = request.getParameter("id");
         a.doUpdateCustomerQuery(custid, request.getParameter("firstname"), request.getParameter("surname"), request.getParameter("phone"), request.getParameter("email"), request.getParameter("address"), request.getParameter("postcode"), request.getParameter("holder"));
 
@@ -106,9 +112,11 @@ public class updateCustomerServlet extends HttpServlet {
                 request.getRequestDispatcher("changeDiscount.jsp").forward(request, response);
             }
 
-        }
-
-        else if (!request.getParameter("prevDiscount").equals(request.getParameter("discount")) && request.getParameter("valued") != null) { //change discount package
+        } else if (request.getParameter("discount").equals("None")) {
+            c.removeDiscount(custid);
+            System.out.println(1234);
+            response.sendRedirect("completeCustomerServlet");
+        } else if (!request.getParameter("prevDiscount").equals(request.getParameter("discount")) && request.getParameter("valued") != null) { //change discount package
             int discountID;
             String discount = request.getParameter("discount");
             if (request.getParameter("discount").startsWith("new")) {
@@ -121,12 +129,9 @@ public class updateCustomerServlet extends HttpServlet {
             request.setAttribute("discountID", discountID);
             request.setAttribute("discount", discount);
             request.getRequestDispatcher("changeDiscount.jsp").forward(request, response);
+        } else {
+            System.out.println(123);
         }
-        else if(request.getParameter("discount").equals("None")) {
-            c.removeDiscount(custid);
-            response.sendRedirect("completeCustomerServlet");
-        }
-
 
     }
 
