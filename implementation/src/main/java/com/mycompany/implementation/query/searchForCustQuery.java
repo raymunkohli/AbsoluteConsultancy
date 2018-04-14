@@ -36,7 +36,7 @@ public class searchForCustQuery extends Query {
                     + "LEFT JOIN discount ON discount.discountID = valuedcustomer.DiscountdiscountID\n"
                     + "LEFT JOIN fixeddiscount ON discount.discountID = fixeddiscount.DiscountdiscountID\n"
                     + "LEFT JOIN band ON flexiblediscount.DiscountdiscountID = band.flexiblediscount_DiscountdiscountID \n" +
-                        "AND band.BandID = (SELECT band.BandID from band WHERE band.lowerBound<= flexiblediscount.aquiredValue AND band.upperBound >= flexiblediscount.aquiredValue) "
+                        "AND band.BandID = (SELECT band.BandID from band WHERE band.lowerBound<= flexiblediscount.aquiredValue AND band.upperBound >= flexiblediscount.aquiredValue AND band.flexiblediscount_DiscountdiscountID = flexiblediscount.DiscountdiscountID)) "
                     + "WHERE "+Query+" "
                     + "ORDER BY customer.customerID ASC";
             System.out.println(query);

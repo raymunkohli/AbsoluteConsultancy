@@ -5,7 +5,9 @@
  */
 package servlets.admin;
 
+import com.mycompany.implementation.query.setDiscountQuery;
 import com.mycompany.implementation.query.updateCustomerQuery;
+import com.mycompany.implementation.query.valuedCustomerQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -38,7 +40,7 @@ public class updateCustomerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet updateCustomerServlet</title>");            
+            out.println("<title>Servlet updateCustomerServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet updateCustomerServlet at " + request.getContextPath() + "</h1>");
@@ -74,12 +76,58 @@ public class updateCustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         updateCustomerQuery a = new updateCustomerQuery();
-        a.doUpdateCustomerQuery(request.getParameter("id"), request.getParameter("firstname"), request.getParameter("surname"), request.getParameter("phone"), request.getParameter("email"), request.getParameter("address"), request.getParameter("postcode"), request.getParameter("holder"));
-        
-        
-        
-        
-        
+        valuedCustomerQuery b = new valuedCustomerQuery();
+        setDiscountQuery c = new setDiscountQuery();
+
+        String custid = request.getParameter("id");
+        a.doUpdateCustomerQuery(custid, request.getParameter("firstname"), request.getParameter("surname"), request.getParameter("phone"), request.getParameter("email"), request.getParameter("address"), request.getParameter("postcode"), request.getParameter("holder"));
+
+        if (request.getParameter("valued") == null && request.getParameter("beforeValued").equals("true")) { //remove valued customer
+            //remove valued
+            b.removeValued(custid);
+            response.sendRedirect("completeCustomerServlet");
+        } else if (request.getParameter("valued") != null && request.getParameter("beforeValued").equals("false")) { //add valued customer
+            //set valued
+            b.setValued(custid);
+            if (request.getParameter("discount").equals("None")) { //no discount package
+                response.sendRedirect("completeCustomerServlet");
+            } else { //discount package
+                int discountID;
+                String discount = request.getParameter("discount");
+                if (request.getParameter("discount").startsWith("new")) {
+                    discount = discount.substring(3);
+                    discountID = c.createNewDiscount(discount, custid);
+                } else {
+                    discountID = c.createNewDiscount(discount, custid);
+                }
+
+                request.setAttribute("discountID", discountID);
+                request.setAttribute("discount", discount);
+                request.getRequestDispatcher("changeDiscount.jsp").forward(request, response);
+            }
+
+        }
+
+        else if (!request.getParameter("prevDiscount").equals(request.getParameter("discount")) && request.getParameter("valued") != null) { //change discount package
+            int discountID;
+            String discount = request.getParameter("discount");
+            if (request.getParameter("discount").startsWith("new")) {
+                discount = discount.substring(3);
+                discountID = c.createNewDiscount(discount, custid);
+            } else {
+                discountID = c.createNewDiscount(discount, custid);
+            }
+
+            request.setAttribute("discountID", discountID);
+            request.setAttribute("discount", discount);
+            request.getRequestDispatcher("changeDiscount.jsp").forward(request, response);
+        }
+        else if(request.getParameter("discount").equals("None")) {
+            c.removeDiscount(custid);
+            response.sendRedirect("completeCustomerServlet");
+        }
+
+
     }
 
     /**

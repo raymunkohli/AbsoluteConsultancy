@@ -86,6 +86,7 @@ public class completeCustomerServlet extends HttpServlet {
         List<Customer> allCustomers = new ArrayList<Customer>();
         List<String> DiscountType = new ArrayList<String>();
         List<String> Discount = new ArrayList<String>();
+        List<String> valued = new ArrayList<String>();
         try {
             while(a.next()){
                 Customer singleCust = new Customer();
@@ -98,6 +99,15 @@ public class completeCustomerServlet extends HttpServlet {
                 singleCust.setAddress(a.getString("address"));
                 singleCust.setHolder(a.getString("holder"));
                 allCustomers.add(singleCust);
+                if(a.getString("valuedcustomer.CustomercustomerID")!=null){
+                    valued.add("Valued");
+                }
+                else{
+                    valued.add("Not Valued");
+                }
+                
+                
+                
                 if (a.getString("discountType")!= null){
                     
                     if(a.getString("discountType").equals("Fixed")){
@@ -125,7 +135,7 @@ public class completeCustomerServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(viewCustomerServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        request.setAttribute("valued",valued);
         request.setAttribute("allCustomers",allCustomers);
         request.setAttribute("discountType",DiscountType);
         request.setAttribute("discount",Discount);
