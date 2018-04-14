@@ -46,19 +46,20 @@
                         <p><span>Fixed Discount</span></p>
                     </div>
                 </div>
-
+                
+                <form method="post" action="addFixedDiscountServlet">
                 <!-- Unnamed (HTML Button) -->
                 <div id="u28" class="ax_default html_button">
                     <input id="u28_input" type="submit" value="Submit"/>
                 </div>
-
+                <input type="hidden" value="<% out.write(request.getAttribute("discountID").toString());%>" name="discountid" />
                 <!-- Unnamed (Horizontal Line) -->
                 <div id="u23" class="ax_default line">
                     <img id="u23_img" class="img " src="images/set_discount/u23.png"/>
                 </div>
                 <!-- Unnamed (Text Field) -->
                 <div id="u27" class="ax_default text_field">
-                    <input id="u27_input" type="text" value=""/>
+                    <input id="u27_input" type="text" value="" name="amount" required/>
                 </div>
 
                 <!-- Unnamed (Rectangle) -->
@@ -68,6 +69,7 @@
                         <p><span>Fixed rate %:</span></p>
                     </div>
                 </div>
+                </form>
             </div>
             <% } else if (request.getAttribute("discount").toString().equals("Variable")) { %>
             <div style="top:-110px;position:absolute;">

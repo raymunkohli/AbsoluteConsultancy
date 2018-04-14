@@ -105,9 +105,6 @@ public class completeCustomerServlet extends HttpServlet {
                 else{
                     valued.add("Not Valued");
                 }
-                
-                
-                
                 if (a.getString("discountType")!= null){
                     
                     if(a.getString("discountType").equals("Fixed")){
