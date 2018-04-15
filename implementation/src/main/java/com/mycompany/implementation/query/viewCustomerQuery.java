@@ -58,7 +58,7 @@ public class viewCustomerQuery extends Query {
                     + "INNER JOIN job on job.CustomercustomerID = customer.customerID\n"
                     + "LEFT JOIN payment ON job.JobID = payment.JobJobID "
                     + "LEFT JOIN defaultcustomer ON defaultcustomer.suspendedCustomerValuedCustomerCustomercustomerID= customer.customerID"
-                    + " WHERE payment.JobJobID IS NULL AND job.finished='1' AND defaultcustomer.suspendedCustomerValuedCustomerCustomercustomerID IS NULL;";
+                    + " WHERE payment.JobJobID IS NULL AND job.finished='1' AND (defaultcustomer.suspendedCustomerValuedCustomerCustomercustomerID IS NULL OR defaultcustomer.paid=1);";
             PreparedStatement s = this.getC().prepareStatement(query);
             return s.executeQuery();
 

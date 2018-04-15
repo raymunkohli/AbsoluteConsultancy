@@ -44,16 +44,21 @@
                     </div>
                 </div>
 
+
                 <!-- Unnamed (Horizontal Line) -->
                 <div id="u350" class="ax_default line">
                     <img id="u350_img" class="img " src="images/receptionist_screen/u84.png"/>
+                </div>
+                <div id="u349" class="ax_default label">
+                    <div id="u349_div" class=""></div>
+                    <div id="u349_text" class="text " style="top:30px;font-size:20px">
+                        <p><span>Select a Customer</span></p>
+                    </div>
                 </div>
 
 
                 <!-- Unnamed (Table) -->
                 <div id="u278" class="ax_default">
-                    Select A Customer
-
                     <table class="">
                         <tr>
                             <th> Customer ID </th>
@@ -121,12 +126,11 @@
                     <th> Address </th>
                     <th> Postcode </th>
                     <th> Phone Number</th>
-                    <th> Discount type </th>
-                    <th> Select </th>
+                    <th> Remove Default Status </th>
                 </tr>
                 <c:forEach items="${default}" var ="cust">
                     <tr>
-                    <form action="selectedCustomerServlet" method="post">
+                    <form action="removeDefaultServlet" method="post">
                         <td> <c:out value="${cust.customerID}" /> <input type="hidden" name="id" value="${cust.customerID}"></td>
                         <td> <c:out value="${cust.holder}" /> <input type="hidden" name="holder" value="${cust.holder}"></td>
                         <td> <c:out value="${cust.name}" /> <input type="hidden" name="firstname" value="${cust.name}"></td>
@@ -135,6 +139,7 @@
                         <td> <c:out value="${cust.address}" /> <input type="hidden" name="address" value="${cust.address}"></td>
                         <td> <c:out value="${cust.postcode}" /> <input type="hidden" name="status" value="${cust.postcode}"></td>
                         <td> <c:out value="${cust.phoneNo}" /> <input type="hidden" name="phonenumber" value="${cust.phoneNo}"></td>
+                        <td> <input type="submit" value="Select" > </td>
                     </form>
                     </tr>
 

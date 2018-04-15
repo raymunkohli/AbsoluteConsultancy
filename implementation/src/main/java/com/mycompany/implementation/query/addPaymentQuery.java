@@ -105,4 +105,15 @@ public class addPaymentQuery extends Query {
         }
 
     }
+        public void removeDefault(String custID) {
+        PreparedStatement s;
+        try {
+            String query = "DELETE FROM defaultcustomer WHERE defaultcustomer.suspendedcustomerValuedCustomerCustomercustomerID = (SELECT job.CustomercustomerID from job where job.JobID ='"+custID+"');";
+            s = this.getC().prepareStatement(query);
+            s.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(addCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }

@@ -91,7 +91,8 @@ public class addCardPayServlet extends HttpServlet {
         if (flexdiscount != null) {
             a.upgradeBand(flexdiscount.get(0).intValue(), flexdiscount.get(1) + price);
         }
-        a.removeSuspended(request.getParameter("0"));
+        a.removeSuspended(jobs.get(0).toString());
+        a.removeDefault(jobs.get(0).toString());
         
         request.getRequestDispatcher("generateRecieptServlet").forward(request, response);
     }
