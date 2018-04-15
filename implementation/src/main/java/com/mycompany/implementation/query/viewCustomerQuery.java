@@ -36,8 +36,10 @@ public class viewCustomerQuery extends Query {
 "                    LEFT JOIN fixeddiscount ON discount.discountID = fixeddiscount.DiscountdiscountID\n" +
 "                    LEFT JOIN flexiblediscount ON discount.discountID = flexiblediscount.DiscountdiscountID\n" +
 "                    LEFT JOIN band ON flexiblediscount.DiscountdiscountID = band.flexiblediscount_DiscountdiscountID \n" +
+"                    LEFT JOIN defaultcustomer ON suspendedcustomer.suspendedcustomer.ValuedCustomerCustomercustomerID= customer.customerID"+
 "                    AND band.BandID = (SELECT band.BandID from band WHERE band.lowerBound<= flexiblediscount.aquiredValue AND band.upperBound >= flexiblediscount.aquiredValue AND band.flexiblediscount_DiscountdiscountID = flexiblediscount.DiscountdiscountID)\n" +
-"                    ORDER BY customer.customerID ASC;";
+"                    WHERE suspendedcustomer.ValuedCustomerCustomercustomerID IS NULL "
+                  + "ORDER BY customer.customerID ASC;";
             System.out.println(query);
 
             PreparedStatement s = this.getC().prepareStatement(query);
@@ -55,7 +57,10 @@ public class viewCustomerQuery extends Query {
             String query = "SELECT distinct customer.customerID,customer.name,customer.surname,customer.address,customer.phoneNo,customer.postcode,customer.holder\n"
                     + "FROM customer\n"
                     + "INNER JOIN job on job.CustomercustomerID = customer.customerID\n"
-                    + "LEFT JOIN payment ON job.JobID = payment.JobJobID WHERE payment.JobJobID IS NULL AND job.finished='1';";
+                    + "LEFT JOIN payment ON job.JobID = payment.JobJobID "
+                    + "LEFT JOIN defaultcustomer ON suspendedcustomer.ValuedCustomerCustomercustomerID= customer.customerID"
+                    + " WHERE payment.JobJobID IS NULL AND job.finished='1' AND suspendedcustomer.ValuedCustomerCustomercustomerID IS NULL;";
+            System.out.println(query);
             PreparedStatement s = this.getC().prepareStatement(query);
             return s.executeQuery();
 

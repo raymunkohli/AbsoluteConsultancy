@@ -88,6 +88,7 @@ public class viewCustomerServlet extends HttpServlet {
         List<Customer> allCustomers = new ArrayList<Customer>();
         List<String> DiscountType = new ArrayList<String>();
         List<String> Discount = new ArrayList<String>();
+        List<String> Valued = new ArrayList();
         try {
             while(a.next()){
                 Customer singleCust = new Customer();
@@ -100,6 +101,17 @@ public class viewCustomerServlet extends HttpServlet {
                 singleCust.setAddress(a.getString("address"));
                 singleCust.setHolder(a.getString("holder"));
                 allCustomers.add(singleCust);
+                
+                if(a.getString("CustomercustomerID")!=null){
+                    Valued.add("Valued");
+                }
+                else{
+                    Valued.add("Normal");
+                }
+                
+                
+                
+                
                 if (a.getString("discountType")!= null){
                     
                     if(a.getString("discountType").equals("Fixed")){
@@ -117,6 +129,7 @@ public class viewCustomerServlet extends HttpServlet {
                     }
                     
                 }
+               
                 
                 else if(a.getString("discountType")== null){
                     Discount.add("0");
@@ -130,7 +143,7 @@ public class viewCustomerServlet extends HttpServlet {
         if (request.getParameter("Err")!= null){
             request.setAttribute("Err",request.getParameter("Err"));
         }
-        
+        request.setAttribute("valued",Valued);
         request.setAttribute("allCustomers",allCustomers);
         request.setAttribute("discountType",DiscountType);
         request.setAttribute("discount",Discount);

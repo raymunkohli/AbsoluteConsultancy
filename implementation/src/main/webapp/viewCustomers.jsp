@@ -172,7 +172,7 @@
                         <td> <c:out value="${cust.address}" /> <input type="hidden" name="address" value="${cust.address}"></td>
                         <td> <c:out value="${cust.postcode}" /> <input type="hidden" name="status" value="${cust.postcode}"></td>
                         <td> <c:out value="${cust.phoneNo}" /> <input type="hidden" name="phonenumber" value="${cust.phoneNo}"></td>
-                        <td> 
+                        <td>  <input type="hidden" name="valued" value="${valued[custStatus.index]}">
                             <c:choose>
                                 <c:when test="${discountType[custStatus.index] == 'Variable Discount'}">
                                     <c:out value="${discountType[custStatus.index]}"/>

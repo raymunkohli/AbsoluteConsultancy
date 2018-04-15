@@ -10,6 +10,7 @@ import com.mycompany.implementation.query.addJobQuery;
 import com.mycompany.implementation.query.addTaskQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import javax.servlet.ServletException;
@@ -128,6 +129,17 @@ public class addJobServlet extends HttpServlet {
             }
             addJobQuery j = new addJobQuery();
             int jobid = j.doAddJobQuery(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")), Current, Deadline, job.getSpecInstructions(), Price,surcharge, isLate,Double.parseDouble(request.getParameter("numjob")));
+            
+            //check for valued customer to add 
+            if (request.getSession().getAttribute("valued").toString().equals("Valued")){
+                LocalDate current = LocalDate.now();
+                LocalDate late = current.withDayOfMonth(10).plusMonths(1);
+                LocalDate reminder = late.withDayOfMonth(20).plusMonths(1);
+                LocalDate suspend = reminder.plusMonths(1);
+                LocalDate defaultDate = suspend.plusMonths(1);
+                j.addValuedJob(jobid, late, reminder, suspend, defaultDate);
+                
+            }
             
             
             //insert each task

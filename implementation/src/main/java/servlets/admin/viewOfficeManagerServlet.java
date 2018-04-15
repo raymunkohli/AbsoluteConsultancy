@@ -128,6 +128,15 @@ public class viewOfficeManagerServlet extends HttpServlet {
         request.setAttribute("difference", difference);
         request.setAttribute("lateTask", lateTask);
         request.setAttribute("isLate", isLate);
+        
+        //code to manage late payments
+        
+        
+        
+        
+        
+        
+        
         request.getRequestDispatcher("officeManager.jsp").forward(request, response);
     }
 
