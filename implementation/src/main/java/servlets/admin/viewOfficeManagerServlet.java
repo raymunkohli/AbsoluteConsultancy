@@ -5,6 +5,7 @@
  */
 package servlets.admin;
 
+import com.mycompany.implementation.query.checkForLatePaymentQuery;
 import com.mycompany.implementation.query.getAlertQuery;
 import com.mycompany.implementation.query.getLateJobs;
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class viewOfficeManagerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewOfficeManagerServlet</title>");            
+            out.println("<title>Servlet viewOfficeManagerServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet viewOfficeManagerServlet at " + request.getContextPath() + "</h1>");
@@ -71,7 +72,7 @@ public class viewOfficeManagerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request,response);
+        doPost(request, response);
     }
 
     /**
@@ -85,7 +86,7 @@ public class viewOfficeManagerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                //jobs where deadline is not met
+        //jobs where deadline is not met
         getAlertQuery a = new getAlertQuery();
         List<String> lateTasks = new ArrayList();
         String deadlineExceed = "false";
@@ -98,10 +99,12 @@ public class viewOfficeManagerServlet extends HttpServlet {
         String lateTask = new String();
         String isLate = "false";
         Long difference = 0L;
-        
-        
+        boolean foundfirst = false;
+        boolean foundsecond = false;
+        boolean foundthird = false;
+        boolean foundforth = false;
         try {
-            if (lateJobs.next() && lateJobs.getDate("orderDate")!= null) {
+            if (lateJobs.next() && lateJobs.getDate("orderDate") != null) {
                 affectedCust = lateJobs.getString("name") + " " + lateJobs.getString("surname");
                 order = LocalDateTime.of(LocalDate.parse(lateJobs.getDate("orderDate").toString()), LocalTime.parse(lateJobs.getTime("orderDate").toString()));
                 lateDeadline = LocalDateTime.of(LocalDate.parse(lateJobs.getDate("deadline").toString()), LocalTime.parse(lateJobs.getTime("deadline").toString()));
@@ -113,8 +116,8 @@ public class viewOfficeManagerServlet extends HttpServlet {
                 for (String taskz : lateTasks) {
                     lateTask = lateTask + " \\n " + taskz;
                 }
-                request.setAttribute("phone",lateJobs.getString("phoneNo"));
-                request.setAttribute("email",lateJobs.getString("email"));
+                request.setAttribute("phone", lateJobs.getString("phoneNo"));
+                request.setAttribute("email", lateJobs.getString("email"));
                 request.setAttribute("order", order);
                 request.setAttribute("lateDate", lateDeadline);
                 request.setAttribute("lateID", lateJobs.getInt("JobID"));
@@ -128,15 +131,55 @@ public class viewOfficeManagerServlet extends HttpServlet {
         request.setAttribute("difference", difference);
         request.setAttribute("lateTask", lateTask);
         request.setAttribute("isLate", isLate);
-        
+
         //code to manage late payments
-        
-        
-        
-        
-        
-        
-        
+        checkForLatePaymentQuery c = new checkForLatePaymentQuery();
+        ResultSet firstPaymentAlert = c.getAlerts();
+        ResultSet firstReminderAlert = c.getReminderAlerts();
+        ResultSet secondReminderAlert = c.getSuspendedAlerts();
+        ResultSet defaultAlert = c.getDefaultAlerts();
+        try {
+
+            while (firstPaymentAlert.next() && foundfirst == false) {
+                if (LocalDate.now().isAfter(LocalDate.parse(firstPaymentAlert.getString("alertDate")))) {
+                    request.setAttribute("firstLateAlertName", firstPaymentAlert.getString("name") + " " + firstPaymentAlert.getString("surname"));
+                    request.setAttribute("firstLateAlertID", firstPaymentAlert.getString("customerID"));
+                    request.setAttribute("firstLateAlertJobID", firstPaymentAlert.getString("JobID"));
+                    foundfirst = true;
+                }
+            }
+
+            while (firstReminderAlert.next() && foundsecond == false) {
+                if (LocalDate.now().isAfter(LocalDate.parse(firstReminderAlert.getString("firstreminder")))) {
+                    request.setAttribute("firstReminderAlertName", firstReminderAlert.getString("name") + " " + firstReminderAlert.getString("surname"));
+                    request.setAttribute("firstReminderAlertID", firstReminderAlert.getString("customerID"));
+                    request.setAttribute("firstReminderAlertJobID", firstReminderAlert.getString("JobID"));
+                    foundsecond = true;
+                }
+            }
+            c.suspendAccounts();
+
+            while (secondReminderAlert.next() && foundthird == false) {
+                request.setAttribute("secondReminderAlertName", secondReminderAlert.getString("name") + " " + secondReminderAlert.getString("surname"));
+                request.setAttribute("secondReminderAlertID", secondReminderAlert.getString("customerID"));
+                foundthird = true;
+            }
+            c.defaultAccounts();
+            
+            while (defaultAlert.next() && foundforth == false) {
+                request.setAttribute("defaultAlertName", defaultAlert.getString("name") + " " + defaultAlert.getString("surname"));
+                request.setAttribute("defaultAlertID", defaultAlert.getString("customerID"));
+                foundforth = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(viewOfficeManagerServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("forth",foundforth);
+        request.setAttribute("first", foundfirst);
+        request.setAttribute("second", foundsecond);
+        request.setAttribute("third", foundthird);
+
         request.getRequestDispatcher("officeManager.jsp").forward(request, response);
     }
 

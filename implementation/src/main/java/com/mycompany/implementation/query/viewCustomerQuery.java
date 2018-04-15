@@ -36,7 +36,7 @@ public class viewCustomerQuery extends Query {
 "                    LEFT JOIN fixeddiscount ON discount.discountID = fixeddiscount.DiscountdiscountID\n" +
 "                    LEFT JOIN flexiblediscount ON discount.discountID = flexiblediscount.DiscountdiscountID\n" +
 "                    LEFT JOIN band ON flexiblediscount.DiscountdiscountID = band.flexiblediscount_DiscountdiscountID \n" +
-"                    LEFT JOIN defaultcustomer ON suspendedcustomer.suspendedcustomer.ValuedCustomerCustomercustomerID= customer.customerID"+
+"                    LEFT JOIN suspendedcustomer ON suspendedcustomer.ValuedCustomerCustomercustomerID= customer.customerID"+
 "                    AND band.BandID = (SELECT band.BandID from band WHERE band.lowerBound<= flexiblediscount.aquiredValue AND band.upperBound >= flexiblediscount.aquiredValue AND band.flexiblediscount_DiscountdiscountID = flexiblediscount.DiscountdiscountID)\n" +
 "                    WHERE suspendedcustomer.ValuedCustomerCustomercustomerID IS NULL "
                   + "ORDER BY customer.customerID ASC;";
@@ -58,8 +58,8 @@ public class viewCustomerQuery extends Query {
                     + "FROM customer\n"
                     + "INNER JOIN job on job.CustomercustomerID = customer.customerID\n"
                     + "LEFT JOIN payment ON job.JobID = payment.JobJobID "
-                    + "LEFT JOIN defaultcustomer ON suspendedcustomer.ValuedCustomerCustomercustomerID= customer.customerID"
-                    + " WHERE payment.JobJobID IS NULL AND job.finished='1' AND suspendedcustomer.ValuedCustomerCustomercustomerID IS NULL;";
+                    + "LEFT JOIN defaultcustomer ON defaultcustomer.suspendedCustomerValuedCustomerCustomercustomerID= customer.customerID"
+                    + " WHERE payment.JobJobID IS NULL AND job.finished='1' AND defaultcustomer.suspendedCustomerValuedCustomerCustomercustomerID IS NULL;";
             System.out.println(query);
             PreparedStatement s = this.getC().prepareStatement(query);
             return s.executeQuery();

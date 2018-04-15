@@ -160,7 +160,7 @@
                 </div>
                 <!-- Unnamed (Text Field) -->
                 <div id="u430" class="ax_default text_field">
-                    <input id="u430_input" type="text" value="" name="digits" required/>
+                    <input id="u430_input" type="text" value="" name="digits" minlength="4" maxlength="4" required/>
                 </div>
 
                 <!-- Unnamed (Group) -->
