@@ -83,6 +83,7 @@ public class completeCustomerServlet extends HttpServlet {
             throws ServletException, IOException {
         viewCustomerQuery custQuery = new viewCustomerQuery(); //create the query
         ResultSet a = custQuery.selectAllCustomers();
+        
         List<Customer> allCustomers = new ArrayList<Customer>();
         List<String> DiscountType = new ArrayList<String>();
         List<String> Discount = new ArrayList<String>();
@@ -132,6 +133,9 @@ public class completeCustomerServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(viewCustomerServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        request.setAttribute("suspended",custQuery.selectSuspendedCust() );
+        request.setAttribute("default", custQuery.selectDefaultCust());
         request.setAttribute("valued",valued);
         request.setAttribute("allCustomers",allCustomers);
         request.setAttribute("discountType",DiscountType);

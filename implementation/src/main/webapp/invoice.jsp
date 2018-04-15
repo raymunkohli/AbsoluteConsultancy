@@ -34,7 +34,6 @@
     </head>
     <body>
         <div id="base" class="">
-
             <a href="createInvoice.jsp"> <input type="button" value="Return" class="no-print"/></a>
             <input type="button" value="Print" onclick="window.print()" class="no-print" />
             <div id="tophalf">

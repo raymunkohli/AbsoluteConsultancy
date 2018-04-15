@@ -33,6 +33,7 @@
         </script>
     </head>
     <body>
+        <%@include  file="officeBar.jsp" %>
         <div id="base" class="" style="width:100%;height:100%;left:25%;position:absolute;">
             <div id="tophalf" style="position:relative;height:150px">
                             <!-- Unnamed (Rectangle) -->
@@ -49,12 +50,6 @@
             <div id="u586" class="ax_default line">
                 <img id="u586_img" class="img " src="images/receptionist_screen/u84.png"/>
             </div>
-
-            <!-- Unnamed (Shape) -->
-            <div id="u587" class="ax_default icon">
-                <img id="u587_img" class="img " src="images/receptionist_screen/u88.png"/>
-            </div>
-
             <div id="u522" class="ax_default">
                 <table>
                     <tr>
@@ -79,7 +74,7 @@
             </div>
             </div>
             <c:forEach items="${Staff}">
-                <div id="fakespace" style="height:30px"></div>
+                <div id="fakespace" style="height:35px"></div>
             </c:forEach> 
                 <div id="bottomhalf" class="" style="position:relative; top:-250px">
             <!-- Unnamed (Rectangle) -->

@@ -13,6 +13,9 @@
             <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("ShiftManager")) { %>
             <%@include  file="shiftBar.jsp" %>
             <% }%>
+            <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("Receptionist")) { %>
+                        <%@include  file="receptionistBar.jsp" %>
+            <% }%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="receptionistCheck.jsp" %>
 <!DOCTYPE html>

@@ -64,13 +64,12 @@ public class addPaymentQuery extends Query {
                     + "WHERE job.JobID='" + JobID + "' ";
             s = this.getC().prepareStatement(query);
             ResultSet a = s.executeQuery();
-            if(a.next()){
-                
+            if (a.next()) {
+
                 valueDiscount.add(a.getDouble("discountID"));
                 valueDiscount.add(a.getDouble("aquiredValue"));
                 return valueDiscount;
-            }
-            else{
+            } else {
                 return null;
             }
         } catch (SQLException ex) {
@@ -79,14 +78,26 @@ public class addPaymentQuery extends Query {
 
         }
     }
-    
-        public void upgradeBand(int discountID, double value) {
+
+    public void upgradeBand(int discountID, double value) {
         PreparedStatement s;
         try {
             String query = "UPDATE flexiblediscount \n"
                     + "SET "
-                    + "flexiblediscount.aquiredValue ='"+value+"' "
+                    + "flexiblediscount.aquiredValue ='" + value + "' "
                     + "WHERE flexiblediscount.DiscountdiscountID ='" + discountID + "';";
+            s = this.getC().prepareStatement(query);
+            s.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(addCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void removeSuspended(String custID) {
+        PreparedStatement s;
+        try {
+            String query = "DELETE FROM suspendedcustomer WHERE suspendedcustomer.ValuedCustomerCustomercustomerID = (SELECT job.CustomercustomerID from job where job.JobID ='"+custID+"');";
             s = this.getC().prepareStatement(query);
             s.executeUpdate();
         } catch (SQLException ex) {

@@ -31,7 +31,17 @@
         </script>
     </head>
     <body>
+                        <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("OfficeManager")) { %>
+        <%@include  file="officeBar.jsp" %>
+        <% }%>
+            <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("ShiftManager")) { %>
+            <%@include  file="shiftBar.jsp" %>
+            <% }%>
+            <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("Receptionist")) { %>
+                        <%@include  file="receptionistBar.jsp" %>
+            <% }%>
 <div style="width:100%;height:100%;left:25%;position:absolute;">
+    
         <div style='position:relative;height:170px;z-index: 1'>
             <div id="u475" class="ax_default button">
                 <div id="u475_div" class=""></div>
@@ -48,9 +58,7 @@
                     <p><span>Create an Invoice</span></p>
                 </div>
             </div>
-            <div id="u477" class="ax_default icon">
-                <img id="u477_img" class="img " src="images/receptionist_screen/u88.png"/>
-            </div>
+
             <!-- Unnamed (Rectangle) -->
             <!-- Unnamed (Horizontal Line) -->
             <div id="u472" class="ax_default line">
