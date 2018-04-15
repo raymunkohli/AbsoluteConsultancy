@@ -72,34 +72,17 @@
                     <c:forEach items="${Jobs}" var="Jobs" varStatus="Status">
                         <tr>
                             <td> ${Jobs.jobID} </td>
-                            <td> ${Customer[Status.index].holder} </td>
-                            <td> ${Customer.name} </td>
-                            <td> ${Basetask.description} </td>
-                            <td> ${Basetask.department} </td>
+                            <td> ${Customers[Status.index].holder} </td>
+                            <td> ${Customers[Status.index].name} ${Customers[Status.index].surname}</td>
+                            <td> ${Basetasks[Status.index].description} </td>
+                            <td> ${Basetasks[Status.index].department} </td>
                             <th> ${Jobs.deadline} </th>
                             <td> <input type="checkbox" value="${Jobs.jobID}`${Customer.holder}`
                                         ${Customer.name}`${Base.description}`${Base.department}`
                                         ${Base.description}`${Jobs.deadline}" name="${Jobs.jobID}"/> </td>
-                            
                         </tr>
                     </c:forEach>
-                    
-                    
-                    <!--
-                    <c:forEach items="${Jobs}" var="Jobs" varStatus="Status">
-                        <tr>
-                            <td> ${Jobs.jobID} </td>
-                            <td> city </td>
-                            <td> ${Customer.name} </td>
-                            <td> ${Basetask.department} </td>
-                            <td> ${Jobs.deadline} </td>
-                        <form method="post" action="selectedJobTechician">
-                            <input type="hidden" value="${Tasks[Status.index].taskID}"/> 
-                            <td> <input type="Submit" value="Select"/> </td>
-                        </form>
-                        </tr>
-                    </c:forEach> 
-                    -->
+                        
                 </table>
 
                 <script>
@@ -223,16 +206,6 @@ Thanks.</textarea>
                                 <img id="u175_img" class="img " src="images/technician_screen/u175.png"/>
                             </div>
 
-
-                            <!--
-                            <div id="u175" class="ax_default icon">
-                              <button type="submit">
-                                  <img src="images/technician_screen/u175.png" onmouseover="this.src='images/technician_screen/u175.png';" onmouseout="this.src='images/technician_screen/u175.png';" />
-                              </button>
-                            </div>
-                            -->
-
-
                             <!-- Unnamed (Rectangle) -->
                             <div id="u176" class="ax_default label">
                                 <div id="u176_div" class=""></div>
@@ -264,19 +237,6 @@ Thanks.</textarea>
                                     <p><span><input type="submit" value="Respond" form="" style="height: 50px; width: 135px" /></span></p>
                                 </div>
                             </div>
-
-
-                            <!-- Unnamed (Shape) 
-                            <div id="u180" class="ax_default icon">
-                                <img id="u180_img" class="img " src="images/technician_screen/u175.png"/>
-                            </div>
-            
-                            <!-- Unnamed (Shape) 
-                            <div id="u181" class="ax_default icon">
-                                <img id="u181_img" class="img " src="images/technician_screen/u174.png"/>
-                            </div>
-                            -->
-
 
                             <!-- Unnamed (Horizontal Line) -->
                             <div id="u182" class="ax_default line">

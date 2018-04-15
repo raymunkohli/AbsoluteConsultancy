@@ -109,6 +109,7 @@ public class viewTechnicianServlet extends HttpServlet {
                 Customer c = new Customer();
                 c.setHolder(Results.getString("holder"));
                 c.setName(Results.getString("name"));
+                c.setSurname(Results.getString("surname"));
                 
                 Basetask b = new Basetask();
                 b.setDescription(Results.getString("description"));
