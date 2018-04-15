@@ -21,6 +21,28 @@ public class updateJobQuery extends Query {
         super();
     }
     
+    public String startJobQuery(int JobID) {
+        try{
+            PreparedStatement s;
+            String Query = "UPDATE task SET task.startDate = \"\", "
+                    + "task.StaffstaffID=\"\" WHERE task.taskID = \"\"";
+            s = this.getC().prepareStatement(Query);
+            ResultSet a = s.executeQuery();
+            if (a.isLast()){
+                return null;
+            }
+            else{
+                a.next();
+                return a.getString("technicianroom");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(viewTechQuery.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        
+        }
+    }
+    
+    
     public String endJobQuery(int JobID) {
         try{
             PreparedStatement s;
