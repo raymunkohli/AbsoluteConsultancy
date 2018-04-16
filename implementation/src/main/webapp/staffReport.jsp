@@ -25,7 +25,7 @@
   </head>
   <body>
     <div id="base" class="">
-            <a href="shiftManager.jsp"> <input type="button" value="Return" class="no-print"/></a>
+            <a href="viewShiftManagerServlet"> <input type="button" value="Return" class="no-print"/></a>
             <input type="button" value="Print" onclick="window.print()" class="no-print" />
 
       <!-- Unnamed (Rectangle) -->
