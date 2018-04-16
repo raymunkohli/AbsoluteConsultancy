@@ -89,7 +89,7 @@
       <div id="u8" class="ax_default label">
         <div id="u8_div" class=""></div>
         <div id="u8_text" class="text ">
-          <p><span>Amount: <% out.write(request.getParameter("value")); %></span></p>
+          <p><span>Amount:£<% out.write(request.getParameter("value")); %></span></p>
         </div>
       </div>
 
@@ -97,7 +97,7 @@
       <div id="u9" class="ax_default label">
         <div id="u9_div" class=""></div>
         <div id="u9_text" class="text ">
-          <p><span>According to our records, it appears that we have not yet received payment of the above jobs, </span></p> <p><span>which was posted to you on <% out.write(request.getParameter("date")); %>,for photographic work done in our laboratory.  </span></p>
+          <p><span>According to our records, it appears that we have not yet received payment of the above jobs, </span></p> <p><span>which was posted to you on <% out.write(request.getParameter("date")); %>  for photographic work done in our laboratory.  </span></p>
  
 <p> <span>We would appreciate payment at your earliest convenience.  </span></p>
  

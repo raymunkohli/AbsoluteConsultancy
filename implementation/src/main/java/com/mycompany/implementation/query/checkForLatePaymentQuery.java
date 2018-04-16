@@ -71,7 +71,6 @@ public class checkForLatePaymentQuery extends Query {
                     + "INNER JOIN valuedjob ON job.JobID = valuedjob.job_JobID\n"
                     + "LEFT JOIN payment ON payment.JobJobID = job.JobID\n"
                     + "WHERE payment.JobJobID IS NULL AND valuedjob.secondreminder < curdate();";
-            getC().setAutoCommit(false);
             s = this.getC().prepareStatement(Query);
 
             s.executeUpdate();
@@ -105,8 +104,7 @@ public class checkForLatePaymentQuery extends Query {
                     + "                     SELECT job.CustomercustomerID FROM job\n"
                     + "                     INNER JOIN valuedjob ON job.JobID = valuedjob.job_JobID\n"
                     + "                     LEFT JOIN payment ON payment.JobJobID = job.JobID\n"
-                    + "                     WHERE payment.JobJobID IS NULL AND valuedjob.defaultd < curdate();;";
-            getC().setAutoCommit(false);
+                    + "                     WHERE payment.JobJobID IS NULL AND valuedjob.defaultd < curdate();";
             s = this.getC().prepareStatement(Query);
 
             s.executeUpdate();

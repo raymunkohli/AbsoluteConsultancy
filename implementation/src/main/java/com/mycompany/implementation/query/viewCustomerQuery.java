@@ -138,11 +138,129 @@ public class viewCustomerQuery extends Query {
         }
     }
 
+    public List<Customer> selectBulkSuspendedCust() {
+        try {
+            List<Customer> Cust = new ArrayList();
+            String query = "SELECT DISTINCT customer.* FROM customer \n"
+                    + "INNER JOIN job ON job.CustomercustomerID = customer.customerID\n"
+                    + "RIGHT JOIN valuedjob ON valuedjob.job_JobID = job.JobID "
+                    + "LEFT JOIN payment ON payment.jobJobID = job.JobID\n"
+                    + "WHERE valuedjob.secondreminder < curdate() AND valuedjob.secondbulk = 0 AND payment.jobJobID IS NULL;";
+            PreparedStatement s = this.getC().prepareStatement(query);
+            System.out.println(query);
+            ResultSet a = s.executeQuery();
+            while (a.next()) {
+                Customer c = new Customer();
+                c.setAddress(a.getString("address"));
+                c.setCustomerID(a.getInt("customerID"));
+                c.setName(a.getString("name"));
+                c.setSurname(a.getString("surname"));
+                c.setHolder(a.getString("holder"));
+                c.setPostcode(a.getString("postcode"));
+                c.setEmail(a.getString("email"));
+                c.setPhoneNo(a.getString("phoneNo"));
+                Cust.add(c);
+            }
+            return Cust;
+        } catch (SQLException ex) {
+            Logger.getLogger(viewCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
     public List<Customer> selectDefaultCust() {
         try {
             List<Customer> Cust = new ArrayList();
             String query = "SELECT * FROM customer "
                     + "INNER JOIN defaultcustomer ON defaultcustomer.suspendedcustomerValuedCustomerCustomercustomerID = customer.customerID";
+            PreparedStatement s = this.getC().prepareStatement(query);
+            ResultSet a = s.executeQuery();
+            while (a.next()) {
+                Customer c = new Customer();
+                c.setAddress(a.getString("address"));
+                c.setCustomerID(a.getInt("customerID"));
+                c.setName(a.getString("name"));
+                c.setSurname(a.getString("surname"));
+                c.setHolder(a.getString("holder"));
+                c.setPostcode(a.getString("postcode"));
+                c.setEmail(a.getString("email"));
+                c.setPhoneNo(a.getString("phoneNo"));
+                Cust.add(c);
+            }
+            return Cust;
+        } catch (SQLException ex) {
+            Logger.getLogger(viewCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<Customer> selectFirstReminderBulk() {
+        try {
+            List<Customer> Cust = new ArrayList();
+            String query = "SELECT DISTINCT customer.* FROM customer \n"
+                    + "INNER JOIN job ON job.CustomercustomerID = customer.customerID\n"
+                    + "RIGHT JOIN valuedjob ON valuedjob.job_JobID = job.JobID "
+                    + "LEFT JOIN payment ON payment.jobJobID = job.JobID\n"
+                    + "WHERE valuedjob.firstreminder < curdate() AND valuedjob.firstbulk = 0 AND payment.jobJobID IS NULL;";
+            PreparedStatement s = this.getC().prepareStatement(query);
+            ResultSet a = s.executeQuery();
+            while (a.next()) {
+                Customer c = new Customer();
+                c.setAddress(a.getString("address"));
+                c.setCustomerID(a.getInt("customerID"));
+                c.setName(a.getString("name"));
+                c.setSurname(a.getString("surname"));
+                c.setHolder(a.getString("holder"));
+                c.setPostcode(a.getString("postcode"));
+                c.setEmail(a.getString("email"));
+                c.setPhoneNo(a.getString("phoneNo"));
+                Cust.add(c);
+            }
+            return Cust;
+        } catch (SQLException ex) {
+            Logger.getLogger(viewCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<Customer> selectFirstReminderCust() {
+        try {
+            List<Customer> Cust = new ArrayList();
+            String query = "SELECT DISTINCT customer.* FROM customer \n" +
+"INNER JOIN job ON job.CustomercustomerID = customer.customerID\n" +
+"INNER JOIN valuedjob ON job.JobID = valuedjob.job_JobID\n "
+                    + "LEFT JOIN suspendedcustomer ON suspendedcustomer.ValuedCustomerCustomercustomerID = customer.customerID " +
+"LEFT JOIN payment ON payment.JobJobID = job.JobID\n" +
+"WHERE valuedjob.firstreminder < curdate() AND payment.JobJobID IS NULL AND suspendedcustomer.ValuedCustomerCustomercustomerID IS NULL";
+            System.out.println(query);
+            PreparedStatement s = this.getC().prepareStatement(query);
+            ResultSet a = s.executeQuery();
+            while (a.next()) {
+                Customer c = new Customer();
+                c.setAddress(a.getString("address"));
+                c.setCustomerID(a.getInt("customerID"));
+                c.setName(a.getString("name"));
+                c.setSurname(a.getString("surname"));
+                c.setHolder(a.getString("holder"));
+                c.setPostcode(a.getString("postcode"));
+                c.setEmail(a.getString("email"));
+                c.setPhoneNo(a.getString("phoneNo"));
+                Cust.add(c);
+            }
+            return Cust;
+        } catch (SQLException ex) {
+            Logger.getLogger(viewCustomerQuery.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+        public List<Customer> selectSecondCust() {
+        try {
+            List<Customer> Cust = new ArrayList();
+            String query = "SELECT DISTINCT customer.* FROM customer \n" +
+"INNER JOIN job ON job.CustomercustomerID = customer.customerID\n" +
+"INNER JOIN valuedjob ON job.JobID = valuedjob.job_JobID\n" +
+"LEFT JOIN payment ON payment.JobJobID = job.JobID\n" +
+"WHERE valuedjob.secondreminder < curdate() AND payment.JobJobID IS NULL";
             PreparedStatement s = this.getC().prepareStatement(query);
             ResultSet a = s.executeQuery();
             while (a.next()) {

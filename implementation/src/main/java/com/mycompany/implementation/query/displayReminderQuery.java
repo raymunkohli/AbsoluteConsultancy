@@ -26,13 +26,40 @@ public class displayReminderQuery extends Query {
         super();
     }
 
-    public List<Job> getJobs(String custID) {
+    public List<Job> getJobSecond(String custID) {
         try {
             PreparedStatement s;
-            String Query = "SELECT * FROM job\n"
-                    + "LEFT JOIN payment ON payment.JobJobID = job.JobID\n"
-                    + "WHERE job.CustomercustomerID ='" + custID + "' AND payment.JobJobID IS NULL";
+            String Query = "SELECT job.* FROM job\n"
+                    + "LEFT JOIN payment ON payment.JobJobID = job.JobID "
+                    + "RIGHT JOIN valuedjob ON job.JobID = valuedjob.job_JobID\n"
+                    + "WHERE job.CustomercustomerID ='" + custID + "' AND payment.JobJobID IS NULL AND valuedjob.secondreminder < curdate()";
             s = this.getC().prepareStatement(Query);
+            System.out.println(Query);
+            List<Job> a = new ArrayList();
+            ResultSet b = s.executeQuery();
+            while(b.next()){
+                Job c = new Job();
+                c.setOrderDate(Date.valueOf(b.getString("orderDate").split(" ")[0]));
+                c.setValue(b.getDouble("value"));
+                c.setJobID(b.getInt("JobID"));
+                a.add(c);
+            }
+            return a;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(addTaskQuery.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+     public List<Job> getJobFirst(String custID) {
+        try {
+            PreparedStatement s;
+            String Query = "SELECT job.* FROM job\n"
+                    + "LEFT JOIN payment ON payment.JobJobID = job.JobID "
+                    + "RIGHT JOIN valuedjob ON job.JobID = valuedjob.job_JobID\n"
+                    + "WHERE job.CustomercustomerID ='" + custID + "' AND payment.JobJobID IS NULL AND valuedjob.firstreminder < curdate()";
+            s = this.getC().prepareStatement(Query);
+            System.out.println(Query);
             List<Job> a = new ArrayList();
             ResultSet b = s.executeQuery();
             while(b.next()){

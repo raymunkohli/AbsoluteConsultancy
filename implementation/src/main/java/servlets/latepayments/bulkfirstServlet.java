@@ -8,6 +8,7 @@ package servlets.latepayments;
 import com.mycompany.implementation.domain.Customer;
 import com.mycompany.implementation.domain.Job;
 import com.mycompany.implementation.query.displayReminderQuery;
+import com.mycompany.implementation.query.updateBulk;
 import com.mycompany.implementation.query.viewCustomerQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,8 +27,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "latePaymentServlet", urlPatterns = {"/latePaymentServlet"})
-public class latePaymentServlet extends HttpServlet {
+@WebServlet(name = "bulkfirstServlet", urlPatterns = {"/bulkfirstServlet"})
+public class bulkfirstServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +47,10 @@ public class latePaymentServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet latePaymentServlet</title>");
+            out.println("<title>Servlet bulkfirstServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet latePaymentServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet bulkfirstServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -84,15 +85,11 @@ public class latePaymentServlet extends HttpServlet {
         viewCustomerQuery a = new viewCustomerQuery();
         displayReminderQuery b = new displayReminderQuery();
         List<String> jobValue = new ArrayList();
-        List<String> jobValued = new ArrayList();
         List<String> job = new ArrayList();
-        List<String> jobd = new ArrayList();
         List<String> orderDates = new ArrayList();
-        List<String> orderDatesd = new ArrayList();
-        List<Customer> second = a.selectSecondCust();
-        List<Customer> first = a.selectFirstReminderCust();
-
-        for (Customer c : second) {
+        updateBulk f = new updateBulk();
+        List<Customer> suspend = a.selectFirstReminderBulk();
+        for (Customer c : suspend) {
             List<Job> d = b.getJobFirst(c.getCustomerID().toString());
             double value = 0;
             String jobs = new String();
@@ -100,32 +97,19 @@ public class latePaymentServlet extends HttpServlet {
                 value = value + e.getValue();
                 jobs = e.getJobID().toString() + "," + jobs;
             }
-            jobd.add(jobs.substring(0,jobs.length()-1));
-            orderDatesd.add(LocalDate.parse((d.get(0).getOrderDate().toString())).format(ofLocalizedDate(FULL)));
-            jobValued.add(String.format("%.2f",value));
-        }
-        for (Customer c : first) {
-            List<Job> d = b.getJobFirst(c.getCustomerID().toString());
-            double value = 0;
-            String jobs = new String();
-            for (Job e : d) {
-                value = value + e.getValue();
-                jobs = e.getJobID().toString() + "," + jobs;
-            }
-            job.add(jobs.substring(0,jobs.length()-1));
+            job.add(jobs.substring(0, jobs.length() - 1));
             orderDates.add(LocalDate.parse((d.get(0).getOrderDate().toString())).format(ofLocalizedDate(FULL)));
             jobValue.add(String.format("%.2f",value));
         }
-
+        
+        f.updateSuspended();
+        
         request.setAttribute("job", job);
         request.setAttribute("jobValue", jobValue);
         request.setAttribute("orderDates", orderDates);
-        request.setAttribute("jobd", jobd);
-        request.setAttribute("jobValued", jobValued);
-        request.setAttribute("orderDatesd", orderDatesd);
-        request.setAttribute("default", second);
-        request.setAttribute("suspended", first);
-        request.getRequestDispatcher("late_payments.jsp").forward(request, response);
+        request.setAttribute("suspended", suspend);
+        request.getRequestDispatcher("bulkfirst.jsp").forward(request, response);
+
     }
 
     /**

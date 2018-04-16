@@ -72,7 +72,7 @@
       <div id="u5" class="ax_default label">
         <div id="u5_div" class=""></div>
         <div id="u5_text" class="text ">
-          <p><span>FIRST REMINDER </span></p>
+          <p><span>SECOND REMINDER </span></p>
         </div>
       </div>
 
