@@ -9,6 +9,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+<% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("OfficeManager")) { %>
+<%@include  file="officeBar.jsp" %>
+<% }%>
+
+<% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("Receptionist")) { %>
+<%@include  file="receptionistBar.jsp" %>
+<% }%>
 
 <html>
     <head> 
@@ -30,9 +37,11 @@
 
     </head>
     <body>
-        <div id="u88" class="ax_default icon">
-            <img id="u88_img" class="img " src="images/receptionist_screen/u88.png"/>
-        </div>
+        <div style="left:25%;position:absolute">
+           <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("ShiftManager")) { %>
+            <%@include  file="shiftBar.jsp" %>
+            <% }%>
+            <div style="top:30px;position:absolute">
         <div id="u83" class="ax_default label">
             <div id="u83_div" class=""></div>
             <div id="u83_text" class="text ">
@@ -44,12 +53,9 @@
         <div id="u84" class="ax_default line">
             <img id="u84_img" class="img " src="images/receptionist_screen/u84.png"/>
         </div>
+            </div>
 
-
-        <div style="top:0px;left:50px;position:absolute;font-size: 20px;" class="ax_default">
-            Select A Customer
-        </div>
-        <div style="top:350px;position:relative;" class="ax_default">
+        <div style="top:150px;position:relative;left:150px" class="ax_default">
             <table class="">
                 <tr>
                     <th> Customer Name </th>
@@ -61,7 +67,12 @@
                 <c:forEach items="${Job}" var ="job" varStatus ="s">
                     <tr> <td> ${name[s.index]} </td> <td> ${holder[s.index]} </td> <td>${job}</td>
                         <c:if test="${department[s.index] == 'Finished'}">
-                            <td> Finished on Shelf : ${shelf[s.index]} </td> <td> asdawsaw</td>
+                            <td> Finished on Shelf : ${shelf[s.index]} </td> <td> 
+                                <form action="collectJob" method="post">
+                                    <input type="hidden" value="${job}" name="jobid"/>
+                                    <input type="submit" value="collect" />
+                                </form>
+                                </td>
                         </c:if>
 
                         <c:if test="${department[s.index] != 'Finished'}">
@@ -71,6 +82,7 @@
 
                 </c:forEach>
             </table>
+        </div>
         </div>
     </body>
 </html>
