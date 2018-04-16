@@ -77,9 +77,9 @@
                     <img id="u24_img" class="img " src="images/set_discount/u23.png"/>
                 </div>
                 <!-- Unnamed (Rectangle) -->
-                <div id="u25" class="ax_default label">
+                <div id="u25" class="ax_default label" style="width:500px">
         <div id="u25_div" class=""></div>
-        <div id="u25_text" class="text ">
+        <div id="u25_text" class="text " style="width:500px">
           <p><span>Variable Discount</span></p>
         </div>
       </div>
@@ -107,9 +107,9 @@
             </div>
             <% } else if (request.getAttribute("discount").toString().equals("Flexible")) {%>
             <!-- Unnamed (Rectangle) -->
-            <div id="u589" class="ax_default label">
+            <div id="u589" class="ax_default label" style="width:500px">
                 <div id="u589_div" class=""></div>
-                <div id="u589_text" class="text ">
+                <div id="u589_text" class="text " style="width:500px">
                     <p><span>Flexible Discount</span></p>
                 </div>
             </div>

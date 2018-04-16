@@ -157,13 +157,16 @@ Contact Email: <%out.write(request.getAttribute("email").toString()); %>');
                 </div>
             </a>
 
+            
             <!-- Unnamed (Rectangle) -->
+            <a href="viewTasks">
             <div id="u275" class="ax_default button">
                 <div id="u275_div" class=""></div>
                 <div id="u275_text" class="text ">
-                    <p><span>Bands</span></p>
+                    <p><span>Add new Tasks</span></p>
                 </div>
             </div>
+            </a>
 
         </div>
     </div>

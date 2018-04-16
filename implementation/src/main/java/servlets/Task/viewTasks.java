@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.shiftManager;
+package servlets.Task;
 
-import com.mycompany.implementation.query.stopAlertQuery;
+import com.mycompany.implementation.query.viewTasksQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "newJobAlertShiftServlet", urlPatterns = {"/newJobAlertShiftServlet"})
-public class newJobAlertServlet extends HttpServlet {
+@WebServlet(name = "viewTasks", urlPatterns = {"/viewTasks"})
+public class viewTasks extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,10 @@ public class newJobAlertServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet newJobAlertServlet</title>");            
+            out.println("<title>Servlet viewTasks</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet newJobAlertServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet viewTasks at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +59,7 @@ public class newJobAlertServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request,response);
+        doPost(request, response);
     }
 
     /**
@@ -73,9 +73,11 @@ public class newJobAlertServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        stopAlertQuery a = new stopAlertQuery();
-        a.stopNewJobQuery(request.getParameter("job"));
-        response.sendRedirect("viewShiftManagerServlet");
+        viewTasksQuery a = new viewTasksQuery();
+        request.setAttribute("tasks", a.doViewTasks());
+        
+        request.getRequestDispatcher("addTask.jsp").forward(request, response);
+        
     }
 
     /**

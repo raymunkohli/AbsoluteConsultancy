@@ -31,7 +31,7 @@ public class viewTasksQuery extends Query{
         List<Basetask> allTheTasks = new ArrayList();
         ResultSet taskResultSet;
         try {
-            String query = "SELECT * FROM basetask";
+            String query = "SELECT * FROM basetask WHERE disabled=0;";
             PreparedStatement s = this.getC().prepareStatement(query);
             taskResultSet = s.executeQuery();
             while(taskResultSet.next()){
@@ -53,6 +53,27 @@ public class viewTasksQuery extends Query{
         }
 
       
+    }
+    public void addTask(String name, String depart, String desc, String price, String durat){
+
+        try {
+            String query = "INSERT INTO basetask (taskName,department,description,price,duration) "
+                    + "VALUES ('"+name+"','"+depart+"','"+desc+"','"+price+"','"+durat+"');";
+            PreparedStatement s = this.getC().prepareStatement(query);
+            s.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewTasksQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     public void disableTask(String id){
+
+        try {
+            String query = "UPDATE basetask SET disabled = 1 WHERE baseTaskID='"+id+"';";
+            PreparedStatement s = this.getC().prepareStatement(query);
+            s.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewTasksQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
  
 }
