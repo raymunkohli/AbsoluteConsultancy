@@ -28,15 +28,16 @@ public class searchForCustQuery extends Query {
         try {
             PreparedStatement s;
             List<Customer> AllCust = new ArrayList();
-            String query = "SELECT customer.customerID, customer.name, customer.surname,"
-                    + " customer.phoneNo, customer.email, customer.address, customer.postcode,customer.holder,\n"
-                    + "fixeddiscount.percentDiscount, band.discount,discount.discountType\n"
-                    + "FROM customer\n"
-                    + "LEFT JOIN valuedcustomer ON valuedcustomer.CustomercustomerID = customer.customerID\n"
-                    + "LEFT JOIN discount ON discount.discountID = valuedcustomer.DiscountdiscountID\n"
-                    + "LEFT JOIN fixeddiscount ON discount.discountID = fixeddiscount.DiscountdiscountID\n"
+            String query = "SELECT customer.customerID, customer.name, customer.surname, "
+                    + " customer.phoneNo, customer.email, customer.address, customer.postcode,customer.holder, \n"
+                    + "fixeddiscount.percentDiscount, band.discount,discount.discountType,valuedcustomer.CustomercustomerID \n"
+                    + "FROM customer \n"
+                    + "LEFT JOIN valuedcustomer ON valuedcustomer.CustomercustomerID = customer.customerID \n"
+                    + "LEFT JOIN discount ON discount.discountID = valuedcustomer.DiscountdiscountID \n"
+                    + "LEFT JOIN fixeddiscount ON discount.discountID = fixeddiscount.DiscountdiscountID "
+                    + "LEFT JOIN flexiblediscount ON flexiblediscount.DiscountdiscountID = discount.discountID \n"
                     + "LEFT JOIN band ON flexiblediscount.DiscountdiscountID = band.flexiblediscount_DiscountdiscountID \n" +
-                        "AND band.BandID = (SELECT band.BandID from band WHERE band.lowerBound<= flexiblediscount.aquiredValue AND band.upperBound >= flexiblediscount.aquiredValue AND band.flexiblediscount_DiscountdiscountID = flexiblediscount.DiscountdiscountID)) "
+                        "AND band.BandID = (SELECT band.BandID from band WHERE band.lowerBound<= flexiblediscount.aquiredValue AND band.upperBound >= flexiblediscount.aquiredValue AND band.flexiblediscount_DiscountdiscountID = flexiblediscount.DiscountdiscountID) "
                     + "WHERE "+Query+" "
                     + "ORDER BY customer.customerID ASC";
             System.out.println(query);

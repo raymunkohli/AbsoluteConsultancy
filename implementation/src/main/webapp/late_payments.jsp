@@ -37,8 +37,14 @@
         </script>
     </head>
     <body>
+        <div style="position:absolute;left:25%">
         <div id="base" class="">
-
+        <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("OfficeManager")) { %>
+        <%@include  file="officeBar.jsp" %>
+        <% }%>
+      <div id="u519">  
+        <img id="u519_img" class="img " src="images/receptionist_screen/u84.png">
+      </div>
 
             <!-- Unnamed (Table) -->
             <div id="u479" class="ax_default">
@@ -111,5 +117,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </body>
 </html>

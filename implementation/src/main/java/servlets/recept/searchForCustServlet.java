@@ -113,14 +113,12 @@ public class searchForCustServlet extends HttpServlet {
             try {
                 Query = Query.substring(0, Query.length() - 3);
                 ResultSet a = query.doSearchForCustQuery(Query);
-                if (!a.next()) {
-                    request.setAttribute("Err", "No Customer Found");
-                    request.getRequestDispatcher("viewCustomerServlet").forward(request, response);
-                } else {
+                if (a.next()) {             
                     a.beforeFirst();
                     List<Customer> allCustomers = new ArrayList();
                     List<String> DiscountType = new ArrayList();
                     List<String> Discount = new ArrayList();
+                    List<String> Valued = new ArrayList();
                     while (a.next()) {
                         Customer singleCust = new Customer();
                         singleCust.setName(a.getString("name"));
@@ -131,6 +129,12 @@ public class searchForCustServlet extends HttpServlet {
                         singleCust.setPostcode(a.getString("postcode"));
                         singleCust.setAddress(a.getString("address"));
                         singleCust.setHolder(a.getString("holder"));
+                                        if(a.getString("CustomercustomerID")!=null){
+                    Valued.add("Valued");
+                }
+                else{
+                    Valued.add("Normal");
+                }
                         allCustomers.add(singleCust);
                         if (a.getString("discountType") != null) {
 
@@ -150,11 +154,17 @@ public class searchForCustServlet extends HttpServlet {
                             DiscountType.add("None");
                         }
                     }
+                request.setAttribute("valued",Valued);
                 request.setAttribute("allCustomers", allCustomers);
                 request.setAttribute("discountType", DiscountType);
                 request.setAttribute("discount", Discount);
                 request.getRequestDispatcher("viewCustomers.jsp").forward(request, response);
                 }
+                else{
+                    request.setAttribute("Err", "No Customer Found");
+                    request.getRequestDispatcher("viewCustomerServlet").forward(request, response);
+                }
+                
             } catch (SQLException ex) {
                 Logger.getLogger(searchForCustServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
