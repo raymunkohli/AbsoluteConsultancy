@@ -73,14 +73,13 @@
         </div>
       </div>
       </a>
+      
       <a href="firstServlet">
-      <div id="u508" class="ax_default button">
-          <div style="position:relative;left:200px">
-        <div id="u508_div" class=""></div>
-        <div id="u508_text" class="text " style="top:3px">
+      <div id="u508u" class="ax_default button">
+        <div id="u508u_div" class=""></div>
+        <div id="u508u_text" class="text " style="top:3px">
           <p><span>Print ALL first reminders</span></p>
         </div>
-      </div>
       </div>
       </a>
 
@@ -94,13 +93,11 @@
       </div>
       </a>
   
-                      <a href="SecondServlet">
-      <div id="u509" class="ax_default button">
-          <div style="position:relative;left:200px">
-        <div id="u509_div" class=""></div>
-        <div id="u509_text" class="text " style="top:3px">
+        <a href="SecondServlet">
+      <div id="u509u" class="ax_default button">
+        <div id="u509u_div" class=""></div>
+        <div id="u509u_text" class="text " style="top:3px">
           <p><span>Print ALL Second reminders</span></p>
-        </div>
         </div>
    
       </div>

@@ -5,6 +5,7 @@
  */
 package servlets.technician;
 
+import com.mycompany.implementation.query.viewTasksQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -72,7 +73,11 @@ public class selectedJobTechician extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        viewTasksQuery a = new viewTasksQuery();
+        a.startTask(request.getParameter("id"), request.getSession().getAttribute("staffID").toString());
+        request.setAttribute("id", request.getParameter("id"));
+        request.setAttribute("desc", request.getParameter("desc"));
+        request.getRequestDispatcher("technician_screen.jsp").forward(request, response);
     }
 
     /**

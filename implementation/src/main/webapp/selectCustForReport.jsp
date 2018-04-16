@@ -19,7 +19,7 @@
                 <tr>
                 <td>${Cust.customerID}</td><td>${Cust.holder}</td> <td>${Cust.name} ${Cust.surname}</td> 
                     <td>${Cust.phoneNo}</td> <td>${Cust.email}</td> <td>${Cust.address}</td> <td>${Cust.postcode}</td>
-                <form action="shiftManager.jsp" method="post" >
+                <form action="viewShiftManagerServlet" method="post" >
                     <input type="hidden" name="Customer" value="${Cust.customerID}"/> 
                     <input type="hidden" name="CustomerName" value="${Cust.name} ${Cust.surname}"/> 
                     <td> <input type="submit" value="Select"/> </td>    

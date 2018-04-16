@@ -89,7 +89,7 @@ public class selectedStaffShiftServlet extends HttpServlet {
             Staff.add(tempStaff);
         }
         request.setAttribute("Staff",Staff);
-        request.getRequestDispatcher("shiftManager.jsp").forward(request, response);
+        request.getRequestDispatcher("viewShiftManagerServlet").forward(request, response);
     }
 
     /**

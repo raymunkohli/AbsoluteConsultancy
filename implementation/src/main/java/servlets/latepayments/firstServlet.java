@@ -120,7 +120,7 @@ public class firstServlet extends HttpServlet {
         request.setAttribute("jobValue", jobValued);
         request.setAttribute("orderDates", orderDatesd);
         request.setAttribute("suspended", second);
-        request.getRequestDispatcher("bulksecond.jsp").forward(request, response);
+        request.getRequestDispatcher("bulkfirst.jsp").forward(request, response);
     }
 
     /**

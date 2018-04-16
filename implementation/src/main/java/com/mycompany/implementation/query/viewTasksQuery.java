@@ -6,12 +6,10 @@
 package com.mycompany.implementation.query;
 
 import com.mycompany.implementation.domain.Basetask;
-import com.mycompany.implementation.domain.Variablediscount;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -69,6 +67,16 @@ public class viewTasksQuery extends Query{
 
         try {
             String query = "UPDATE basetask SET disabled = 1 WHERE baseTaskID='"+id+"';";
+            PreparedStatement s = this.getC().prepareStatement(query);
+            s.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewTasksQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+         public void startTask(String id,String staff){
+
+        try {
+            String query = "UPDATE task SET startDate='"+LocalDateTime.now()+"',StaffstaffID='"+staff+"' WHERE taskID = '"+id+"';";
             PreparedStatement s = this.getC().prepareStatement(query);
             s.executeUpdate();
         } catch (SQLException ex) {
