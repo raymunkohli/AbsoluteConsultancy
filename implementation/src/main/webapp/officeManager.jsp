@@ -138,12 +138,14 @@ Contact Email: <%out.write(request.getAttribute("email").toString()); %>');
             </a>
 
             <!-- Unnamed (Rectangle) -->
+            <a href="latePaymentServlet" >
             <div id="u273" class="ax_default button">
                 <div id="u273_div" class=""></div>
                 <div id="u273_text" class="text ">
                     <p><span>Manage late payments</span></p>
                 </div>
             </div>
+            </a>
 
             <!-- Unnamed (Rectangle) -->
             <a href="viewAdminServlet">

@@ -10,9 +10,7 @@
         <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("OfficeManager")) { %>
         <%@include  file="officeBar.jsp" %>
         <% }%>
-            <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("ShiftManager")) { %>
-            <%@include  file="shiftBar.jsp" %>
-            <% }%>
+
             <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("Receptionist")) { %>
                         <%@include  file="receptionistBar.jsp" %>
             <% }%>
@@ -51,7 +49,9 @@
     </head>
     <body>
         <div id="base" class="" style="width:100%;height:100%;left:25%;position:absolute;" >
-
+            <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("ShiftManager")) { %>
+            <%@include  file="shiftBar.jsp" %>
+            <% }%>
             <!-- Unnamed (Rectangle) -->
             <div id="tophalf">
 

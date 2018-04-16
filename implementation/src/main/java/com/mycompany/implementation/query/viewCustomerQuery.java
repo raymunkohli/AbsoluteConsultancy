@@ -37,7 +37,8 @@ public class viewCustomerQuery extends Query {
                     + "                    LEFT JOIN flexiblediscount ON discount.discountID = flexiblediscount.DiscountdiscountID\n "
                     + "LEFT JOIN suspendedcustomer ON suspendedcustomer.ValuedCustomerCustomercustomerID = customer.customerID "
                     + "                    LEFT JOIN band ON flexiblediscount.DiscountdiscountID = band.flexiblediscount_DiscountdiscountID \n"
-                    + "                    AND band.BandID = (SELECT band.BandID from band WHERE band.lowerBound<= flexiblediscount.aquiredValue AND band.upperBound >= flexiblediscount.aquiredValue AND band.flexiblediscount_DiscountdiscountID = flexiblediscount.DiscountdiscountID)\n"
+                    + "                    AND band.BandID = (SELECT band.BandID from band WHERE band.lowerBound<= flexiblediscount.aquiredValue "
+                    + "AND band.upperBound >= flexiblediscount.aquiredValue AND band.flexiblediscount_DiscountdiscountID = flexiblediscount.DiscountdiscountID)\n"
                     + "                    WHERE suspendedcustomer.ValuedCustomerCustomercustomerID IS NULL "
                     + "ORDER BY customer.customerID ASC;";
 
