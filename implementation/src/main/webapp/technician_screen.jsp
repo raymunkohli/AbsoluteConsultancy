@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <html>
     <head>
         <title>Technician screen</title>
@@ -30,8 +29,16 @@
             };
         </script>
     </head>
-    <body>
-        <div id="base" class="">
+    <body><%@ include file="techcheck.jsp" %>
+        <div id="base" class=""  style="left:25%;position:absolute;">
+                        <!-- Unnamed (Group) -->
+            <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("ShiftManager")) { %>
+            <%@include  file="shiftBar.jsp" %>
+            <% }%>
+            <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("OfficeManager")) { %>
+            <%@include  file="officeBar.jsp" %>
+            <% }%>
+            <div style="top:20px;position:absolute">
             <!-- Unnamed (Horizontal Line) -->
             <div id="u182" class="ax_default line">
                 <img id="u182_img" class="img " src="images/receptionist_screen/u84.png"/>
@@ -137,7 +144,7 @@
                 </form>
 
             </c:if>
-
+            </div>
 
         </div>
     </body>
