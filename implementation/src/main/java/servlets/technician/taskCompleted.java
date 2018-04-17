@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "selectedJobTechician", urlPatterns = {"/selectedJobTechician"})
-public class selectedJobTechician extends HttpServlet {
+@WebServlet(name = "taskCompleted", urlPatterns = {"/taskCompleted"})
+public class taskCompleted extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,10 @@ public class selectedJobTechician extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet selectedJobTechician</title>");            
+            out.println("<title>Servlet taskCompleted</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet selectedJobTechician at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet taskCompleted at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,11 +74,24 @@ public class selectedJobTechician extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         viewTasksQuery a = new viewTasksQuery();
-        a.startTask(request.getParameter("id"), request.getSession().getAttribute("staffID").toString());
-        request.setAttribute("id", request.getParameter("id"));
-        request.setAttribute("desc", request.getParameter("desc"));
-        request.setAttribute("job", request.getParameter("job"));
-        request.getRequestDispatcher("technician_screen.jsp").forward(request, response);
+        if (!request.getParameter("shelf").isEmpty()) {
+            a.finishTask(request.getParameter("id"),request.getParameter("shelf"));
+            boolean last = a.checkIfLast(request.getParameter("job"));
+            if(!last){
+                a.finishJob(request.getParameter("job"));
+            }
+            response.sendRedirect("viewTechnicianServlet");
+        }
+        else{
+            request.setAttribute("Err", "SELECT A SHELF SLOT");
+            request.setAttribute("job", request.getParameter("job"));
+            request.setAttribute("id", request.getParameter("id"));
+            request.setAttribute("desc", request.getParameter("desc"));
+            request.getRequestDispatcher("selectedJobTechician").forward(request, response);
+        }
+        
+        
+        
     }
 
     /**

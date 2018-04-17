@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author raymun
  */
-public class viewTasksQuery extends Query{
+public class viewTasksQuery extends Query {
 
     public viewTasksQuery() {
         super();
@@ -32,7 +32,7 @@ public class viewTasksQuery extends Query{
             String query = "SELECT * FROM basetask WHERE disabled=0;";
             PreparedStatement s = this.getC().prepareStatement(query);
             taskResultSet = s.executeQuery();
-            while(taskResultSet.next()){
+            while (taskResultSet.next()) {
                 Basetask a = new Basetask();
                 a.setBaseTaskID(taskResultSet.getInt("baseTaskID"));
                 a.setTaskName(taskResultSet.getString("taskName"));
@@ -44,44 +44,87 @@ public class viewTasksQuery extends Query{
                 allTheTasks.add(a);
             }
             return allTheTasks;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(viewTasksQuery.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
 
-      
     }
-    public void addTask(String name, String depart, String desc, String price, String durat){
+
+    public void addTask(String name, String depart, String desc, String price, String durat) {
 
         try {
             String query = "INSERT INTO basetask (taskName,department,description,price,duration) "
-                    + "VALUES ('"+name+"','"+depart+"','"+desc+"','"+price+"','"+durat+"');";
+                    + "VALUES ('" + name + "','" + depart + "','" + desc + "','" + price + "','" + durat + "');";
             PreparedStatement s = this.getC().prepareStatement(query);
             s.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(viewTasksQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-     public void disableTask(String id){
+
+    public void disableTask(String id) {
 
         try {
-            String query = "UPDATE basetask SET disabled = 1 WHERE baseTaskID='"+id+"';";
+            String query = "UPDATE basetask SET disabled = 1 WHERE baseTaskID='" + id + "';";
             PreparedStatement s = this.getC().prepareStatement(query);
             s.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(viewTasksQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-         public void startTask(String id,String staff){
+
+    public void startTask(String id, String staff) {
 
         try {
-            String query = "UPDATE task SET startDate='"+LocalDateTime.now()+"',StaffstaffID='"+staff+"' WHERE taskID = '"+id+"';";
+            String query = "UPDATE task SET startDate='" + LocalDateTime.now() + "',StaffstaffID='" + staff + "' WHERE taskID = '" + id + "';";
             PreparedStatement s = this.getC().prepareStatement(query);
             s.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(viewTasksQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
- 
-}
+
+    public void finishTask(String id,String Shelf) {
+
+        try {
+            String query = "UPDATE task SET endDate='" + LocalDateTime.now() + "', shelf='"+Shelf+"' WHERE taskID = '" + id + "';";
+            System.out.println(query);
+            PreparedStatement s = this.getC().prepareStatement(query);
+            s.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(viewTasksQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public boolean checkIfLast(String jobid){
+            
+
+        try {
+            String query = "SELECT task.JobJobID FROM task WHERE task.endDate IS NULL AND task.JobJobID ='"+jobid+"';";
+            PreparedStatement s = this.getC().prepareStatement(query);
+            System.out.println(query);
+            ResultSet a = s.executeQuery();
+            return a.next();
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(viewTasksQuery.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+       public void finishJob(String jobid){
+            
+
+        try {
+            String query = "UPDATE job SET finished=1 WHERE JobID='"+jobid+"';";
+            PreparedStatement s = this.getC().prepareStatement(query);
+            s.executeUpdate();
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(viewTasksQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    }
+
+

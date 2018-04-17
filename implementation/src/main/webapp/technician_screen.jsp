@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
     <head>
         <title>Technician screen</title>
@@ -43,109 +44,99 @@
                     <p><span>Technician</span></p>
                 </div>
             </div>
+            <c:if test="${id == null}" >
 
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u145" class="ax_default label">
-                <div id="u145_div" class=""></div>
-                <div id="u145_text" class="text ">
-                    <p><span>Select job</span></p>
+                <!-- Unnamed (Rectangle) -->
+                <div id="u145" class="ax_default label">
+                    <div id="u145_div" class=""></div>
+                    <div id="u145_text" class="text ">
+                        <p><span>Select job</span></p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Unnamed (Table) -->
-            <div id='u146' class="ax_default">
+                <!-- Unnamed (Table) -->
+                <div id='u146' class="ax_default">
 
-                <table id="table" border="1" width="670px">
-                    <tr>
-                        <th> ID </th>
-                        <th> Holder</th>
-                        <th> Customer </th>
-                        <th> Status </th>
-                        <th> Department </th>
-                        <th> Deadline </th>
-                        <th> Select </th>
-                    </tr>
-
-                    <c:forEach items="${Jobs}" var="Jobs" varStatus="Status">
+                    <table id="table" border="1" width="670px">
                         <tr>
-                            <td> ${Jobs.jobID} </td>
-                            <td> ${Customers[Status.index].holder} </td>
-                            <td> ${Customers[Status.index].name} ${Customers[Status.index].surname}</td>
-                            <td> ${Basetasks[Status.index].description} </td>
-                            <td> ${Basetasks[Status.index].department} </td>
-                            <td> ${Jobs.deadline} </td>
-                            <td> <form action="selectedJobTechician" method="post">
-                                <input type="hidden" value="${Basetasks[Status.index].description}" name="desc"/> 
-                                <input type="hidden" value="${Tasks[Status.index].taskID}" name="id"/>
-                                <input type="submit" value="Select"></td> </form>
+                            <th> ID </th>
+                            <th> Holder</th>
+                            <th> Customer </th>
+                            <th> Status </th>
+                            <th> Department </th>
+                            <th> Deadline </th>
+                            <th> Select </th>
                         </tr>
-                    </c:forEach>  
-                </table>
-            </div>
+
+                        <c:forEach items="${Jobs}" var="Jobs" varStatus="Status">
+                            <tr>
+                                <td> ${Jobs.jobID} </td>
+                                <td> ${Customers[Status.index].holder} </td>
+                                <td> ${Customers[Status.index].name} ${Customers[Status.index].surname}</td>
+                                <td> ${Basetasks[Status.index].description} </td>
+                                <td> ${Basetasks[Status.index].department} </td>
+                                <td> ${Jobs.deadline} </td>
+                                <td> <form action="selectedJobTechician" method="post">
+                                        <input type="hidden" value="${Basetasks[Status.index].description}" name="desc"/> 
+                                        <input type="hidden" value="${Tasks[Status.index].taskID}" name="id"/>
+                                        <input type="hidden" value="${Jobs.jobID}" name ="job"/>
+                                        <input type="submit" value="Select"></td> 
+                                    </form>
+                            </tr>
+                        </c:forEach>  
+                    </table>
+                </div>
+            </c:if>
+
+
+
             <c:if test="${id != null}" >
                 <!-- Unnamed (Rectangle) -->
                 <div id="u162" class="ax_default label">
                     <div id="u162_div" class=""></div>
                     <div id="u162_text" class="text ">
-                        Selected job:
+                        <p>Selected job: ${job}</p>
+                        <p>${Err} </p>
                     </div>
                 </div>
-
-                <!-- Unnamed (Text Field) -->
-                <div id="u163" class="ax_default text_field">
-                    <input id="u163_input" type="text" value="Use of small copy camera"/>
-                </div>
-
                 <!-- Unnamed (Rectangle) -->
                 <div id="u164" class="ax_default paragraph">
                     <div id="u164_div" class=""></div>
                 </div>
 
-                <!-- Unnamed (Rectangle) -->
-                <div id="u165" class="ax_default button">
-                    <div id="u165_div" class=""></div>
-                    <div id="u165_text" class="text ">
-                        <p><span><input type="submit" value="Update Task111" form=""/></span></p>
+                <form action="taskCompleted" method="post">
+                    <input type="hidden" value="${job}" name="job">
+                    <!-- Unnamed (Text Field) -->
+                    <div id="u172" class="ax_default text_field">
+                        <input type="text" name="shelf" requried=""/>
                     </div>
-                </div>
+                    <input type="hidden" value="${id}" name="id" >
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u166" class="ax_default label">
+                        <div id="u166_div" class=""></div>
+                        <div id="u166_text" class="text ">
+                            <p><span>Current task: ${desc}</span></p>
+                        </div>
+                    </div>
+                        <input type="hidden" value="${desc}" name="id" >
+                    <!-- Unnamed (Rectangle)--> 
+                    <div id="u171" class="ax_default label">
+                        <div id="u171_div" class=""></div>
+                        <div id="u171_text" class="text ">
+                            <p><span>Shelf:</span></p>
+                        </div>
+                    </div>
 
-                <!-- Unnamed (Rectangle) -->
-                <div id="u166" class="ax_default label">
-                    <div id="u166_div" class=""></div>
-                    <div id="u166_text" class="text ">
-                        <p><span>Current task:</span></p>
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u165" class="ax_default button">
+                        <div id="u165_div" class=""></div>
+                        <div id="u165_text" class="text ">
+                            <p><span><input type="submit" value="Task Finished"/></span></p>
+                        </div>
                     </div>
-                </div>
-                <!-- Unnamed (Rectangle) -->
-                <div id="u170" class="ax_default label">
-                    <div id="u170_div" class=""></div>
-                    <div id="u170_text" class="text ">
-                        <p><span style="text-decoration:underline;">Enquiry box</span></p>
-                    </div>
-                </div>
+                </form>
 
-                <!-- Unnamed (Rectangle)--> 
-                <div id="u171" class="ax_default label">
-                    <div id="u171_div" class=""></div>
-                    <div id="u171_text" class="text ">
-                        <p><span>Shelf:</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Text Field) -->
-                <div id="u172" class="ax_default text_field">
-                    <input id="u172_input" type="text" value=""/>
-                </div>
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u179" class="ax_default button">
-                   <div id="u179_div" class=""></div>
-                    <div id="u179_text" class="text ">
-                        <p><span><input type="submit" value="Respond" /></span></p>
-                    </div>
-                </div>
-        </c:if>
+            </c:if>
 
 
         </div>
