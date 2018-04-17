@@ -5,7 +5,7 @@
  */
 package servlets.shiftManager;
 
-import com.mycompany.implementation.query.getLateJobs;
+import com.mycompany.implementation.query.stopAlertQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author raymun
  */
-@WebServlet(name = "lateJobAlertServlet", urlPatterns = {"/lateJobAlertServlet"})
-public class lateJobAlertServlet extends HttpServlet {
+@WebServlet(name = "newJobAlertShiftServlet", urlPatterns = {"/newJobAlertShiftServlet"})
+public class newJobAlertShiftServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,10 @@ public class lateJobAlertServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet lateJobAlertServlet</title>");            
+            out.println("<title>Servlet newJobAlertServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet lateJobAlertServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet newJobAlertServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -73,11 +73,9 @@ public class lateJobAlertServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        getLateJobs a = new getLateJobs();
-        a.stopLateJob(request.getParameter("job"));
-        
+        stopAlertQuery a = new stopAlertQuery();
+        a.stopNewJobQuery(request.getParameter("job"));
         response.sendRedirect("viewShiftManagerServlet");
-        
     }
 
     /**

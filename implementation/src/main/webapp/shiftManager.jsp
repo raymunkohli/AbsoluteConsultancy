@@ -42,7 +42,7 @@ Contact Phone: <%out.write(request.getAttribute("phone").toString()); %>\n\
 Contact Email: <%out.write(request.getAttribute("email").toString()); %>');
                 
                 if(alert1){
-                    window.location = 'lateJobAlertShiftServlet?job=<% out.write(request.getAttribute("lateID").toString()); %>';
+                    window.location = 'lateJobAlertServlet?job=<% out.write(request.getAttribute("lateID").toString()); %>';
                 }
                 
                 
