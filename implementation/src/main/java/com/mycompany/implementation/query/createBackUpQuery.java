@@ -7,6 +7,8 @@ package com.mycompany.implementation.query;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,9 +23,10 @@ public class createBackUpQuery {
     public void doCreateBackUpQuery() throws InterruptedException{
                 try {
             String Query;
+            DateTimeFormatter a = DateTimeFormatter.ofPattern("HH-mm");
             System.out.println(123123);
             Query = "\"C:\\Program Files (x86)\\MySQL\\MySQL Server 5.7\\bin\\mysqldump\" --user=root --password=1234 --host=localhost --port=3306 sys -r "
-                    + "\"C:\\Users\\raymun\\Documents\\Team project git\\AbsoluteConsultancy\\implementation\\sqlBackups\\"+LocalDate.now()+".sql\"";
+                    + "\"C:\\Users\\raymun\\Documents\\Team project git\\AbsoluteConsultancy\\implementation\\sqlBackups\\"+LocalDate.now()+" "+LocalTime.now().format(a)+".sql\"";
             System.out.println(Query);
             Process runProcess = Runtime.getRuntime().exec(Query);
 
