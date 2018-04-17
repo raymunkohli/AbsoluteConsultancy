@@ -82,7 +82,7 @@ public class selectedInvoiceCustServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         getPaymentGivenCustomer getCust = new getPaymentGivenCustomer();
-        ResultSet jobs = getCust.doGetPaymentGivenCustomer(Integer.parseInt(request.getParameter("id")));
+        ResultSet jobs = getCust.doGetInvoiceGivenCustomer(Integer.parseInt(request.getParameter("id")));
         List<Job> jobList = new ArrayList();
         try {
             while(jobs.next()){
