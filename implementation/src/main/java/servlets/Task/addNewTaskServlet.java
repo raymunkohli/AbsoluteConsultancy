@@ -60,7 +60,8 @@ public class addNewTaskServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         viewTasksQuery a = new viewTasksQuery();
-        a.addTask(request.getParameter("name"), request.getParameter("department"), request.getParameter("description"), request.getParameter("price"), request.getParameter("time"));
+        int newid = a.addTask(request.getParameter("name"), request.getParameter("department"), request.getParameter("description"), request.getParameter("price"), request.getParameter("time"));
+        a.fixVarDiscount(String.valueOf(newid));
         response.sendRedirect("viewTasks");
     }
 
