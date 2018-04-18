@@ -22,6 +22,7 @@ public class getCurrentJobs extends Query{
     }
     
     public ResultSet doGetCurrentJobs(){
+        //no longer used in the final implementation
          try {
             PreparedStatement s;
             String Query = "SELECT job.JobID,job.deadline,\n" +

@@ -23,6 +23,9 @@ public class checkForLatePaymentQuery extends Query {
 
     public ResultSet getAlerts() {
         try {
+            
+            // checks for the 10th of the month alert and returns info about the customer to be used
+            // in the alert
             PreparedStatement s;
             String Query = "SELECT job.JobID, job.orderDate, customer.*,\n"
                     + "valuedjob.*\n"
@@ -44,6 +47,9 @@ public class checkForLatePaymentQuery extends Query {
 
     public ResultSet getReminderAlerts() {
         try {
+            
+            //code for the first reminder alert and return info to display it
+      
             PreparedStatement s;
             String Query = "SELECT job.JobID, job.orderDate, customer.*,\n"
                     + "valuedjob.*\n"
@@ -64,6 +70,7 @@ public class checkForLatePaymentQuery extends Query {
     }
 
     public void suspendAccounts() {
+        //suspend all accounts which have not met the second reminder deadline
         try {
             PreparedStatement s;
             String Query = "INSERT IGNORE into suspendedcustomer (suspendedcustomer.ValuedCustomerCustomercustomerID)\n"
@@ -81,6 +88,7 @@ public class checkForLatePaymentQuery extends Query {
     }
 
     public ResultSet getSuspendedAlerts() {
+        //return information about new suspended customers
         try {
             PreparedStatement s;
             String Query = "SELECT customer.customerID,customer.name,customer.surname,customer.email \n"
@@ -98,6 +106,8 @@ public class checkForLatePaymentQuery extends Query {
     }
 
     public void defaultAccounts() {
+        
+        //default all customers who have not met the default deadline
         try {
             PreparedStatement s;
             String Query = "INSERT IGNORE into defaultcustomer (defaultcustomer.suspendedCustomerValuedCustomerCustomercustomerID)\n"
@@ -115,6 +125,8 @@ public class checkForLatePaymentQuery extends Query {
     }
 
     public ResultSet getDefaultAlerts() {
+        
+        //gets data for newly defaulted accounts
         try {
             PreparedStatement s;
             String Query = "SELECT customer.customerID,customer.name,customer.surname\n"
@@ -131,6 +143,7 @@ public class checkForLatePaymentQuery extends Query {
         }
     }
     public void resetDiscount(){
+        //reset flex discount every month
               try {
             PreparedStatement s;
             String Query = "UPDATE flexiblediscount SET flexiblediscount.aquiredValue = 0 ;";

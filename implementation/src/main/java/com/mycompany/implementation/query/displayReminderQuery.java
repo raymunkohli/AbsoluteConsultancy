@@ -27,6 +27,8 @@ public class displayReminderQuery extends Query {
     }
 
     public List<Job> getJobSecond(String custID) {
+        
+        //query to generate the information needed for the second reminder letter alert
         try {
             PreparedStatement s;
             String Query = "SELECT job.* FROM job\n"
@@ -52,6 +54,7 @@ public class displayReminderQuery extends Query {
         }
     }
      public List<Job> getJobFirst(String custID) {
+         //get information for the alert for the first job reminder
         try {
             PreparedStatement s;
             String Query = "SELECT job.* FROM job\n"

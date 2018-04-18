@@ -109,7 +109,7 @@
                 </div>
             </div>
             <c:forEach items="${allCustomers}" var ="cust" varStatus ="custStatus">
-                <div id="fakespace" style="position:relative;height:35px">
+                <div id="fakespace" style="position:relative;height:50px">
 
                 </div>
             </c:forEach>

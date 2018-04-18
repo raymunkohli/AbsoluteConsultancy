@@ -22,9 +22,10 @@ public class getPerformanceReportQuery extends Query {
         super();
     }
 
-    //finish this SQL
+    //
     public ResultSet dayShiftEarly(LocalDate Start, LocalDate End) {
         try {
+            // get jobs in the morning shift in a time period
             String Query = "SELECT Date(task.startDate) as \"Date\", \n"
                     + "sum(IF( baseTask.department = \"Copy\",TIMESTAMPDIFF(minute,task.startDate,task.endDate), 0))AS \"Copy Room\",\n"
                     + "sum(IF( baseTask.department = \"Development\",TIMESTAMPDIFF(minute,task.startDate,task.endDate), 0))AS \"Development\",\n"

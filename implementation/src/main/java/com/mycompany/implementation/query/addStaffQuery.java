@@ -24,6 +24,7 @@ public class addStaffQuery extends Query {
 
     public void doAddStaffQuery(String name, String surname, String password, String role) {
         PreparedStatement s;
+        //adds a new member of staff to Bapers
         try {
             String query = "INSERT INTO staff (firstName,surName,employeeType,password) "
                     + "VALUES ('" + name + "','" + surname + "','" + role + "','" + password + "');";
@@ -38,12 +39,16 @@ public class addStaffQuery extends Query {
 
     public void addTechnicianQuery(String name, String surname, String password, String role, String Department) {
         PreparedStatement s;
+        
+        //adds a technician to bapers, the reason this is different to the normal staff 
+        // is because a technician is given a room which he belongs to (aka only see the tasks
+        //active in that room)
         try {
             String query = "INSERT INTO staff (firstName,surName,employeeType,password) "
                     + "VALUES ('" + name + "','" + surname + "','" + role + "','" + password + "');";
             System.out.println(query);
             s = this.getC().prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
-            int rows = s.executeUpdate();
+            s.executeUpdate();
             ResultSet key = s.getGeneratedKeys();
             key.next();
             int newStaffID = key.getInt(1);

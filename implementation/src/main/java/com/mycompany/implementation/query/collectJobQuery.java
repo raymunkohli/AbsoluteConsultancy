@@ -21,6 +21,8 @@ public class collectJobQuery extends Query{
     }
     
     public void doCollect(String job){
+        
+        //mark a job as collected 
                 try {
             PreparedStatement s;
             String query = "UPDATE job SET collectionDate='"+LocalDateTime.now()+"' WHERE JobID='"+job+"';";

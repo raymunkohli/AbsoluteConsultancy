@@ -20,7 +20,9 @@ public class addBandQuery extends Query {
         super();
     }
 
-    public void addDiscount(String id) {
+    public void addDiscount(String id) {  
+//adds a discount ID into flexible discount 
+        //( aka setting up the flexible discount) other fields in db are auto set to 0
         PreparedStatement s;
         try {
             String query = "INSERT INTO flexiblediscount (DiscountdiscountID) VALUES ('"+id+"');";
@@ -32,7 +34,8 @@ public class addBandQuery extends Query {
         }
     }
 
-    public void addBand(String low, String high, String flexID, String discount) {
+    public void addBand(String low, String high, String flexID, String discount) { 
+//create a band with the given flexible discounts and information provided
         PreparedStatement s;
         try {
             String query = "INSERT INTO band (lowerBound,upperBound,discount,flexiblediscount_DiscountdiscountID) "

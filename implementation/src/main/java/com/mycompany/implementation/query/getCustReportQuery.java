@@ -25,6 +25,8 @@ public class getCustReportQuery extends Query {
     }
 
         public ResultSet doGetCustDayReportQuery(String from, String to,String ID) {
+            //return the number of jobs and value of the of a given customer
+            // in a time period per day (used for report gen)
         PreparedStatement s;
         try {
             List <Job> Jobs = new ArrayList();
@@ -42,6 +44,8 @@ public class getCustReportQuery extends Query {
         }
     }
         public ResultSet doGetCustMonthReportQuery(String from, String to,String ID) {
+            
+            // same as the day query just on a monthly basis rather than daily (grouped per month rahter than day)
         PreparedStatement s;
         try {
             List <Job> Jobs = new ArrayList();
@@ -60,6 +64,7 @@ public class getCustReportQuery extends Query {
     }
         public ResultSet doGetCustYearReportQuery(String from, String to,String ID) {
         PreparedStatement s;
+        // same as the day apart from on a yearly basis 
         try {
             List <Job> Jobs = new ArrayList();
             String query = "SELECT sum(job.value) AS \"AValue\", COUNT(DISTINCT job.jobID) AS \"number\",year((job.orderDate)) AS \"time\" FROM job \n"

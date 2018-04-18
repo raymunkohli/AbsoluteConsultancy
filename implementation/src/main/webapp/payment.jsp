@@ -99,7 +99,7 @@
             </form>
         
         <c:forEach items="${Jobs}">
-            <div id="fakespace"></div>
+            <div id="fakespace" style="z-index:-5;"></div>
 
         </c:forEach>
 

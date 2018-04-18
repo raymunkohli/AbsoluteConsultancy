@@ -24,19 +24,47 @@ public class getFinishedJobs extends Query{
     }
     
     public ResultSet doGetFinishedJobs(){
+        //rreturn all the jobs in the system marked as finished
                 try {
             PreparedStatement s;
-            String query = "SELECT job.JobID, job.finished,\n" +
-"                    customer.holder, customer.name, customer.surname, customer.name,customer.surname, \n" +
-"                    basetask.description, basetask.department,\n" +
-"                    task.taskID ,task.shelf \n" +
-"                    FROM job \n" +
-"                    INNER JOIN customer ON customer.customerID = job.CustomercustomerID \n" +
-"                    LEFT JOIN task ON task.JobJobID = job.JobID \n" +
-"                    INNER JOIN basetask ON task.baseTaskbaseTaskID = basetask.baseTaskID \n" +
-"                    WHERE (task.endDate IS NULL OR job.finished = 1) AND job.collectionDate IS NULL \n" +
-"                    GROUP BY job.JobID "
-                    + "";
+            String query = " SELECT \n" +
+"    job.JobID,\n" +
+"    job.deadline,\n" +
+"    customer.holder,\n" +
+"    customer.name,\n" +
+"    customer.surname,\n" +
+"    basetask.description,\n" +
+"    basetask.department,\n" +
+"    task.taskID\n" +
+"FROM\n" +
+"    job\n" +
+"        INNER JOIN\n" +
+"    customer ON customer.customerID = job.CustomercustomerID\n" +
+"        LEFT JOIN\n" +
+"    task ON job.jobID = task.JobJobID\n" +
+"        AND task.taskID = (SELECT \n" +
+"            task.taskID\n" +
+"        FROM\n" +
+"            task\n" +
+"                INNER JOIN\n" +
+"            basetask ON basetask.baseTaskID = task.baseTaskbaseTaskID\n" +
+"        WHERE\n" +
+"            task.endDate IS NULL\n" +
+"                AND task.JobJobID = job.JobID\n" +
+"        ORDER BY CASE basetask.department\n" +
+"            WHEN 'Copy' THEN 1\n" +
+"            WHEN 'Development' THEN 2\n" +
+"            WHEN 'Finishing' THEN 3\n" +
+"            WHEN 'Packaging' THEN 4\n" +
+"            ELSE 0\n" +
+"        END\n" +
+"        LIMIT 1)\n" +
+"        LEFT JOIN\n" +
+"    basetask ON task.baseTaskbaseTaskID = basetask.baseTaskID\n" +
+"WHERE\n" +
+"    task.endDate IS NULL\n" +
+"GROUP BY job.JobID\n" +
+"ORDER BY job.deadline;";
             System.out.println(query);
             s = this.getC().prepareStatement(query);
             ResultSet cust = s.executeQuery();

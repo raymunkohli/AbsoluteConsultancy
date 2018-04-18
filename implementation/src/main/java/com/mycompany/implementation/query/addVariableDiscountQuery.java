@@ -22,6 +22,8 @@ public class addVariableDiscountQuery extends Query{
     
     public void doAddVariableDiscount(String amount,String discount, String task){
                 PreparedStatement s;
+                
+                //inserts a new variable discount into bapers
         try {
             String query = "INSERT INTO variablediscount (DiscountdiscountID,amount,basetask_baseTaskID) VALUES('"+discount+"','"+amount+"','"+task+"');";
             System.out.println(query);

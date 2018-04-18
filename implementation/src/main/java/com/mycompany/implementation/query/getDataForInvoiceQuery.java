@@ -27,6 +27,7 @@ public class getDataForInvoiceQuery extends Query {
     }
 
     public Customer getCustomerFromJob(int JobID) {
+        //returns a customer given a jobid
         PreparedStatement s;
         try {
             String query = "SELECT customer.*\n"
@@ -53,6 +54,7 @@ public class getDataForInvoiceQuery extends Query {
     }
 
     public List<Basetask> getTaskInformation(int JobID) {
+        //returns a set of tasks g iven a jobid
         PreparedStatement s;
         try {
             String query = "SELECT basetask.baseTaskID,basetask.price \n"
@@ -78,6 +80,7 @@ public class getDataForInvoiceQuery extends Query {
     }
 
     public Job getJobInfo(int JobID) {
+        //returns the rest of the job information given a jobID
         PreparedStatement s;
         try {
             String query = "SELECT job.* FROM job WHERE job.JobID='" + JobID + "';";
@@ -99,6 +102,7 @@ public class getDataForInvoiceQuery extends Query {
     }
 
     public ResultSet getDiscountGivenCust(int JobID) {
+        //gets a discount plan (if one exists) attached (indirectly through a customer) to a job
         PreparedStatement s;
         try {
             String query = "SELECT discount.discountID,discount.discountType,\n" +
@@ -123,6 +127,7 @@ public class getDataForInvoiceQuery extends Query {
     }
 
     /*
+    code no longer used below here
     public double updateFlexDiscount(int custID, double value) {
         PreparedStatement s;
         try {

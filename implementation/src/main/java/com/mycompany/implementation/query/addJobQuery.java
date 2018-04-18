@@ -26,6 +26,7 @@ public class addJobQuery extends Query {
 
     public int doAddJobQuery(int c, LocalDateTime order, LocalDateTime deadline, String Spec, double value, double surcharge, int late, double z) {
         PreparedStatement s;
+        //adds a new job
         try {
             String query = "INSERT INTO Job(CustomercustomerID,orderDate,specInstructions,deadline,value,surcharge,deadlineExceed,number)"
                     + "Values('" + c + "','" + order + "','" + Spec + "','"
@@ -34,6 +35,8 @@ public class addJobQuery extends Query {
             s = this.getC().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             int rows = s.executeUpdate();
+            //this part returns any keys generated through auto increment which
+            // in this case are needed for creating tasks
             ResultSet JobIDSet = s.getGeneratedKeys();
             JobIDSet.next();
             int JobID = JobIDSet.getInt(1);
@@ -48,6 +51,7 @@ public class addJobQuery extends Query {
     public void addValuedJob(int id, LocalDate late, LocalDate Reminder, LocalDate Suspend, LocalDate defaultDate) {
         PreparedStatement s;
         try {
+            //creates a new valued job, which basically records the dates for reminders/alerts/suspension
             String query = "INSERT INTO valuedJob (job_JobID,alertdate,firstreminder,secondreminder,defaultd) VALUES"
                     + " ('"+id+"','"+late+"','"+Reminder+"','"+Suspend+"','"+defaultDate+"');";
             System.out.println(query);

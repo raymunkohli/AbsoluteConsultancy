@@ -22,7 +22,7 @@ public class addTaskQuery extends Query {
     }
 
     public void doAddTaskQuery(int Job, int bID) {
-
+//adds a "task" to bapers - note this is not a base task
         try {
             PreparedStatement s;
             String Query = "INSERT INTO task (JobJobID,baseTaskbaseTaskID) values('" + Job + "','" + bID + "');";
@@ -33,7 +33,7 @@ public class addTaskQuery extends Query {
         }
     }
         public String getDesc(String bID) {
-
+            //returns the description of a base task given as a parameter
         try {
             PreparedStatement s;
             String Query = "SELECT description FROM basetask WHERE baseTaskID='"+bID+"';";

@@ -26,6 +26,7 @@ public class addPaymentQuery extends Query {
 
     public void doAddPayment(int JobID, LocalDate date) {
         try {
+            //standard cash payment
             PreparedStatement s;
             String query = "INSERT INTO payment (payment.JobJobID,payment.paymentDate) VALUES ('" + JobID + "','" + date + "');";
             s = this.getC().prepareStatement(query);
@@ -38,6 +39,8 @@ public class addPaymentQuery extends Query {
 
     public void addCardPayment(int jobid, String cardNo, String expDate, String Type) {
         try {
+            
+            // card payment 
             PreparedStatement s;
             String query = "INSERT INTO cardpayment (cardpayment.PaymentJobJobID, cardpayment.cardNo, cardpayment.expDate, cardpayment.type)"
                     + " values ('" + jobid + "','" + cardNo + "','" + expDate + "','" + Type + "');";
@@ -54,6 +57,9 @@ public class addPaymentQuery extends Query {
 
     public List<Double> checkForFlexDiscount(int JobID) {
         try {
+            
+            //check for flex discount. this code is no longer used in the project
+            //but has been kept as it may be useful for future development
             PreparedStatement s;
             List<Double> valueDiscount = new ArrayList();
             String query = "SELECT discount.discountID, flexiblediscount.aquiredValue\n"
@@ -80,6 +86,10 @@ public class addPaymentQuery extends Query {
     }
 
     public void upgradeBand(String CustID, double value) {
+        //this code does not do as the method says
+        // this code actually just adds on the value of a new job to an existing flexible discount plan,
+        // the reason the name is like this is because originally this information was stored in the bands
+        
         PreparedStatement s;
         try {
             String query = "UPDATE flexiblediscount SET aquiredValue= aquiredValue + '"+value+"'\n" +
@@ -95,6 +105,7 @@ public class addPaymentQuery extends Query {
 
     public void removeSuspended(String custID) {
         PreparedStatement s;
+        //removes a suspended customer
         try {
             String query = "DELETE FROM suspendedcustomer WHERE suspendedcustomer.ValuedCustomerCustomercustomerID = (SELECT job.CustomercustomerID from job where job.JobID ='"+custID+"');";
             s = this.getC().prepareStatement(query);
@@ -106,6 +117,7 @@ public class addPaymentQuery extends Query {
     }
         public void removeDefault(String custID) {
         PreparedStatement s;
+        //removes a default customer
         try {
             String query = "DELETE FROM defaultcustomer WHERE defaultcustomer.suspendedcustomerValuedCustomerCustomercustomerID = (SELECT job.CustomercustomerID from job where job.JobID ='"+custID+"');";
             s = this.getC().prepareStatement(query);

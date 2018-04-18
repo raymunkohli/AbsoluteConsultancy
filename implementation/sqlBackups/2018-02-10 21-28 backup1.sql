@@ -97,7 +97,7 @@ CREATE TABLE `cardpayment` (
 
 LOCK TABLES `cardpayment` WRITE;
 /*!40000 ALTER TABLE `cardpayment` DISABLE KEYS */;
-INSERT INTO `cardpayment` VALUES (1,1234,'12/20','Mastercard'),(2,1234,'12/20','Mastercard'),(3,1234,'12/20','Mastercard'),(4,1234,'12/20','Mastercard'),(12,9999,'01/19','Mastercard');
+INSERT INTO `cardpayment` VALUES (10,9999,'01/19','Mastercard');
 /*!40000 ALTER TABLE `cardpayment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,7 +127,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'David','Rhind','0207 040 8000','raymun.kohli@city.ac.uk','Northampton Square, London','EC1V 0HB','City, University of London (City)'),(2,'Alex','Wright','0207 321 8001','raymun.kohli@city.ac.uk','25, Bond Street, London','WC1V 8LS','InfoPharma Ltd'),(3,'Sarah','Brocklehurst','0203 456 7809','raymun.kohli@city.ac.uk','12 Bond Street, London','WC1V 8NS','Hello Magazine'),(4,'Eva','Bauyer','0208 555 8989','raymun.kohli@city.ac.uk','1, Liverpool street, London','EC2V 8NS','INDIVIDUAL'),(5,'Ivan','Grey','0207 321 8001','raymun.kohli@city.ac.uk','n/a','n/a','INDIVIDUAL'),(6,'Borris','Bridge','0207 321 8001','raymun.kohli@city.ac.uk','n/a','n/a','INDIVIDUAL');
+INSERT INTO `customer` VALUES (1,'David','Rhind','0207 040 8000','raymun.kohli@city.ac.uk','Northampton Square, London','EC1V 0HB','City, University of London (City)'),(2,'Alex','Wright','0207 321 8001','raymun.kohli@city.ac.uk','25, Bond Street, London','WC1V 8LS','InfoPharma Ltd'),(3,'Sarah','Brocklehurst','0203 456 7809','raymun.kohli@city.ac.uk','12 Bond Street, London','WC1V 8NS','Hello Magazine'),(4,'Eva','Bauyer','0208 555 8989','raymun.kohli@city.ac.uk','1, Liverpool street, London','EC2V 8NS','INDIVIDUAL'),(5,'Ivan','Grey','0207 321 8001','raymun.kohli@city.ac.uk','n/a','n/a','INDIVIDUAL'),(6,'Boris','Bridge','0207 321 8001','raymun.kohli@city.ac.uk','n/a','n/a','INDIVIDUAL');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,7 +255,7 @@ CREATE TABLE `flexiblediscount` (
 
 LOCK TABLES `flexiblediscount` WRITE;
 /*!40000 ALTER TABLE `flexiblediscount` DISABLE KEYS */;
-INSERT INTO `flexiblediscount` VALUES (2,0),(3,0);
+INSERT INTO `flexiblediscount` VALUES (2,0),(3,1901);
 /*!40000 ALTER TABLE `flexiblediscount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,7 +283,7 @@ CREATE TABLE `job` (
   PRIMARY KEY (`JobID`),
   KEY `FKJob102033` (`CustomercustomerID`),
   CONSTRAINT `FKJob102033` FOREIGN KEY (`CustomercustomerID`) REFERENCES `customer` (`customerID`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,7 +292,7 @@ CREATE TABLE `job` (
 
 LOCK TABLES `job` WRITE;
 /*!40000 ALTER TABLE `job` DISABLE KEYS */;
-INSERT INTO `job` VALUES (1,1,'2017-12-20 15:29:02',NULL,'5 B&W films for 10x8 processing','2017-12-21 15:29:02',67.82,1,'0.0',1,0,5,'0'),(2,1,'2017-12-20 15:30:22',NULL,'5 x 4 B&W copy negatives','2017-12-21 15:30:22',73.76,1,'0.0',1,0,5,'0'),(3,1,'2017-12-23 15:33:47',NULL,'10 films for 5 x 4 Colour copy negatives','2017-12-24 15:33:47',103.95,1,'0.0',1,0,10,'0'),(4,1,'2017-12-23 15:34:30',NULL,'10 films for 10 x 8 C41 processing','2017-12-24 15:34:30',85.14,1,'0.0',1,0,10,'0'),(5,5,'2017-12-23 15:37:52',NULL,'3 items for 10 x 8 Colour copy transparency','2017-12-23 21:37:52',86.00,1,'0.0',1,0,3,'1'),(6,3,'2017-12-23 15:54:29',NULL,'10 films 5 x 4 Colour copy negatives','2017-12-24 15:54:29',86.00,1,'0.0',0,0,10,'0'),(7,3,'2017-12-23 15:55:38',NULL,'10 films 10 x 8 C41 processing','2017-12-24 15:55:38',86.00,1,'0.0',0,0,10,'0'),(8,3,'2017-12-23 16:25:11',NULL,'10 films 10 x 8 C41 processing only','2017-12-24 16:25:11',79.20,1,'0.0',0,0,10,'0'),(10,2,'2018-01-10 16:40:39',NULL,'3 items for 10 x 8 Colour copy','2018-01-10 19:40:39',172.00,1,'86.0',0,0,3,'0'),(12,6,'2018-01-25 16:49:56',NULL,'3 items for 10 x 8 Colour copy transparency','2018-01-25 22:49:56',86.00,1,'0.0',0,0,3,'0'),(13,3,'2018-02-01 16:56:28',NULL,'10 films for 5 x 4 Colour copy negatives','2018-02-02 16:56:28',105.00,1,'0.0',0,0,10,'0'),(14,3,'2018-02-01 16:57:48',NULL,'10 films for 10 x 8 C41 processing','2018-02-02 16:57:48',85.14,1,'0.0',0,0,10,'0');
+INSERT INTO `job` VALUES (1,1,'2017-12-20 20:37:46',NULL,'5 B&W films for 10x8 processing','2017-12-21 20:37:46',67.82,1,'0.0',0,0,5,'1'),(2,1,'2017-12-20 20:38:42',NULL,'5 x 4 B&W copy negatives','2017-12-21 20:38:42',73.76,1,'0.0',0,0,5,'1'),(3,1,'2017-12-23 20:40:17',NULL,'10 films for 5 x 4 Colour copy negatives','2017-12-24 20:40:17',103.95,1,'0.0',0,0,10,'1'),(4,1,'2017-12-23 20:41:34',NULL,'10 films for 10 x 8 C41 processing','2017-12-24 20:41:34',85.14,1,'0.0',0,0,10,'1'),(5,5,'2017-12-23 20:43:58',NULL,'10 x 8 Colour copy transparency','2017-12-24 02:43:58',86.00,1,'0.0',0,0,3,'1'),(6,3,'2017-12-23 20:47:52',NULL,'10 films 5 x 4 Colour copy negatives','2017-12-24 20:47:52',86.00,1,'0.0',0,0,10,'1'),(7,3,'2017-12-23 20:48:17',NULL,'10 films 10 x 8 C41 processing:','2017-12-24 20:48:17',86.00,1,'0.0',0,0,10,'1'),(8,3,'2017-12-23 20:49:10',NULL,'10 films 10 x 8 C41 processing only','2017-12-24 20:49:10',79.20,1,'0.0',0,0,10,'1'),(9,2,'2018-01-10 20:58:11',NULL,'items for 10 x 8 Colour copy transparency','2018-01-10 23:58:11',172.00,1,'86.0',0,0,1,'1'),(10,6,'2018-01-25 20:59:23',NULL,'3 items for 10 x 8 Colour copy transparency','2018-01-26 02:59:23',86.00,1,'0.0',0,0,3,'1'),(11,3,'2018-02-01 21:18:47',NULL,'10 films for 5 x 4 Colour copy negatives','2018-02-02 21:18:47',105.00,1,'0.0',0,0,10,'1'),(12,3,'2018-02-01 21:20:00',NULL,'10 films for 10 x 8 C41 processing','2018-02-02 21:20:00',85.14,1,'0.0',0,0,10,'1');
 /*!40000 ALTER TABLE `job` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,7 +318,7 @@ CREATE TABLE `payment` (
 
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
-INSERT INTO `payment` VALUES (1,'2018-02-15'),(2,'2018-02-15'),(3,'2018-02-15'),(4,'2018-02-15'),(5,'2017-12-23'),(12,'2018-01-25'),(13,'2018-01-05'),(14,'2018-01-05');
+INSERT INTO `payment` VALUES (5,'2017-12-23'),(6,'2018-01-05'),(7,'2018-01-05'),(8,'2018-01-05'),(10,'2018-01-25');
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +371,6 @@ CREATE TABLE `suspendedcustomer` (
 
 LOCK TABLES `suspendedcustomer` WRITE;
 /*!40000 ALTER TABLE `suspendedcustomer` DISABLE KEYS */;
-INSERT INTO `suspendedcustomer` VALUES (3,'0');
 /*!40000 ALTER TABLE `suspendedcustomer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -397,7 +396,7 @@ CREATE TABLE `task` (
   CONSTRAINT `FKTask168614` FOREIGN KEY (`baseTaskbaseTaskID`) REFERENCES `basetask` (`baseTaskID`),
   CONSTRAINT `FKTask543586` FOREIGN KEY (`JobJobID`) REFERENCES `job` (`JobID`),
   CONSTRAINT `FKTask954031` FOREIGN KEY (`StaffstaffID`) REFERENCES `staff` (`staffID`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,7 +405,7 @@ CREATE TABLE `task` (
 
 LOCK TABLES `task` WRITE;
 /*!40000 ALTER TABLE `task` DISABLE KEYS */;
-INSERT INTO `task` VALUES (1,'CR25','2017-12-20 12:00:00','2017-12-20 14:00:00',6,1,1),(2,'DR12','2017-12-20 14:00:00','2017-12-20 15:00:00',5,1,2),(3,'CR25','2017-12-20 15:00:00','2017-12-20 17:00:00',6,2,1),(4,'DR12','2017-12-20 17:00:00','2017-12-20 18:00:00',5,2,2),(5,'PR10','2017-12-20 18:00:00','2017-12-20 18:30:00',7,2,3),(6,'CR25','2017-12-23 12:00:00','2017-12-23 14:00:00',5,3,1),(7,'PR10','2017-12-23 15:30:00','2017-12-23 16:00:00',7,3,3),(8,'DR25','2017-12-23 14:00:00','2017-12-23 15:30:00',5,3,4),(9,'PR10','2017-12-23 17:30:00','2017-12-23 18:00:00',7,4,3),(10,'DR25','2017-12-23 16:00:00','2017-12-23 17:30:00',5,4,4),(11,'PR10','2017-12-23 19:30:00','2017-12-23 20:00:00',7,5,3),(12,'DR25','2017-12-23 18:00:00','2017-12-23 19:30:00',5,5,4),(13,'PR10','2017-12-23 21:30:00','2017-12-23 22:00:00',7,6,3),(14,'DR25','2017-12-23 20:00:00','2017-12-23 21:30:00',5,6,4),(15,'PR10','2017-12-23 09:00:00','2017-12-23 09:30:00',7,7,3),(16,'DR25','2017-12-23 22:00:00','2017-12-23 23:30:00',5,7,4),(17,'DR25','2017-12-23 09:30:00','2017-12-23 11:00:00',5,8,4),(20,'PR10','2017-01-10 10:30:00','2017-01-10 11:00:00',7,10,3),(21,'DR25','2017-01-10 09:00:00','2017-01-10 10:30:00',5,10,4),(24,'PR10','2017-01-25 10:30:00','2017-01-25 11:00:00',7,12,3),(25,'DR25','2017-01-25 09:00:00','2017-01-25 10:30:00',5,12,4),(26,'CR25','2017-02-01 09:00:00','2017-02-01 11:00:00',6,13,1),(27,'PR10','2017-02-01 12:30:00','2017-02-01 13:00:00',7,13,3),(28,'DR25','2017-02-01 11:00:00','2017-02-01 12:30:00',5,13,4),(29,'PR10','2017-02-01 14:30:00','2017-02-01 15:00:00',7,14,3),(30,'DR25','2017-02-01 13:00:00','2017-02-01 14:30:00',5,14,4);
+INSERT INTO `task` VALUES (1,'CR25','2017-12-20 12:00:00','2017-12-20 14:00:00',6,1,1),(2,'DR12','2017-12-20 14:00:00','2017-12-20 15:00:00',5,1,2),(3,'CR25','2017-12-20 15:00:00','2017-12-20 17:00:00',6,2,1),(4,'DR12','2017-12-20 17:00:00','2017-12-20 18:00:00',5,2,2),(5,'PR10','2017-12-20 18:00:00','2017-12-20 18:30:00',7,2,3),(6,'CR25','2017-12-23 12:00:00','2017-12-23 14:00:00',5,3,1),(7,'PR10','2017-12-23 15:30:00','2017-12-23 16:00:00',7,3,3),(8,'DR25','2017-12-23 14:00:00','2017-12-23 15:30:00',5,3,4),(9,'PR10','2017-12-23 17:30:00','2017-12-23 18:00:00',7,4,3),(10,'DR25','2017-12-23 16:00:00','2017-12-23 17:30:00',5,4,4),(11,'PR10','2017-12-23 19:30:00','2017-12-23 20:00:00',7,5,3),(12,'DR25','2017-12-23 18:00:00','2017-12-23 19:30:00',5,5,4),(13,'PR10','2017-12-23 21:30:00','2017-12-23 22:00:00',7,6,3),(14,'DR25','2017-12-23 20:00:00','2017-12-23 21:30:00',5,6,4),(15,'PR10','2017-12-23 09:00:00','2017-12-23 09:30:00',7,7,3),(16,'DR25','2017-12-23 22:00:00','2017-12-23 23:30:00',5,7,4),(17,'DR25','2017-12-23 09:30:00','2017-12-23 11:00:00',5,8,4),(18,'PR10	','2017-01-10 10:30:00','2017-01-10 11:00:00',7,9,3),(19,'DR25	','2017-01-10 09:00:00','2017-01-10 10:30:00',5,9,4),(20,'PR10	','2017-01-25 09:00:00','2017-01-25 11:00:00',7,10,3),(21,'DR25	','2017-01-25 09:00:00','2017-01-25 10:30:00',5,10,4),(22,'CR25','2017-02-01 09:00:00','2017-02-01 11:00:00',6,11,1),(23,'PR10','2017-02-01 12:30:00','2017-02-01 13:00:00',7,11,3),(24,'DR25','2017-02-01 11:00:00','2017-02-01 12:30:00',5,11,4),(25,'PR10','2017-02-01 14:30:00','2017-02-01 15:00:00',7,12,3),(26,'DR25','2017-02-01 13:00:00','2017-02-01 14:30:00',5,12,4);
 /*!40000 ALTER TABLE `task` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -493,7 +492,7 @@ CREATE TABLE `valuedjob` (
 
 LOCK TABLES `valuedjob` WRITE;
 /*!40000 ALTER TABLE `valuedjob` DISABLE KEYS */;
-INSERT INTO `valuedjob` VALUES (1,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(2,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(3,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(4,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(6,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(7,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(8,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(9,'2018-02-09',0,'2018-03-19','0','0','2018-04-19','2018-05-19','0'),(10,'2018-02-09',0,'2018-03-19','0','0','2018-04-19','2018-05-19','0'),(13,'2018-03-09',0,'2018-04-19','0','0','2018-05-19','2018-06-19','0'),(14,'2018-03-09',0,'2018-04-19','0','0','2018-05-19','2018-06-19','0');
+INSERT INTO `valuedjob` VALUES (1,'2018-01-09',0,'2018-01-19','0','0','2018-02-19','2018-03-19','0'),(2,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(3,'2018-01-09',0,'2018-01-19','0','0','2018-02-19','2018-03-19','0'),(4,'2018-01-09',0,'2018-01-19','0','0','2018-02-19','2018-03-19','0'),(6,'2018-01-09',0,'2018-01-19','0','0','2018-02-19','2018-03-19','0'),(7,'2018-01-09',0,'2018-01-19','0','0','2018-02-19','2018-03-19','0'),(8,'2018-01-09',0,'2018-01-19','0','0','2018-02-19','2018-03-19','0'),(9,'2018-02-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(11,'2018-03-09',0,'2018-03-19','0','0','2018-04-19','2018-05-19','0'),(12,'2018-03-09',0,'2018-03-19','0','0','2018-04-19','2018-05-19','0');
 /*!40000 ALTER TABLE `valuedjob` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,4 +531,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-18 18:11:50
+-- Dump completed on 2018-02-10 21:28:11

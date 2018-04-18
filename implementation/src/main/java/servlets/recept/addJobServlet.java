@@ -136,7 +136,7 @@ public class addJobServlet extends HttpServlet {
             if (request.getSession().getAttribute("valued").toString().equals("Valued")) {
                 LocalDate current = LocalDate.now();
                 LocalDate late = current.withDayOfMonth(9).plusMonths(1);
-                LocalDate reminder = late.withDayOfMonth(19).plusMonths(1);
+                LocalDate reminder = late.withDayOfMonth(19);
                 LocalDate suspend = reminder.plusMonths(1);
                 LocalDate defaultDate = suspend.plusMonths(1);
                 j.addValuedJob(jobid, late, reminder, suspend, defaultDate);
