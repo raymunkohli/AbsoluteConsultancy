@@ -98,6 +98,7 @@
 
 
             <c:if test="${id != null}" >
+                <div style="top:-100px;position:absolute">
                 <!-- Unnamed (Rectangle) -->
                 <div id="u162" class="ax_default label">
                     <div id="u162_div" class=""></div>
@@ -136,14 +137,15 @@
 
                     <!-- Unnamed (Rectangle) -->
                     <div id="u165" class="ax_default button">
-                        <div id="u165_div" class=""></div>
+                       
                         <div id="u165_text" class="text ">
-                            <p><span><input type="submit" value="Task Finished"/></span></p>
+                            <p><span><input type="submit" class="button" style="top:-50px" value="Task Finished"/></span></p>
                         </div>
                     </div>
                 </form>
 
             </c:if>
+            </div>
             </div>
 
         </div>

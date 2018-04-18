@@ -44,11 +44,11 @@
 <div style="width:100%;height:100%;left:25%;position:absolute;">
         <div style='position:relative;height:170px;z-index: 1'>
             <div id="u475" class="ax_default button">
-                <div id="u475_div" class=""></div>
-                <div id="u475_text" class="text ">
+               
+    
                     <form action="viewPaymentCust" method="post">
                         <p><span>
-                                <input type="submit" value="View customer list"/>
+                                <input type="submit"  class="button" style="height:35px;top:-4px;left:-4px"value="View customer list"/>
                             </span></p></form>
                 </div>
             </div>    
@@ -104,16 +104,16 @@
         </c:forEach>
 
 
-        <div style='position:relative;top:-200px;'>
+        <div style='position:relative;'>
             <div id="u474" class="ax_default label">
                 <div id="u474_div" class=""></div>
                 <div id="u474_text" class="text ">
-                    <p><span><input type="submit" value="Select Jobs" form="selectJobsForm"/></span></p>
+                    <p><span><input type="submit" class="button" value="Select Jobs" form="selectJobsForm"/></span></p>
                 </div>
             </div>
         </div>
         <c:if test="${jobsselected == true}">
-            <div style='position:relative;z-index:1;top:-170px'/>
+            <div style='position:relative;z-index:1'/>
             <!-- Unnamed (Rectangle) -->
             <div id="u424" class="ax_default label">
                 <div id="u424_div" class=""></div>
@@ -208,9 +208,9 @@
 
                     <!-- Unnamed (Rectangle) -->
                     <div id="u440" class="ax_default button">
-                        <div id="u440_div" class=""></div>
+                        
                         <div id="u440_text" class="text ">
-                            <p><span><input type="submit" value="Add card pay"/></span></p>
+                            <p><span><input type="submit" class="button" style="" value="Add card pay"/></span></p>
                         </div>
                     </div>
                     <c:set var="numberofjobs" value="0"/>
@@ -240,9 +240,9 @@
                     <!-- Unnamed (Shape) -->
                 </div>
                 <div id="u441" class="ax_default button">
-                    <div id="u441_div" class=""></div>
+                   
                     <div id="u441_text" class="text ">
-                        <p><span><input type="submit" value="Add cash pay" form="cashPay"/></span></p>
+                        <p><span><input type="submit" class="button" style="top-:20px;left:-20px"value="Add cash pay" form="cashPay"/></span></p>
                     </div>
                 </div>
             </form>

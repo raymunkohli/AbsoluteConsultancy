@@ -25,8 +25,8 @@ public class createBackUpQuery {
             String Query;
             DateTimeFormatter a = DateTimeFormatter.ofPattern("HH-mm");
             System.out.println(123123);
-            Query = "\"C:\\Program Files (x86)\\MySQL\\MySQL Server 5.7\\bin\\mysqldump\" --user=root --password=1234 --host=localhost --port=3306 sys -r "
-                    + "\"C:\\Users\\raymun\\Documents\\Team project git\\AbsoluteConsultancy\\implementation\\sqlBackups\\"+LocalDate.now()+" "+LocalTime.now().format(a)+".sql\"";
+            Query = "\"C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysqldump\" --user=root --password=1234 --host=localhost --port=3306 sys -r "
+                    + "\"C:\\Users\\raymu\\Documents\\team project\\implementation\\sqlBackups\\"+LocalDate.now()+" "+LocalTime.now().format(a)+".sql\"";
             System.out.println(Query);
             Process runProcess = Runtime.getRuntime().exec(Query);
 

@@ -83,7 +83,7 @@ public class checkForLatePaymentQuery extends Query {
     public ResultSet getSuspendedAlerts() {
         try {
             PreparedStatement s;
-            String Query = "SELECT customer.customerID,customer.name,customer.surname\n"
+            String Query = "SELECT customer.customerID,customer.name,customer.surname,customer.email \n"
                     + "FROM customer\n"
                     + "INNER JOIN suspendedcustomer ON customer.customerID = suspendedcustomer.ValuedCustomerCustomercustomerID\n"
                     + "WHERE suspendedcustomer.alert =0";

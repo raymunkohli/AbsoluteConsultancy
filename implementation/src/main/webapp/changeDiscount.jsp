@@ -50,7 +50,7 @@
                 <form method="post" action="addFixedDiscountServlet">
                 <!-- Unnamed (HTML Button) -->
                 <div id="u28" class="ax_default html_button">
-                    <input id="u28_input" type="submit" value="Submit"/>
+                    <input id="u28_input" type="submit" class="button" value="Submit"/>
                 </div>
                 <input type="hidden" value="<% out.write(request.getAttribute("discountID").toString());%>" name="discountid" />
                 <!-- Unnamed (Horizontal Line) -->
@@ -98,7 +98,7 @@
                         </c:forEach>
                     </table>
                                     <div id="u33" class="ax_default html_button">
-                    <input id="u33_input" type="submit" value="Submit"/>
+                    <input id="u33_input" type="submit" class="button" value="Submit"/>
                     <input type="hidden" value="${ids}" name="ids" />
                     <input type="hidden" value="<% out.write(request.getAttribute("discountID").toString());%>" name="discountid" />
                 </div>
@@ -175,7 +175,7 @@
                 <!-- Unnamed (Rectangle) -->
                 <div id="u615" class="ax_default button">
                     <div id="u615_text" class="text " style="left:-50px">
-                        <p><span><input type="submit" value="Save changes" /> </span></p>
+                        <p><span><input type="submit" class="button" value="Save changes" /> </span></p>
                     </div>
                 </div>
 

@@ -168,10 +168,9 @@ Tasks: <%out.write(request.getAttribute("tasks").toString()); %>');
 
 
                 <!-- Unnamed (Rectangle) -->
-                <div id="u209" class="ax_default button">
-                    <div id="u209_div" class=""></div>
+                <div id="u209" class="ax_default">
                     <div id="u209_text" class="text ">
-                        <p><span><input type="submit" value="Generate performance report" /></span></p>
+                        <p><span><input type="submit" class="button" style="left:-30px" value="Generate performance report" /></span></p>
                     </div>
                 </div>
             </form>
@@ -209,9 +208,9 @@ Tasks: <%out.write(request.getAttribute("tasks").toString()); %>');
             <form action="generateCustReportServlet" method="post" name="CustReport"> 
                 <!-- Unnamed (Rectangle) -->
                 <div id="u217" class="ax_default button">
-                    <div id="u217_div" class=""></div>
+                  
                     <div id="u217_text" class="text ">
-                        <p><span><input type="submit" value="Generate customer report"></span></p> 
+                        <p><span><input type="submit" class="button" style="left:-30px"value="Generate customer report"></span></p> 
                     </div>
                 </div>
                 <div id="u241" class="ax_default label" style="width:500px;height:300px">
@@ -277,9 +276,9 @@ Tasks: <%out.write(request.getAttribute("tasks").toString()); %>');
                     <div id="u220" class="ax_default" data-left="78" data-top="479" data-width="123" data-height="21">
 
                         <div id="u216" class="ax_default button">
-                            <div id="u216_div" class=""></div>
+                           
                             <div id="u216_text" class="text ">
-                                <p><span><input type="submit" value="Generate Staff Report"/></span></p>
+                                <p><span><input type="submit" class="button" style="left:-25px" value="Generate Staff Report"/></span></p>
                             </div>
                         </div>
                         <!-- Unnamed (Text Field) -->
@@ -371,9 +370,9 @@ Tasks: <%out.write(request.getAttribute("tasks").toString()); %>');
 
             <!-- Unnamed (Rectangle) -->
             <div id="u253" class="ax_default button">
-                <div id="u253_div" class=""></div>
+                
                 <div id="u253_text" class="text ">
-                    <form method="post" action="SelectCustForReportServlet" > <p><span><input type="submit" value="View customers" ></span></p> </form>
+                    <form method="post" action="SelectCustForReportServlet" > <p><span><input type="submit" class="button" style="top:-20px;left:-20px" value="View customers" ></span></p> </form>
                 </div>
             </div>
 
@@ -382,7 +381,7 @@ Tasks: <%out.write(request.getAttribute("tasks").toString()); %>');
             <div id="u240" class="ax_default button">
                 <div id="u240_div" class=""></div>
                 <div id="u240_text" class="text ">
-                    <form action="viewStaff" method="post"> <p><span><input type="submit" value="Select staff"></span></p></form>
+                    <form action="viewStaff" method="post"> <p><span><input type="submit" class="button" style="top:-20px;left:-5px" value="Select staff"></span></p></form>
                 </div>
             </div>
         </div>

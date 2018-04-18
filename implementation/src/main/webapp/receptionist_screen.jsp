@@ -11,9 +11,6 @@
 <%@include  file="officeBar.jsp" %>
 <% }%>
 
-<% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("Receptionist")) { %>
-<%@include  file="receptionistBar.jsp" %>
-<% }%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="receptionistCheck.jsp" %>
 <!DOCTYPE html>
@@ -52,6 +49,9 @@
             <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("ShiftManager")) { %>
             <%@include  file="shiftBar.jsp" %>
             <% }%>
+            <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("Receptionist")) { %>
+<%@include  file="receptionistBar.jsp" %>
+<% }%>
             <!-- Unnamed (Rectangle) -->
             <div id="tophalf">
 
@@ -60,7 +60,7 @@
                 <!-- Unnamed (Rectangle) -->
                 <form method="post" action="viewCustomerServlet" id="viewCust">
                     <div id="u82" class="ax_default html_button">
-                        <input id="u2_input" type="submit" value="View Customers" form="viewCust"/>
+                        <input id="u2_input" class="button" type="submit" style="left:-2px"value="View Customers" form="viewCust"/>
                     </div>
                 </form>
                 <!-- Unnamed (Rectangle) -->
@@ -257,7 +257,7 @@
                         Holder: <input name="holder" type="text" value="" required/>
                     </div>
                     <div id="u73" class="ax_default html_button">
-                        <input id="u73_input" type="submit" value="Add Customer"/>
+                        <input id="u73_input" class="button" type="submit" style="left:-0px;top:-0px"value="Add Customer"/>
                     </div>
                 </form>
 
@@ -271,7 +271,7 @@
                 <!-- Unnamed (Rectangle) -->
                 <div id="u37" class="ax_default html_button">
                     <form action ="addTaskServlet" method ="post"> 
-                        <input id="u37_input" type="submit" value="Add Task to Job"/>
+                        <input id="u37_input" class="button" type="submit" style="left:-1px"value="Add Task to Job"/>
                     </form>
 
                 </div>
@@ -344,10 +344,9 @@
 
             <input type="hidden" value="${totalPrice}" name="Price"/>
 
-            <div id="u89" class="ax_default button">
-                <div id="u89_div" class=""></div>
+            <div id="u89" class="ax_default">
                 <div id="u89_text" class="text ">
-                    <p><span><input id="u8_input" type="submit" value="Submit" form="addJobForm"/></span></p>
+                    <p><span><input style="top:-20px;left:0px;width:140px" id="u8_input" class="button" type="submit" value="Submit" form="addJobForm"/></span></p>
                 </div>
             </div>
              
@@ -386,7 +385,7 @@
 
                 <p><span>Price per Job: £ <c:if test="${not empty totalPrice}"><c:out value="${totalPrice}"/></c:if></span></p>
                     <p><span> Number of Jobs: <input id="u8_input" type="text" value="1" name="numjob" form="addJobForm" style="width:30px" required/>
-                            <p><c:if test="${not empty Err}"><c:out value="${Err}"/></c:if>
+                            <div style="background-color: #000000;color:red;width:150px"><p><c:if test="${not empty Err}"><c:out value="${Err}"/></c:if> </div>
                             </div>
                             </div>
 
@@ -401,6 +400,11 @@
                         </div>
                             </a>
             </div>
+               
         </div>
+                            <a href="index.jsp">
+                                <input type="button" class="footer button" style="width:auto"value="LOGOUT">
+                            </a>
+                            
 </body>
 </html>

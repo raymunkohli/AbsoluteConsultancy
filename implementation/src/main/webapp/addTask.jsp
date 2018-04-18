@@ -62,7 +62,7 @@
                         <tr><th>ID</th><th>Name</th> <th>Department</th> <th>Description </th> <th>Price </th> <th>Duration</th> <th>Disable </th></tr>
                                 <c:forEach items="${tasks}" var="task" >
                             <tr> <td>${task.baseTaskID} </td> <td> ${task.taskName} </td> <td> ${task.department} </td> <td>${task.description}</td> <td>${task.price}</td> <td>${task.duration}</td>
-                                <td> <form action="disableTask" method="post"> <input type="submit" value="Disable"><input type="hidden" value="${task.baseTaskID}" name="id"/> </form>
+                                <td> <form action="disableTask" method="post"> <input type="submit" value="Disable" ><input type="hidden" value="${task.baseTaskID}" name="id"/> </form>
 
                                 </c:forEach>
                                     <form action="addNewTaskServlet" method="post">
@@ -71,7 +71,7 @@
                                         <td><input type="text" name="description" required></td>
                                         <td><input type="number" name="price" step="0.01" required></td>
                                         <td><input type="number" step="1" name="time" required></td>
-                                        <td><input type="submit" value="Add"> </td></tr>
+                                        <td><input type="submit"  value="Add"> </td></tr>
                                     </form>
                     </table>
                 </div>

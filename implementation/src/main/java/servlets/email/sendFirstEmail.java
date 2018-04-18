@@ -3,20 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.admin;
+package servlets.email;
 
-import com.mycompany.implementation.domain.Staff;
-import com.mycompany.implementation.query.getStaffQuery;
 import com.mycompany.implementation.query.sendEmails;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,10 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author raymun
+ * @author raymu
  */
-@WebServlet(name = "viewAdminServlet", urlPatterns = {"/viewAdminServlet"})
-public class viewAdminServlet extends HttpServlet {
+@WebServlet(name = "sendFirstEmail", urlPatterns = {"/sendFirstEmail"})
+public class sendFirstEmail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,10 +38,10 @@ public class viewAdminServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewAdminServlet</title>");
+            out.println("<title>Servlet sendFirstEmail</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet viewAdminServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet sendFirstEmail at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -82,43 +73,8 @@ public class viewAdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //get all the backups
-        File folder = new File("C:\\Users\\raymu\\Documents\\team project\\implementation\\sqlBackups");
-        request.setAttribute("Files",folder.listFiles());
-        sendEmails b = new sendEmails();
-        if(request.getParameter("Err")!=null){
-            request.setAttribute("Err",request.getAttribute("err"));
-        }
-        try {
-            getStaffQuery a = new getStaffQuery();
-            ResultSet staff = a.getAllStaff();
-            List<Staff> AllStaff = new ArrayList();
-            List<String> Departments = new ArrayList();
-            
-            
-            while (staff.next()) {
-                Staff z = new Staff();
-                z.setEmployeeType(staff.getString("employeeType"));
-                z.setFirstName(staff.getString("firstName"));
-                z.setSurName(staff.getString("surName"));
-                z.setStaffID(staff.getInt("staffID"));
-                
-                if(staff.getString("technicianroom")==null){
-                    Departments.add("N/a");
-                }
-                else{
-                    Departments.add(staff.getString("technicianroom"));
-                }
-
-                AllStaff.add(z);
-            }
-            request.setAttribute("Staff", AllStaff);
-            request.setAttribute("Department",Departments);
-            
-            request.getRequestDispatcher("adminForm.jsp").forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(viewAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        sendEmails a = new sendEmails();
+        a.sendFirstLetterReminder(request.getParameter("email"),request.getParameter("name"));
     }
 
     /**
