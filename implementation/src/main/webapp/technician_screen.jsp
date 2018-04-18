@@ -149,5 +149,8 @@
             </div>
 
         </div>
+            <a href="index.jsp">
+                                <input type="button" class="footer button" style="width:auto"value="LOGOUT">
+                            </a>
     </body>
 </html>

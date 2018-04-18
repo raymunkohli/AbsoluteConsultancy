@@ -97,7 +97,7 @@
                     </table>
                 </div>
             </form>
-        </div>
+        
         <c:forEach items="${Jobs}">
             <div id="fakespace"></div>
 
@@ -251,12 +251,12 @@
         <div id="u476" class="ax_default label">
             <div id="u476_div" class=""></div>
             <div id="u476_text" class="text ">
-                <p><span><c:if test="${not empty price}"><p>Price after discount: £ <c:out value="${price}"/></p><p>Price inc VAT at 20%: £<fmt:formatNumber type="number" maxFractionDigits="2" value="${price*1.2}"/></c:if></span></p>
+                <p><span><c:if test="${not empty price}">Price after discount: £ <c:out value="${price}"/></spam></p><p><span>Price inc VAT at 20%: £<fmt:formatNumber type="number" maxFractionDigits="2" value="${price*1.2}"/></c:if></span></p>
                 </div>
             </div>
+            </div>
+            
     </c:if>
 </div>
-</div>
-
 </body>
 </html>

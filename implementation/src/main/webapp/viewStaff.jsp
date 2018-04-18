@@ -69,7 +69,7 @@
                </table>
                
            </div>
-      <input type ="submit" value="Select Staff" style="position:relative;left:600px;"/>
+      <input type ="submit" value="Select Staff" class="button" style="position:relative;left:600px;top:400px"/>
     </form>
       
     </body>

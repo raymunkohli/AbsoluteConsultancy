@@ -379,12 +379,15 @@ Tasks: <%out.write(request.getAttribute("tasks").toString()); %>');
             <!-- Unnamed (Shape) -->
 
             <div id="u240" class="ax_default button">
-                <div id="u240_div" class=""></div>
+               
                 <div id="u240_text" class="text ">
-                    <form action="viewStaff" method="post"> <p><span><input type="submit" class="button" style="top:-20px;left:-5px" value="Select staff"></span></p></form>
+                    <form action="viewStaff" method="post"> <p><span><input type="submit" class="button" style="top:0px;left:200px" value="Select staff"></span></p></form>
                 </div>
             </div>
         </div>
         </div>
+            <a href="index.jsp">
+                                <input type="button" class="footer button" style="width:auto"value="LOGOUT">
+                            </a>
     </body>
 </html>

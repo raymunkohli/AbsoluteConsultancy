@@ -7,6 +7,7 @@ package servlets.recept;
 
 import com.mycompany.implementation.domain.Job;
 import com.mycompany.implementation.query.addJobQuery;
+import com.mycompany.implementation.query.addPaymentQuery;
 import com.mycompany.implementation.query.addTaskQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -83,6 +84,7 @@ public class addJobServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //check all fields are set
+        addPaymentQuery pay = new addPaymentQuery();
         if (request.getParameter("Type").equals("stipulated") && (request.getParameter("StipulatedAmount").equals("") || (request.getParameter("StipulatedTime").equals("")))) {
             request.setAttribute("Err", "Stipulated Surcharge/Time missing");
             request.getRequestDispatcher("receptionist_screen.jsp").forward(request, response);
@@ -150,7 +152,9 @@ public class addJobServlet extends HttpServlet {
                 t.doAddTaskQuery(jobid, Integer.parseInt(a));
                 Desc.add(t.getDesc(a));
             }
-
+            if (request.getSession().getAttribute("DiscountType").toString().equals("Flexible")){
+            pay.upgradeBand(request.getSession().getAttribute("CustomerID").toString(), Price*Double.parseDouble(request.getParameter("numjob")));
+        }
             //setting up label generation
             request.setAttribute("jobid", jobid);
             request.setAttribute("name", request.getSession().getAttribute("CustomerFirst").toString() + " " + request.getSession().getAttribute("CustomerLast").toString());

@@ -79,13 +79,12 @@ public class addPaymentQuery extends Query {
         }
     }
 
-    public void upgradeBand(int discountID, double value) {
+    public void upgradeBand(String CustID, double value) {
         PreparedStatement s;
         try {
-            String query = "UPDATE flexiblediscount \n"
-                    + "SET "
-                    + "flexiblediscount.aquiredValue ='" + value + "' "
-                    + "WHERE flexiblediscount.DiscountdiscountID ='" + discountID + "';";
+            String query = "UPDATE flexiblediscount SET aquiredValue= aquiredValue + '"+value+"'\n" +
+"WHERE flexiblediscount.DiscountdiscountID = \n" +
+"(SELECT valuedcustomer.DiscountdiscountID FROM valuedcustomer WHERE valuedcustomer.CustomercustomerID='"+CustID+"');";
             s = this.getC().prepareStatement(query);
             s.executeUpdate();
         } catch (SQLException ex) {

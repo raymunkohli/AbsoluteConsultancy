@@ -130,4 +130,17 @@ public class checkForLatePaymentQuery extends Query {
             return null;
         }
     }
+    public void resetDiscount(){
+              try {
+            PreparedStatement s;
+            String Query = "UPDATE flexiblediscount SET flexiblediscount.aquiredValue = 0 ;";
+            s = this.getC().prepareStatement(Query);
+            s.executeUpdate();
+
+       
+        } catch (SQLException ex) {
+            Logger.getLogger(addTaskQuery.class.getName()).log(Level.SEVERE, null, ex);
+        
+        }
+    }
 }

@@ -98,7 +98,7 @@
                         </c:forEach>
                     </table>
                                     <div id="u33" class="ax_default html_button">
-                    <input id="u33_input" type="submit" class="button" value="Submit"/>
+                    <input id="u33_input" style="height:30px; top:100px" type="submit" class="button" value="Submit"/>
                     <input type="hidden" value="${ids}" name="ids" />
                     <input type="hidden" value="<% out.write(request.getAttribute("discountID").toString());%>" name="discountid" />
                 </div>
@@ -120,8 +120,8 @@
             </div>
             <form method="post" action="manageBandServlet">
                 <!-- Unnamed (HTML Button) -->
-                <div id="u28" class="ax_default html_button" style="top:150px">
-                    <input id="u28_input" type="submit" value="Submit"/>
+                <div id="u28" class="ax_default html_button" style="top:200px">
+                    <input id="u28_input" type="submit" class="button" style="height:30px"value="Submit"/>
                 </div>
                 <!-- Unnamed (Text Field) -->
                 <div style="position: absolute; top:50px">
@@ -173,7 +173,7 @@
             </c:forEach>
             <div style="position:relative;top:-150px">
                 <!-- Unnamed (Rectangle) -->
-                <div id="u615" class="ax_default button">
+                <div id="u615" class="ax_default button" style="top:500px;position:absolute">
                     <div id="u615_text" class="text " style="left:-50px">
                         <p><span><input type="submit" class="button" value="Save changes" /> </span></p>
                     </div>

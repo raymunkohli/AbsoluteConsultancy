@@ -87,10 +87,7 @@ public class addCardPayServlet extends HttpServlet {
             a.doAddPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), LocalDate.parse(request.getParameter("cardPayDate")));
             a.addCardPayment(Integer.parseInt(request.getParameter(String.valueOf(num))), request.getParameter("digits"), request.getParameter("expdate"), request.getParameter("type"));
         }
-        List<Double> flexdiscount = a.checkForFlexDiscount(jobs.get(0));
-        if (flexdiscount != null) {
-            a.upgradeBand(flexdiscount.get(0).intValue(), flexdiscount.get(1) + price);
-        }
+
         a.removeSuspended(jobs.get(0).toString());
         a.removeDefault(jobs.get(0).toString());
         

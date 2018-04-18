@@ -90,6 +90,7 @@ public class viewOfficeManagerServlet extends HttpServlet {
         //jobs where deadline is not met
         sendEmails g = new sendEmails();
         getAlertQuery a = new getAlertQuery();
+        
         List<String> lateTasks = new ArrayList();
         String deadlineExceed = "false";
         getLateJobs b = new getLateJobs();
@@ -140,6 +141,12 @@ public class viewOfficeManagerServlet extends HttpServlet {
         ResultSet firstReminderAlert = c.getReminderAlerts();
         ResultSet secondReminderAlert = c.getSuspendedAlerts();
         ResultSet defaultAlert = c.getDefaultAlerts();
+        
+        //check to reset discounts
+        if (LocalDate.now().getDayOfMonth()==1){
+            c.resetDiscount();
+        }
+        
         try {
 
             while (firstPaymentAlert.next() && foundfirst == false) {

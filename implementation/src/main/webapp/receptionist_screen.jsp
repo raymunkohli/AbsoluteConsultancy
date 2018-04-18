@@ -263,7 +263,7 @@
 
             </div>
             <c:forEach items="${SelectedTasks}" var="tasks">
-                <c:out value="<div id='fakespace'></div>" escapeXml="false"/>
+                <c:out value="<div id='fakespace' style='height:50px;'></div>" escapeXml="false"/>
             </c:forEach>
 
 
@@ -399,12 +399,12 @@
                             </div>
                         </div>
                             </a>
-            </div>
-               
-        </div>
-                            <a href="index.jsp">
+           
+               <a href="index.jsp">
                                 <input type="button" class="footer button" style="width:auto"value="LOGOUT">
-                            </a>
+                </div>            </a>
+        </div>
+                           
                             
 </body>
 </html>

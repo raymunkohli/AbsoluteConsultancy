@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.21, for Win32 (AMD64)
+-- MySQL dump 10.13  Distrib 5.7.21, for Win64 (x86_64)
 --
 -- Host: localhost    Database: sys
 -- ------------------------------------------------------
@@ -31,7 +31,7 @@ CREATE TABLE `band` (
   PRIMARY KEY (`BandID`),
   KEY `fk_band_flexiblediscount1_idx` (`flexiblediscount_DiscountdiscountID`),
   CONSTRAINT `fk_band_flexiblediscount1` FOREIGN KEY (`flexiblediscount_DiscountdiscountID`) REFERENCES `flexiblediscount` (`DiscountdiscountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `band` (
 
 LOCK TABLES `band` WRITE;
 /*!40000 ALTER TABLE `band` DISABLE KEYS */;
+INSERT INTO `band` VALUES (1,0,1000,0,2),(2,1001,2000,1,2),(3,2001,50000,2,2),(4,0,1000,0,3),(5,1001,2000,1,3),(6,2001,500000,2,3);
 /*!40000 ALTER TABLE `band` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,8 +58,9 @@ CREATE TABLE `basetask` (
   `price` double NOT NULL,
   `baseTaskID` int(10) NOT NULL AUTO_INCREMENT,
   `duration` int(20) NOT NULL DEFAULT '0',
+  `disabled` varchar(45) NOT NULL DEFAULT '0',
   PRIMARY KEY (`baseTaskID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +69,7 @@ CREATE TABLE `basetask` (
 
 LOCK TABLES `basetask` WRITE;
 /*!40000 ALTER TABLE `basetask` DISABLE KEYS */;
-INSERT INTO `basetask` VALUES ('use printer','Copy','using the printer',5.2,1,30),('12321','Development','123131',3.2,9,40),('21314','Finishing','12321312',4,10,20),('12312','Packaging','2131',5,11,10);
+INSERT INTO `basetask` VALUES ('Large Camera','Copy','Use of large copy camera',19,1,120,'0'),('B&W Processing','Development','Black and white film processing',49.5,2,60,'0'),('Bag up','Packaging','Bag up',6,3,30,'0'),('Colour film processing','Development','Colour film processing',80,4,90,'0'),('Colour Transparency processing','Development','Colour Transparency processing',110.3,5,180,'0'),('Small copy camera','Copy','Use of small copy camera',8.3,6,75,'0'),('Mount Transparencies','Finishing','Mount Transparencies',55.5,7,45,'0');
 /*!40000 ALTER TABLE `basetask` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,7 +97,6 @@ CREATE TABLE `cardpayment` (
 
 LOCK TABLES `cardpayment` WRITE;
 /*!40000 ALTER TABLE `cardpayment` DISABLE KEYS */;
-INSERT INTO `cardpayment` VALUES (57,7,'01/19','Visa'),(58,4422,'01/19','Visa'),(59,145,'01/19','Visa');
 /*!40000 ALTER TABLE `cardpayment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,7 +117,7 @@ CREATE TABLE `customer` (
   `postcode` varchar(255) NOT NULL,
   `holder` varchar(45) NOT NULL,
   PRIMARY KEY (`customerID`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,7 +126,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (15,'test man','test person','1231312','123@1231','r12312','21312','boss man 2'),(16,'fixeddiscount','123','123','123','123','123','123'),(17,'flexdiscount','123','123','123','123','123','123'),(18,'variablediscount','123','1231312','123','123','123','123');
+INSERT INTO `customer` VALUES (1,'David','Rhind','0207 040 8000','raymun.kohli@city.ac.uk','Northampton Square, London','EC1V 0HB','City, University of London (City)'),(2,'Alex','Wright','0207 321 8001','raymun.kohli@city.ac.uk','25, Bond Street, London','WC1V 8LS','InfoPharma Ltd'),(3,'Sarah','Brocklehurst','0203 456 7809','raymun.kohli@city.ac.uk','12 Bond Street, London','WC1V 8NS','Hello Magazine'),(4,'Eva','Bauyer','0208 555 8989','raymun.kohli@city.ac.uk','1, Liverpool street, London','EC2V 8NS','INDIVIDUAL'),(5,'Ivan','Grey','0207 321 8001','raymun.kohli@city.ac.uk','n/a','n/a','INDIVIDUAL');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,6 +139,8 @@ DROP TABLE IF EXISTS `defaultcustomer`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `defaultcustomer` (
   `suspendedCustomerValuedCustomerCustomercustomerID` int(10) NOT NULL,
+  `alert` varchar(45) NOT NULL DEFAULT '0',
+  `paid` varchar(45) NOT NULL DEFAULT '0',
   PRIMARY KEY (`suspendedCustomerValuedCustomerCustomercustomerID`),
   KEY `FKdefaultCus575149` (`suspendedCustomerValuedCustomerCustomercustomerID`),
   CONSTRAINT `FKdefaultCus575149` FOREIGN KEY (`suspendedCustomerValuedCustomerCustomercustomerID`) REFERENCES `suspendedcustomer` (`ValuedCustomerCustomercustomerID`)
@@ -164,7 +167,7 @@ CREATE TABLE `discount` (
   `discountID` int(10) NOT NULL AUTO_INCREMENT,
   `discountType` varchar(255) NOT NULL,
   PRIMARY KEY (`discountID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,7 +176,7 @@ CREATE TABLE `discount` (
 
 LOCK TABLES `discount` WRITE;
 /*!40000 ALTER TABLE `discount` DISABLE KEYS */;
-INSERT INTO `discount` VALUES (1,'Fixed'),(2,'Flexible'),(3,'Variable');
+INSERT INTO `discount` VALUES (1,'Fixed'),(2,'Flexible'),(3,'Flexible'),(4,'Fixed');
 /*!40000 ALTER TABLE `discount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,7 +228,7 @@ CREATE TABLE `fixeddiscount` (
 
 LOCK TABLES `fixeddiscount` WRITE;
 /*!40000 ALTER TABLE `fixeddiscount` DISABLE KEYS */;
-INSERT INTO `fixeddiscount` VALUES (1,3);
+INSERT INTO `fixeddiscount` VALUES (1,1),(4,3);
 /*!40000 ALTER TABLE `fixeddiscount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,7 +241,7 @@ DROP TABLE IF EXISTS `flexiblediscount`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `flexiblediscount` (
   `DiscountdiscountID` int(10) NOT NULL,
-  `aquiredValue` int(10) NOT NULL,
+  `aquiredValue` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`DiscountdiscountID`),
   KEY `FKflexibleDi276331` (`DiscountdiscountID`),
   CONSTRAINT `FKflexibleDi276331` FOREIGN KEY (`DiscountdiscountID`) REFERENCES `discount` (`discountID`)
@@ -251,6 +254,7 @@ CREATE TABLE `flexiblediscount` (
 
 LOCK TABLES `flexiblediscount` WRITE;
 /*!40000 ALTER TABLE `flexiblediscount` DISABLE KEYS */;
+INSERT INTO `flexiblediscount` VALUES (2,0),(3,0);
 /*!40000 ALTER TABLE `flexiblediscount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,10 +277,12 @@ CREATE TABLE `job` (
   `surcharge` varchar(45) NOT NULL,
   `alert` tinyint(4) DEFAULT '0',
   `deadlineExceed` tinyint(4) DEFAULT '0',
+  `number` int(11) DEFAULT '1',
+  `started` varchar(45) NOT NULL DEFAULT '0',
   PRIMARY KEY (`JobID`),
   KEY `FKJob102033` (`CustomercustomerID`),
   CONSTRAINT `FKJob102033` FOREIGN KEY (`CustomercustomerID`) REFERENCES `customer` (`customerID`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,7 +291,7 @@ CREATE TABLE `job` (
 
 LOCK TABLES `job` WRITE;
 /*!40000 ALTER TABLE `job` DISABLE KEYS */;
-INSERT INTO `job` VALUES (51,17,'2018-04-12 10:18:45',NULL,'print on a5 paper in black and white','2018-04-12 11:18:45',33.58,1,'16.79',1,0),(52,17,'2018-04-12 10:30:08',NULL,'123123','2018-04-12 16:30:08',16.79,1,'0.0',1,0),(53,15,'2018-04-12 14:27:40',NULL,'dfdf','2018-04-13 00:27:40',19.00,1,'10.0',1,0),(54,16,'2018-04-12 14:45:47',NULL,'n/a','2018-04-13 14:45:47',12.02,0,'0.0',1,0),(55,15,'2018-04-12 15:37:46',NULL,'12321312321312321','2018-04-12 15:37:46',37.40,0,'20.0',1,0),(56,15,'2018-04-12 15:43:48',NULL,'123112','2018-04-12 16:45:48',140.40,0,'123.0',1,0),(57,15,'2018-04-12 15:44:13',NULL,'early deadline','2018-04-13 15:44:13',17.40,0,'0.0',1,0),(58,15,'2018-04-13 12:46:41',NULL,'n/a','2018-04-14 12:46:41',8.40,0,'0.0',0,0),(59,15,'2018-04-13 13:05:55',NULL,'n/a','2018-04-14 13:05:55',4.00,0,'0.0',0,0);
+INSERT INTO `job` VALUES (1,1,'2017-12-20 15:29:02',NULL,'5 B&W films for 10x8 processing','2017-12-21 15:29:02',67.82,0,'0.0',1,0,5,'0'),(2,1,'2017-12-20 15:30:22',NULL,'5 x 4 B&W copy negatives','2017-12-21 15:30:22',73.76,0,'0.0',1,0,5,'0'),(3,1,'2017-12-23 15:33:47',NULL,'10 films for 5 x 4 Colour copy negatives','2017-12-24 15:33:47',103.95,0,'0.0',1,0,10,'0'),(4,1,'2017-12-23 15:34:30',NULL,'10 films for 10 x 8 C41 processing','2017-12-24 15:34:30',85.14,0,'0.0',1,0,10,'0'),(5,5,'2017-12-23 15:37:52',NULL,'3 items for 10 x 8 Colour copy transparency','2017-12-23 21:37:52',86.00,1,'0.0',1,0,3,'1'),(6,3,'2017-12-23 15:54:29',NULL,'10 films 5 x 4 Colour copy negatives','2017-12-24 15:54:29',86.00,0,'0.0',0,0,10,'0'),(7,3,'2017-12-23 15:55:38',NULL,'10 films 10 x 8 C41 processing','2017-12-24 15:55:38',86.00,0,'0.0',0,0,10,'0');
 /*!40000 ALTER TABLE `job` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -311,7 +317,7 @@ CREATE TABLE `payment` (
 
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
-INSERT INTO `payment` VALUES (51,'2018-04-02'),(52,'2018-04-02'),(57,'2018-04-03'),(58,'2017-11-09'),(59,'2017-10-13');
+INSERT INTO `payment` VALUES (5,'2017-12-23');
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,7 +335,7 @@ CREATE TABLE `staff` (
   `employeeType` varchar(255) NOT NULL,
   `password` varchar(45) NOT NULL,
   PRIMARY KEY (`staffID`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -338,7 +344,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES (1,'ray','kohli','ShiftManager','123'),(2,'bob','ross','OfficeManager','123'),(3,'tech bro','minglee','Technician','123'),(5,'213','123','Receptionist','233'),(6,'213','123','Receptionist','233'),(7,'213123','123213','Technician','233'),(19,'1231','123','Technician','123'),(20,'mayur','depala','Technician','12345'),(21,'parmveer','johal','Office Manager','abc123'),(22,'mayur','depala','Technician','12345'),(23,'ash','a','Shift Manager','0901'),(24,'john','smith','Receptionist','999');
+INSERT INTO `staff` VALUES (1,'Manager','0','OfficeManager','Get_it_done'),(2,'Accountant','0','Shift Manager','Count_money'),(3,'Clerk','0','Shift Manager','Paperwork'),(4,'Hello','0','Receptionist','Hello_there'),(5,'Development','0','Technician','Lot_smell'),(6,'Copy','0','Technician','Too_dark'),(7,'Packer','0','Technician','Pack_it'),(8,'Finish','0','Technician','Fine_touch');
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,6 +357,7 @@ DROP TABLE IF EXISTS `suspendedcustomer`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `suspendedcustomer` (
   `ValuedCustomerCustomercustomerID` int(10) NOT NULL,
+  `alert` varchar(45) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ValuedCustomerCustomercustomerID`),
   KEY `FKsuspendedC671399` (`ValuedCustomerCustomercustomerID`),
   CONSTRAINT `FKsuspendedC671399` FOREIGN KEY (`ValuedCustomerCustomercustomerID`) REFERENCES `valuedcustomer` (`CustomercustomerID`)
@@ -388,7 +395,7 @@ CREATE TABLE `task` (
   CONSTRAINT `FKTask168614` FOREIGN KEY (`baseTaskbaseTaskID`) REFERENCES `basetask` (`baseTaskID`),
   CONSTRAINT `FKTask543586` FOREIGN KEY (`JobJobID`) REFERENCES `job` (`JobID`),
   CONSTRAINT `FKTask954031` FOREIGN KEY (`StaffstaffID`) REFERENCES `staff` (`staffID`)
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -397,7 +404,7 @@ CREATE TABLE `task` (
 
 LOCK TABLES `task` WRITE;
 /*!40000 ALTER TABLE `task` DISABLE KEYS */;
-INSERT INTO `task` VALUES (98,NULL,NULL,NULL,NULL,51,1),(99,NULL,NULL,NULL,NULL,51,9),(100,NULL,NULL,NULL,NULL,51,10),(101,NULL,NULL,NULL,NULL,51,11),(102,NULL,NULL,NULL,NULL,52,1),(103,NULL,NULL,NULL,NULL,52,9),(104,NULL,NULL,NULL,NULL,52,10),(105,NULL,NULL,NULL,NULL,52,11),(106,NULL,NULL,NULL,NULL,53,10),(107,NULL,NULL,NULL,NULL,53,11),(108,NULL,NULL,NULL,NULL,54,1),(109,NULL,NULL,NULL,NULL,54,9),(110,NULL,NULL,NULL,NULL,54,10),(111,NULL,NULL,NULL,NULL,55,1),(112,NULL,NULL,NULL,NULL,55,9),(113,NULL,NULL,NULL,NULL,55,10),(114,NULL,NULL,NULL,NULL,55,11),(115,NULL,NULL,NULL,NULL,56,1),(116,NULL,NULL,NULL,NULL,56,9),(117,NULL,NULL,NULL,NULL,56,10),(118,NULL,NULL,NULL,NULL,56,11),(119,NULL,NULL,NULL,NULL,57,1),(120,NULL,NULL,NULL,NULL,57,9),(121,NULL,NULL,NULL,NULL,57,10),(122,NULL,NULL,NULL,NULL,57,11),(123,NULL,NULL,NULL,NULL,58,1),(124,NULL,NULL,NULL,NULL,58,9),(125,NULL,NULL,NULL,NULL,59,10);
+INSERT INTO `task` VALUES (1,NULL,NULL,NULL,NULL,1,1),(2,NULL,NULL,NULL,NULL,1,2),(3,NULL,NULL,NULL,NULL,2,1),(4,NULL,NULL,NULL,NULL,2,2),(5,NULL,NULL,NULL,NULL,2,3),(6,NULL,NULL,NULL,NULL,3,1),(7,NULL,NULL,NULL,NULL,3,3),(8,NULL,NULL,NULL,NULL,3,4),(9,NULL,NULL,NULL,NULL,4,3),(10,NULL,NULL,NULL,NULL,4,4),(11,'PR10','2017-12-23 13:30:00','2017-12-23 14:00:00',7,5,3),(12,'DR25','2017-12-23 12:00:00','2017-12-23 13:30:00',5,5,4),(13,NULL,NULL,NULL,NULL,6,3),(14,NULL,NULL,NULL,NULL,6,4),(15,NULL,NULL,NULL,NULL,7,3),(16,NULL,NULL,NULL,NULL,7,4);
 /*!40000 ALTER TABLE `task` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -423,7 +430,7 @@ CREATE TABLE `technicianroom` (
 
 LOCK TABLES `technicianroom` WRITE;
 /*!40000 ALTER TABLE `technicianroom` DISABLE KEYS */;
-INSERT INTO `technicianroom` VALUES (3,'Copy'),(7,'Packaging'),(19,'Copy'),(20,'Finishing'),(22,'Finishing');
+INSERT INTO `technicianroom` VALUES (5,'Development'),(6,'Copy'),(7,'Packaging'),(8,'Finishing');
 /*!40000 ALTER TABLE `technicianroom` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -451,8 +458,41 @@ CREATE TABLE `valuedcustomer` (
 
 LOCK TABLES `valuedcustomer` WRITE;
 /*!40000 ALTER TABLE `valuedcustomer` DISABLE KEYS */;
-INSERT INTO `valuedcustomer` VALUES (16,1),(17,2),(18,3);
+INSERT INTO `valuedcustomer` VALUES (1,1),(2,2),(3,3),(4,4);
 /*!40000 ALTER TABLE `valuedcustomer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `valuedjob`
+--
+
+DROP TABLE IF EXISTS `valuedjob`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `valuedjob` (
+  `job_JobID` int(10) NOT NULL,
+  `alertdate` date NOT NULL,
+  `alertknown` tinyint(4) NOT NULL DEFAULT '0',
+  `firstreminder` date NOT NULL,
+  `firstalert` varchar(45) NOT NULL DEFAULT '0',
+  `firstbulk` varchar(45) NOT NULL DEFAULT '0',
+  `secondreminder` date NOT NULL,
+  `defaultd` date NOT NULL,
+  `secondbulk` varchar(45) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`job_JobID`),
+  KEY `fk_valuedJob_job1_idx` (`job_JobID`),
+  CONSTRAINT `fk_valuedJob_job1` FOREIGN KEY (`job_JobID`) REFERENCES `job` (`JobID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `valuedjob`
+--
+
+LOCK TABLES `valuedjob` WRITE;
+/*!40000 ALTER TABLE `valuedjob` DISABLE KEYS */;
+INSERT INTO `valuedjob` VALUES (1,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(2,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(3,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(4,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(6,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0'),(7,'2018-01-09',0,'2018-02-19','0','0','2018-03-19','2018-04-19','0');
+/*!40000 ALTER TABLE `valuedjob` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -478,7 +518,6 @@ CREATE TABLE `variablediscount` (
 
 LOCK TABLES `variablediscount` WRITE;
 /*!40000 ALTER TABLE `variablediscount` DISABLE KEYS */;
-INSERT INTO `variablediscount` VALUES (3,2,1),(3,1.5,9),(3,2.75,10),(3,2.23,11);
 /*!40000 ALTER TABLE `variablediscount` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -491,4 +530,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-13 14:42:39
+-- Dump completed on 2017-12-23 16:16:58

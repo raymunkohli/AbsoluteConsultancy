@@ -29,7 +29,7 @@ public class loginQuery extends Query{
         try {
             String[] theuser = user.split("\\."); 
             if (theuser.length >= 1){
-                String query = "SELECT * FROM staff WHERE staff.firstName = '" + theuser[0] + "' AND staff.surName = '" +theuser[1] +"' AND staff.password = "+ pass + ";" ;
+                String query = "SELECT * FROM staff WHERE staff.firstName = '" + theuser[0] + "' AND staff.surName = '" +theuser[1] +"' AND staff.password = '"+ pass + "';" ;
                 System.out.println(query);
                 PreparedStatement s = this.getC().prepareStatement(query); //create statement 
                 this.r = s.executeQuery(); //execute statement

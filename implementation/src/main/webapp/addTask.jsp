@@ -4,10 +4,11 @@
     Author     : raymun
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Set discount</title>
+        <title>Manage tasks</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -61,7 +62,7 @@
                     <table>
                         <tr><th>ID</th><th>Name</th> <th>Department</th> <th>Description </th> <th>Price </th> <th>Duration</th> <th>Disable </th></tr>
                                 <c:forEach items="${tasks}" var="task" >
-                            <tr> <td>${task.baseTaskID} </td> <td> ${task.taskName} </td> <td> ${task.department} </td> <td>${task.description}</td> <td>${task.price}</td> <td>${task.duration}</td>
+                            <tr> <td>${task.baseTaskID} </td> <td> ${task.taskName} </td> <td> ${task.department} </td> <td>${task.description}</td> <td>£ <fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${task.price}"/></td> <td>${task.duration}</td>
                                 <td> <form action="disableTask" method="post"> <input type="submit" value="Disable" ><input type="hidden" value="${task.baseTaskID}" name="id"/> </form>
 
                                 </c:forEach>
