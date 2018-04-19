@@ -61,7 +61,7 @@ public class viewTechQuery extends Query {
                     + "    WHEN 'Packaging' THEN 4\n"
                     + "    ELSE 0 END LIMIT 1)"
                     + "                    INNER JOIN basetask ON task.baseTaskbaseTaskID = basetask.baseTaskID\n"
-                    + "                    WHERE task.endDate IS NULL AND job.finished = 0 AND (basetask.department='" + Room + "')\n"
+                    + "                    WHERE task.endDate IS NULL AND task.startDate IS NULL AND job.finished = 0 AND (basetask.department='" + Room + "')\n"
                     + "                    GROUP BY job.JobID ORDER BY job.deadline;";
             System.out.println(Query);
             s = this.getC().prepareStatement(Query);

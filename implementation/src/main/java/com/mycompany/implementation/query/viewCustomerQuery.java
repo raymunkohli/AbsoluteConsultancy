@@ -75,7 +75,7 @@ public class viewCustomerQuery extends Query {
             String query = "SELECT distinct customer.customerID,customer.name,customer.surname,customer.address,customer.phoneNo,customer.postcode,customer.holder\n"
                     + "FROM customer\n"
                     + "INNER JOIN job on job.CustomercustomerID = customer.customerID\n"
-                    + "LEFT JOIN payment ON job.JobID = payment.JobJobID WHERE payment.JobJobID IS NULL AND job.finished='0';";
+                    + "LEFT JOIN payment ON job.JobID = payment.JobJobID WHERE payment.JobJobID IS NULL;";
             PreparedStatement s = this.getC().prepareStatement(query);
             return s.executeQuery();
 
