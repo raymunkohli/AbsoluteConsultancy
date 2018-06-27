@@ -15,7 +15,7 @@ public class restoreFromBackupQuery {
         
     }
     public void restore(String path) throws IOException{
-        String[] executeCmd = new String[]{"C:\\Program Files (x86)\\MySQL\\MySQL Server 5.7\\bin\\mysql.exe", "--user=root", "--password=1234", "sys","-e", " source "+"C:\\Users\\raymun\\Documents\\Team project git\\AbsoluteConsultancy\\implementation\\sqlBackups\\"+path};
+        String[] executeCmd = new String[]{"C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysql.exe", "--user=root", "--password=1234", "sys","-e", " source "+"C:\\Users\\raymu\\Documents\\team project\\implementation\\sqlBackups\\"+path};
         Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
     }
     

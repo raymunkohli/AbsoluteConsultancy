@@ -7,12 +7,17 @@ package servlets.recept;
 
 import com.mycompany.implementation.domain.Job;
 import com.mycompany.implementation.query.addJobQuery;
+import com.mycompany.implementation.query.addPaymentQuery;
 import com.mycompany.implementation.query.addTaskQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -79,33 +84,32 @@ public class addJobServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //check all fields are set
+        addPaymentQuery pay = new addPaymentQuery();
         if (request.getParameter("Type").equals("stipulated") && (request.getParameter("StipulatedAmount").equals("") || (request.getParameter("StipulatedTime").equals("")))) {
             request.setAttribute("Err", "Stipulated Surcharge/Time missing");
             request.getRequestDispatcher("receptionist_screen.jsp").forward(request, response);
-        } 
-        //check that cust is selected
-        else if(request.getSession().getAttribute("CustomerID")==null){
+        } //check that cust is selected
+        else if (request.getSession().getAttribute("CustomerID") == null) {
             request.setAttribute("Err", "Select a customer first");
             request.getRequestDispatcher("receptionist_screen.jsp").forward(request, response);
-        }
-        
-        
-        
-        else { //tests are passed so job can be created
+        } else if (request.getParameter("TotalTasks").isEmpty()) {//test if tasks set
+            request.setAttribute("Err", "Select a Task");
+            request.getRequestDispatcher("receptionist_screen.jsp").forward(request, response);
+        } else { //tests are passed so job can be created
             double Price = Double.parseDouble(request.getParameter("Price"));
             Long time = Long.parseLong(request.getParameter("TotalTime"));
             //get timestamps
             LocalDateTime Current = LocalDateTime.now();
             LocalDateTime Deadline = Current;
             //setup deadline +price if stipulated
-            int isLate =0;
+            int isLate = 0;
             switch (request.getParameter("Type")) {
                 case "stipulated":
                     LocalTime StipTime = LocalTime.parse(request.getParameter("StipulatedTime"));
                     Deadline = Current.plusHours(StipTime.getHour());
                     Deadline.plusMinutes(StipTime.getMinute());
                     Price = Double.parseDouble(request.getParameter("StipulatedAmount")) + Price;
-                    break; 
+                    break;
                 case "urgent":
                     Deadline = Current.plusHours(6);
                     break;
@@ -113,52 +117,59 @@ public class addJobServlet extends HttpServlet {
                     Deadline = Current.plusDays(1);
                     break;
             }
-            if (Current.plusMinutes(time).isAfter(Deadline)){
+            if (Current.plusMinutes(time).isAfter(Deadline)) {
                 isLate = 1;
             }
-            
-            
-            
+
             double surcharge = 0;
             Job job = new Job();
             //job.setDeadline(new Date(Deadline.getYear(),Deadline.getMonthValue(),Deadline.getDayOfMonth(),Deadline.getHour(),Deadline.getMinute(),Deadline.getSecond()));
             job.setSpecInstructions(request.getParameter("SpecInstruct"));
             job.setValue(Price);
-            if (!"".equals(request.getParameter("StipulatedAmount"))){
+            if (!"".equals(request.getParameter("StipulatedAmount"))) {
                 surcharge = Double.parseDouble(request.getParameter("StipulatedAmount"));
             }
             addJobQuery j = new addJobQuery();
-            int jobid = j.doAddJobQuery(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")), Current, Deadline, job.getSpecInstructions(), Price,surcharge, isLate,Double.parseDouble(request.getParameter("numjob")));
-            
-            //check for valued customer to add 
-            if (request.getSession().getAttribute("valued").toString().equals("Valued")){
+            int jobid = j.doAddJobQuery(Integer.parseInt((String) request.getSession().getAttribute("CustomerID")), Current, Deadline, job.getSpecInstructions(), Price, surcharge, isLate, Double.parseDouble(request.getParameter("numjob")));
+
+            //check for valued customer to add if so add relevent data to db
+            if (request.getSession().getAttribute("valued").toString().equals("Valued")) {
                 LocalDate current = LocalDate.now();
                 LocalDate late = current.withDayOfMonth(9).plusMonths(1);
-                LocalDate reminder = late.withDayOfMonth(19).plusMonths(1);
+                LocalDate reminder = late.withDayOfMonth(19);
                 LocalDate suspend = reminder.plusMonths(1);
                 LocalDate defaultDate = suspend.plusMonths(1);
                 j.addValuedJob(jobid, late, reminder, suspend, defaultDate);
-                
+
             }
-            
-            
+
             //insert each task
             String TaskString = request.getParameter("TotalTasks");
             String[] TaskList = TaskString.split("`");
-            
+            List<String> Desc = new ArrayList();
             addTaskQuery t = new addTaskQuery();
             for (String a : TaskList) {
                 t.doAddTaskQuery(jobid, Integer.parseInt(a));
+                Desc.add(t.getDesc(a));
             }
-            
-            //clear customer session information
-            
+            if (request.getSession().getAttribute("DiscountType").toString().equals("Flexible")){
+            pay.upgradeBand(request.getSession().getAttribute("CustomerID").toString(), Price*Double.parseDouble(request.getParameter("numjob")));
+        }
+            //setting up label generation
+            request.setAttribute("jobid", jobid);
+            request.setAttribute("name", request.getSession().getAttribute("CustomerFirst").toString() + " " + request.getSession().getAttribute("CustomerLast").toString());
+            request.setAttribute("tasks", TaskList);
+            request.setAttribute("desc", Desc);
+            request.setAttribute("deadline", Deadline.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)));
+            request.setAttribute("spec", job.getSpecInstructions());
+
+            //clear customer session information so the system will reset
             request.getSession().removeAttribute("DiscountType");
             request.getSession().removeAttribute("CustomerFirst");
             request.getSession().removeAttribute("CustomerLast");
             request.getSession().removeAttribute("CustomerID");
-            
-            request.getRequestDispatcher("receptionist_screen.jsp").forward(request, response);
+
+            request.getRequestDispatcher("label.jsp").forward(request, response);
         }
     }
 

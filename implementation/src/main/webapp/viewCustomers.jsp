@@ -137,7 +137,7 @@
                 </div>
             </div>
             <div id="u73" class="ax_default html_button" style="left:1000px">
-                <input id="u73_input" type="submit" value="Search for Customer"/>
+                <input id="u73_input" type="submit" class="button" style="top:-50px" value="Search for Customer"/>
             </div>
         </form>
 

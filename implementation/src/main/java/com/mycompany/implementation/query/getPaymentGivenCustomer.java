@@ -22,6 +22,7 @@ public class getPaymentGivenCustomer extends Query{
     }
     public ResultSet doGetPaymentGivenCustomer(int custid){
                 PreparedStatement s;
+                // all jobs from a customer which have not been paid
             try {
                 String query = "SELECT job.JobID, job.value, job.orderDate,job.deadline,job.number \n" +
 "                                FROM Job\n" +
@@ -41,6 +42,7 @@ public class getPaymentGivenCustomer extends Query{
     }
        public ResultSet doGetInvoiceGivenCustomer(int custid){
                 PreparedStatement s;
+                //get customers who can have an invoice produced (they have active unpaid jobs)
             try {
                 String query = "SELECT job.JobID, job.value, job.orderDate,job.deadline,job.number \n" +
 "                                FROM Job\n" +

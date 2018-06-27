@@ -167,10 +167,10 @@
                 </div>
 
                 <!-- Unnamed (Rectangle) -->
-                <div id="u565" class="ax_default button">
-                    <div id="u565_div" class=""></div>
+                <div id="u565" class="ax_default">
+                  
                     <div id="u565_text" class="text ">
-                        <input type="submit" value="Add Staff" />
+                        <input type="submit" style="top:-20px" class="button" value="Add Staff" />
                     </div>
                 </div>
             </form>
@@ -197,9 +197,9 @@
 
             <!-- Unnamed (Rectangle) -->
             <div id="u569" class="ax_default button">
-                <div id="u569_div" class=""></div>
+               
                 <div id="u569_text" class="text ">
-                    <form action="createBackUpServlet" method="post"><p><span><input type="submit" value="Back up now" > </span></p> </form>
+                    <form action="createBackUpServlet" method="post"><p><span><input type="submit" class="button" style="left:-30px" value="Back up now" > </span></p> </form>
                 </div>
             </div>
 

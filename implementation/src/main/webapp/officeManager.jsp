@@ -170,6 +170,9 @@ Contact Email: <%out.write(request.getAttribute("email").toString()); %>');
 
         </div>
     </div>
+    <a href="index.jsp">
+                                <input type="button" class="footer button" style="width:auto"value="LOGOUT">
+                            </a>
 </body>
 
 

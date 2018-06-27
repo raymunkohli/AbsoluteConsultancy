@@ -66,18 +66,18 @@
                 </tr>
                 <c:forEach items="${Job}" var ="job" varStatus ="s">
                     <tr> <td> ${name[s.index]} </td> <td> ${holder[s.index]} </td> <td>${job}</td>
-                        <c:if test="${department[s.index] == 'Finished'}">
-                            <td> Finished on Shelf : ${shelf[s.index]} </td> <td> 
+                        <c:if test="${message[s.index] == 'Ready to collect'}">
+                            <td> ${message[s.index]} </td> <td> 
                                 <form action="collectJob" method="post">
                                     <input type="hidden" value="${job}" name="jobid"/>
-                                    <input type="submit" value="collect" />
+                                    <input type="submit" value="Collect" />
                                 </form>
                                 </td>
                         </c:if>
-
-                        <c:if test="${department[s.index] != 'Finished'}">
-                            <td> ${department[s.index]} : ${desc[s.index]} </td> <td> n/a </td>
-                        </c:if>
+                                <c:if test="${message[s.index] != 'Ready to collect'}">
+                                    <td> ${message[s.index]} </td>
+                                </c:if>  
+                        
                     </tr>
 
                 </c:forEach>

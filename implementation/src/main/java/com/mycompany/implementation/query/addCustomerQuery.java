@@ -26,6 +26,7 @@ public class addCustomerQuery extends Query {
     
     public void doAddCustomerQuery(Customer c){
         PreparedStatement s;
+        //adds a new customer, nothing special about this query
             try {
                 String query = "INSERT INTO customer (name,surname,phoneNo,email,address,postcode,holder) VALUES('"
                 + c.getName() +"','" +c.getSurname() + "','" + c.getPhoneNo() + "','" + c.getEmail() +"','"

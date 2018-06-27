@@ -16,7 +16,9 @@ import java.util.logging.Logger;
  *
  * @author raymun
  */
-public class Query {
+public class Query { 
+//base query class for all other query classes to inherit from
+    // using this technique it is easy for me to change the db location and not have to change every class when it is changed
     private Connection c;
 
     public Connection getC() {

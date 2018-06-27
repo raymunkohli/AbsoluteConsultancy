@@ -109,7 +109,7 @@
                 </div>
             </div>
             <c:forEach items="${allCustomers}" var ="cust" varStatus ="custStatus">
-                <div id="fakespace" style="position:relative;height:35px">
+                <div id="fakespace" style="position:relative;height:50px">
 
                 </div>
             </c:forEach>
@@ -246,9 +246,9 @@
 
                         <!-- Unnamed (Rectangle) -->
                         <div id="u363" class="ax_default button">
-                            <div id="u363_div" class=""></div>
+                           
                             <div id="u363_text" class="text ">
-                                <p><span><input type="submit" value="Save changes" /></span></p>
+                                <p><span><input type="submit" class="button" style="top:-30px;left:-30px" value="Save changes" /></span></p>
                             </div>
                         </div>
                         <input type="hidden" name="prevDiscount" value="<% out.write(request.getParameter("discountType"));%>" >

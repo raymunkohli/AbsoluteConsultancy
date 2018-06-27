@@ -22,6 +22,7 @@ public class getLateJobs extends Query {
     }
 
     public ResultSet getLateJobs() {
+        //get jobs which will not meet the deadline set to them
         try {
             PreparedStatement s;
             String Query = "SELECT job.*,\n"
@@ -43,6 +44,7 @@ public class getLateJobs extends Query {
     }
     
         public void stopLateJob(String jobid) {
+            //stop the alert for a job which will not meet the deadline
         try {
             PreparedStatement s;
             String Query = "UPDATE job SET job.deadlineExceed = 0 WHERE job.JobID='"+jobid+"';";

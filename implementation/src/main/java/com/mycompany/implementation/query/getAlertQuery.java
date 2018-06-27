@@ -24,6 +24,7 @@ public class getAlertQuery extends Query {
     }
 
     public ResultSet getNewJobQuery() {
+        //gets information from new jobs to display in an alert box
         try {
             PreparedStatement s;
             String query = "SELECT job.deadline, job.JobID, job.specInstructions,\n"
@@ -42,6 +43,8 @@ public class getAlertQuery extends Query {
     }
 
     public List<String> getTasksFromJob(int jobid) {
+        
+        //return the descriptions of the tasks associated with a jobid
         try {
             List<String> task = new ArrayList();
             PreparedStatement s;

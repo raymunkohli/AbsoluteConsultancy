@@ -12,6 +12,23 @@
 .box_2 {
 }
 .button {
+      border-width:0px;
+  position:absolute;
+  width:auto;
+  height:auto;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 1);
+  box-sizing:border-box;
+  border-width:1px;
+  border-style:solid;
+  border-color:rgba(121, 121, 121, 1);
+  border-radius:5px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-size:15px;
+  padding: 10px;
+    
 }
 .primary_button {
   color:#FFFFFF;
@@ -94,4 +111,10 @@
   color:#FFFFFF;
 }
 .icon {
+}
+.footer {
+    position: fixed;
+    left: 40%;
+    bottom: 0;
+    text-align: center;
 }

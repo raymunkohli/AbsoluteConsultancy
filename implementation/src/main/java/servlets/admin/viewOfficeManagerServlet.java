@@ -8,6 +8,7 @@ package servlets.admin;
 import com.mycompany.implementation.query.checkForLatePaymentQuery;
 import com.mycompany.implementation.query.getAlertQuery;
 import com.mycompany.implementation.query.getLateJobs;
+import com.mycompany.implementation.query.sendEmails;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -87,7 +88,9 @@ public class viewOfficeManagerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //jobs where deadline is not met
+        sendEmails g = new sendEmails();
         getAlertQuery a = new getAlertQuery();
+        
         List<String> lateTasks = new ArrayList();
         String deadlineExceed = "false";
         getLateJobs b = new getLateJobs();
@@ -138,6 +141,12 @@ public class viewOfficeManagerServlet extends HttpServlet {
         ResultSet firstReminderAlert = c.getReminderAlerts();
         ResultSet secondReminderAlert = c.getSuspendedAlerts();
         ResultSet defaultAlert = c.getDefaultAlerts();
+        
+        //check to reset discounts
+        if (LocalDate.now().getDayOfMonth()==1){
+            c.resetDiscount();
+        }
+        
         try {
 
             while (firstPaymentAlert.next() && foundfirst == false) {
@@ -154,6 +163,7 @@ public class viewOfficeManagerServlet extends HttpServlet {
                     request.setAttribute("firstReminderAlertName", firstReminderAlert.getString("name") + " " + firstReminderAlert.getString("surname"));
                     request.setAttribute("firstReminderAlertID", firstReminderAlert.getString("customerID"));
                     request.setAttribute("firstReminderAlertJobID", firstReminderAlert.getString("JobID"));
+                    g.sendFirstLetterReminder(firstReminderAlert.getString("email"),firstReminderAlert.getString("name") + " " + firstReminderAlert.getString("surname"));
                     foundsecond = true;
                 }
             }
@@ -163,6 +173,7 @@ public class viewOfficeManagerServlet extends HttpServlet {
                 request.setAttribute("secondReminderAlertName", secondReminderAlert.getString("name") + " " + secondReminderAlert.getString("surname"));
                 request.setAttribute("secondReminderAlertID", secondReminderAlert.getString("customerID"));
                 foundthird = true;
+                g.sendSecondLetterReminder(secondReminderAlert.getString("email"),secondReminderAlert.getString("name") + " " + secondReminderAlert.getString("surname"));
             }
             c.defaultAccounts();
             

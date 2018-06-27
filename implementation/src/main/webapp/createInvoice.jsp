@@ -44,11 +44,10 @@
     
         <div style='position:relative;height:170px;z-index: 1'>
             <div id="u475" class="ax_default button">
-                <div id="u475_div" class=""></div>
                 <div id="u475_text" class="text ">
                     <form action="viewInvoiceCust" method="post">
                         <p><span>
-                                <input type="submit" value="View customer list"/>
+                                <input type="submit" class="button" style="top:-16px;left:-20px" value="View customer list"/>
                             </span></p></form>
                 </div>
             </div>    
@@ -64,14 +63,8 @@
             <div id="u472" class="ax_default line">
                 <img id="u472_img" class="img " src="images/receptionist_screen/u84.png"/>
             </div>
-
+<div style="position:absolute; top:60px">
             <!-- Unnamed (Rectangle) -->
-            <div id="u401" class="ax_default label">
-                <div id="u401_div" class=""></div>
-                <div id="u401_text" class="text ">
-                    <p><span>Select customer</span></p>
-                </div>
-            </div>
             <!-- Unnamed (Table) -->
             <form action="totalInvoiceServlet" method="post" name="selectJobsForm" id="selectJobsForm">
                 <div id="u402" class="ax_default">
@@ -98,21 +91,21 @@
             </form>
         </div>
         <c:forEach items="${Jobs}">
-            <div id="fakespace"></div>
+            <div id="fakespace" style="height:40px"></div>
 
         </c:forEach>
 
 
-        <div style='position:relative;top:-200px;'>
+        <div style='position:relative;top:20px;'>
             <div id="u474" class="ax_default label">
                 <div id="u474_div" class=""></div>
                 <div id="u474_text" class="text ">
-                    <p><span><input type="submit" value="Select Jobs" form="selectJobsForm"/></span></p>
+                    <p><span><input type="submit" value="Select Jobs" class="button" form="selectJobsForm"/></span></p>
                 </div>
             </div>
         </div>
         <c:if test="${jobsselected == true}">
-            <div style='position:relative;z-index:1;top:-170px'/>
+            <div style='position:relative;z-index:1'/>
             <form name="viewInvoice" action="viewInvoiceServlet" method ="post" id="viewInvoice"/>
             <c:set var="numberofjobs" value="0"/>
             <c:forEach items="${selectedJobs}" var="jobs" varStatus="jobStatus">
@@ -122,9 +115,8 @@
                 <input type="hidden" value="${numberofjobs}" name="numberofjobs"/>
         <!-- Unnamed (Rectangle) -->
         <div id="u474" class="ax_default label">
-            <div id="u474_div" class=""></div>
             <div id="u474_text" class="text ">
-                <input type="submit" value="View Invoice" form="viewInvoice"/>
+                <input type="submit" value="View Invoice" class="button" style="top:80px" form="viewInvoice"/>
             </div>
         </div>
         <!-- Unnamed (Rectangle) -->
@@ -134,6 +126,7 @@
             </div>
             </div>
     </c:if>
+        </div>
 </div>
 </div>
 </body>

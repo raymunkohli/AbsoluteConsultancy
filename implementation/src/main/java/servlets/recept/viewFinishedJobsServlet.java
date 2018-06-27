@@ -85,28 +85,24 @@ public class viewFinishedJobsServlet extends HttpServlet {
             ResultSet b = a.doGetFinishedJobs();
             List<String> name = new ArrayList();
             List<String> holder = new ArrayList();
-            List<String> department = new ArrayList();
-            List<String> desc = new ArrayList();
-            List<String> Shelf = new ArrayList();
+            List<String> Message = new ArrayList();
             List<String> jobs = new ArrayList();
             while (b.next()) {
                 name.add(b.getString("name") + " " + b.getString("surname"));
                 holder.add(b.getString("holder"));
-                desc.add(b.getString("description"));
-                if (b.getInt("finished") == 1) {
-                    department.add("Finished");
-                } else {
-                    department.add(b.getString("department"));
-                }
-                Shelf.add(b.getString("shelf"));
+                String temp = b.getString("description");
                 jobs.add(b.getString("JobID"));
+                if ( temp== null){
+                   Message.add("Ready to collect");
+                }
+                else{
+                    Message.add(b.getString("department")+" :"+temp);
+                }
             }
             request.setAttribute("Job", jobs);
             request.setAttribute("name", name);
             request.setAttribute("holder", holder);
-            request.setAttribute("department", department);
-            request.setAttribute("desc", desc);
-            request.setAttribute("Shelf", Shelf);
+            request.setAttribute("message",Message);
             request.getRequestDispatcher("viewFinishedJobs.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(viewFinishedJobsServlet.class.getName()).log(Level.SEVERE, null, ex);

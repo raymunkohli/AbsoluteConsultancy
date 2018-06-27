@@ -19,6 +19,8 @@ public class addFixedDiscountQuery extends Query{
         super();
     }
         public void addDiscount(String id,String amount) {
+            
+            //adds a new fixed discount 
         PreparedStatement s;
         try {
             String query = "INSERT INTO fixeddiscount (DiscountdiscountID,percentDiscount) VALUES ('"+id+"','"+amount+"');";
